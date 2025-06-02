@@ -1,18 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { ThemeToggle } from "@/components/theme-toggle";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,7 +19,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-background text-foreground antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4">
-            <a href="/" className="text-lg font-bold">Khane</a>
+            <Link href="/" className="text-lg font-bold">Khane</Link>
             <nav className="space-x-6 hidden md:block">
               <a href="/work-with-me">Work With Me</a>
               <a href="/portfolio">Portfolio</a>

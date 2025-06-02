@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <section className="mx-auto max-w-4xl text-center space-y-8">
