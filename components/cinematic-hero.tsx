@@ -31,7 +31,7 @@ export function CinematicHero() {
     }, [currentRole]);
 
     return (
-        <section className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
+        <section className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden pb-24">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/10" />
@@ -76,7 +76,7 @@ export function CinematicHero() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1, duration: 0.8 }}
-                                className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
+                                className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 pb-16"
                             >
                                 <Link
                                     href="/contact"
@@ -103,10 +103,10 @@ export function CinematicHero() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 2, duration: 0.8 }}
-                        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+                        className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
                     >
                         <div className="flex flex-col items-center text-muted-foreground">
-                            <span className="text-sm font-mono mb-2">Scroll to explore</span>
+                            <span className="text-sm font-mono mb-3">Scroll to explore</span>
                             <motion.div
                                 animate={{ y: [0, 8, 0] }}
                                 transition={{ repeat: Infinity, duration: 2 }}

@@ -2,6 +2,13 @@ import Parser from "rss-parser";
 
 export const metadata = { title: "Business ≡ Poetry – Blog" };
 
+interface RSSItem {
+    title?: string;
+    link?: string;
+    pubDate?: string;
+    contentSnippet?: string;
+}
+
 export default async function Blog() {
     const parser = new Parser();
     const feed = await parser.parseURL("https://nathankhane.substack.com/feed");
@@ -10,7 +17,7 @@ export default async function Blog() {
     return (
         <section className="mx-auto max-w-3xl space-y-8">
             <h1 className="text-4xl font-bold">Business ≡ Poetry</h1>
-            {posts.map((post: any) => (
+            {posts.map((post: RSSItem) => (
                 <a
                     key={post.link}
                     href={post.link}

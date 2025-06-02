@@ -3,11 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-
-const SocialLinks = dynamic(() => import("@/components/SocialLinks"), {
-  ssr: false,
-});
+import SocialLinks from "@/components/SocialLinks";
 
 export const metadata: Metadata = {
   title: "Khane – Business ≡ Poetry",

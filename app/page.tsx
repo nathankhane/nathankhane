@@ -2,11 +2,7 @@ import { CinematicHero } from "@/components/cinematic-hero";
 import { CredibilityBar } from "@/components/credibility-bar";
 import { CaseStudyCard } from "@/components/case-study-card";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-
-const SubstackForm = dynamic(() => import("@/components/SubstackForm"), {
-  ssr: false,
-});
+import SubstackForm from "@/components/SubstackForm";
 
 export default function Home() {
   return (
