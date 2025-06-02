@@ -3,6 +3,11 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const SocialLinks = dynamic(() => import("@/components/SocialLinks"), {
+  ssr: false,
+});
 
 export const metadata: Metadata = {
   title: "Khane – Business ≡ Poetry",
@@ -58,89 +63,10 @@ export default function RootLayout({
           <main className="pt-20">{children}</main>
 
           {/* Footer */}
-          <footer className="border-t border-border/50 bg-muted/30">
-            <div className="max-w-7xl mx-auto px-6 py-12">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {/* Brand */}
-                <div className="space-y-4">
-                  <Link href="/" className="text-2xl font-bold block">
-                    Khane<span className="text-primary">.</span>
-                  </Link>
-                  <p className="text-muted-foreground max-w-sm">
-                    Turning narrative into revenue for founders & creators. Every venture is a verse, every metric a rhyme.
-                  </p>
-                </div>
-
-                {/* Quick Links */}
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-lg">Explore</h3>
-                  <nav className="flex flex-col space-y-2">
-                    <Link href="/work-with-me" className="text-muted-foreground hover:text-primary transition-colors">
-                      Work With Me
-                    </Link>
-                    <Link href="/portfolio" className="text-muted-foreground hover:text-primary transition-colors">
-                      Portfolio
-                    </Link>
-                    <Link href="/blog" className="text-muted-foreground hover:text-primary transition-colors">
-                      Business ≡ Poetry
-                    </Link>
-                    <Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">
-                      About
-                    </Link>
-                  </nav>
-                </div>
-
-                {/* Social & Contact */}
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-lg">Connect</h3>
-                  <div className="flex flex-wrap gap-4">
-                    <a
-                      href="https://www.tiktok.com/@nathankhane"
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      TikTok
-                    </a>
-                    <a
-                      href="https://www.youtube.com/@nathankhane"
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      YouTube
-                    </a>
-                    <a
-                      href="https://open.spotify.com/artist/nathankhane"
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Spotify
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/nathankhane"
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      LinkedIn
-                    </a>
-                  </div>
-                  <div className="pt-4">
-                    <Link
-                      href="/contact"
-                      className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-2xl font-semibold hover:scale-105 transition-all duration-300"
-                    >
-                      Start a Project
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border-t border-border/50 mt-8 pt-8 text-center text-muted-foreground">
-                <p>© 2024 Khane. All rights reserved. Business ≡ Poetry.</p>
-              </div>
+          <footer className="mt-24 py-10 border-t">
+            <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+              <p className="text-sm opacity-70">&copy; 2024 Nathan Khane</p>
+              <SocialLinks />
             </div>
           </footer>
         </ThemeProvider>

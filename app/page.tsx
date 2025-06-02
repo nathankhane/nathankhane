@@ -2,6 +2,11 @@ import { CinematicHero } from "@/components/cinematic-hero";
 import { CredibilityBar } from "@/components/credibility-bar";
 import { CaseStudyCard } from "@/components/case-study-card";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const SubstackForm = dynamic(() => import("@/components/SubstackForm"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
@@ -138,19 +143,9 @@ export default function Home() {
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Weekly insights on turning narrative into revenue. Stories, strategies, and behind-the-scenes from the intersection of business and creativity.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="your@email.com"
-              className="flex-1 px-4 py-3 rounded-xl border border-border bg-background text-foreground"
-            />
-            <button className="px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:scale-105 transition-all duration-300 whitespace-nowrap">
-              Subscribe
-            </button>
+          <div className="max-w-md mx-auto">
+            <SubstackForm />
           </div>
-          <p className="text-sm text-muted-foreground mt-4">
-            No spam, just strategy. Unsubscribe anytime.
-          </p>
         </div>
       </section>
     </div>
