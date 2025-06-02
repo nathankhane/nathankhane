@@ -3,6 +3,8 @@ import { CredibilityBar } from "@/components/credibility-bar";
 import { CaseStudyCard } from "@/components/case-study-card";
 import Link from "next/link";
 import SubstackForm from "@/components/SubstackForm";
+import dynamic from "next/dynamic";
+const LogoStrip = dynamic(() => import("@/components/LogoStrip"), { ssr: false });
 
 export default function Home() {
   return (
@@ -68,6 +70,9 @@ export default function Home() {
       {/* Credibility Bar */}
       <CredibilityBar />
 
+      {/* Social proof logo strip */}
+      <LogoStrip />
+
       {/* Featured Work Preview */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
@@ -130,6 +135,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Latest Essays section */}
+      <LatestPosts />
+
       {/* Newsletter CTA */}
       <section className="py-20 px-6 bg-muted/30">
         <div className="max-w-4xl mx-auto text-center">
@@ -145,5 +153,33 @@ export default function Home() {
         </div>
       </section>
     </div>
+  );
+}
+
+/* --------------------------- Latest Essays ---------------------------- */
+import Parser from "rss-parser";
+
+async function LatestPosts() {
+  const parser = new Parser();
+  const feed = await parser.parseURL("https://nathankhane.substack.com/feed");
+  const latest = feed.items.slice(0, 3);
+  return (
+    <section className="pt-20 space-y-6">
+      <h2 className="text-3xl font-semibold text-center">Latest Essays</h2>
+      <div className="grid md:grid-cols-3 gap-6">
+        {latest.map((p) => (
+          <a
+            key={p.link}
+            href={p.link}
+            target="_blank"
+            rel="noreferrer"
+            className="border rounded-xl p-4 hover:bg-gray-50 dark:hover:bg-gray-900 transition flex flex-col"
+          >
+            <h3 className="font-medium">{p.title}</h3>
+            <span className="mt-auto text-xs opacity-60">{p.pubDate}</span>
+          </a>
+        ))}
+      </div>
+    </section>
   );
 }
