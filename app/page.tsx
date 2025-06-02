@@ -4,7 +4,7 @@ import { CaseStudyCard } from "@/components/case-study-card";
 import Link from "next/link";
 import SubstackForm from "@/components/SubstackForm";
 import dynamic from "next/dynamic";
-const LogoStrip = dynamic(() => import("@/components/LogoStrip"), { ssr: false });
+const LogoStrip = dynamic(() => import("@/components/LogoStrip"));
 
 export default function Home() {
   return (
