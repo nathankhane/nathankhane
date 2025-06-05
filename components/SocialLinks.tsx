@@ -1,4 +1,4 @@
-import { Instagram, Music } from "lucide-react";
+import { Instagram, Music, Linkedin } from "lucide-react";
 
 const TikTokIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -6,16 +6,28 @@ const TikTokIcon = () => (
     </svg>
 );
 
+const TwitterIcon = () => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+);
+
 export default function SocialLinks() {
     return (
         <div className="flex gap-6">
-            <a href="https://www.instagram.com/nathankmorales/" aria-label="Instagram">
+            <a href="https://www.linkedin.com/in/nathan-khane-morales/" aria-label="LinkedIn" className="hover:text-primary transition-colors duration-200">
+                <Linkedin />
+            </a>
+            <a href="https://x.com/nathankmo" aria-label="Twitter/X" className="hover:text-primary transition-colors duration-200">
+                <TwitterIcon />
+            </a>
+            <a href="https://www.instagram.com/nathankmorales/" aria-label="Instagram" className="hover:text-primary transition-colors duration-200">
                 <Instagram />
             </a>
-            <a href="https://www.tiktok.com/@nathankmorales" aria-label="TikTok">
+            <a href="https://www.tiktok.com/@nathankmorales" aria-label="TikTok" className="hover:text-primary transition-colors duration-200">
                 <TikTokIcon />
             </a>
-            <a href="https://nathankhane.substack.com/" aria-label="Substack">
+            <a href="https://nathankhane.substack.com/" aria-label="Substack" className="hover:text-primary transition-colors duration-200">
                 <Music />
             </a>
         </div>
