@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { ChevronDown } from "lucide-react";
 
 const RotatingTagline = dynamic(() => import("@/components/RotatingTagline"), { ssr: false });
 
@@ -34,13 +35,16 @@ export function CinematicHero() {
     }, [currentRole]);
 
     return (
-        <section className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden pb-24">
+        <section
+            id="hero"
+            className="relative flex flex-col items-center justify-center min-h-[calc(100dvh-4rem)] text-center px-4 sm:px-6 lg:px-8"
+        >
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/10" />
             </div>
 
-            <div className="text-center space-y-8 max-w-4xl relative z-10">
+            <div className="z-10 flex flex-col items-center max-w-4xl space-y-8">
                 <AnimatePresence mode="wait">
                     {!showFinalMessage ? (
                         <motion.div
@@ -111,27 +115,25 @@ export function CinematicHero() {
 
                 {/* Scroll indicator */}
                 {showFinalMessage && (
-                    <motion.div
+                    <motion.a
+                        href="#hero"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 2, duration: 0.8 }}
-                        className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+                        className="absolute left-1/2 bottom-8 -translate-x-1/2 flex flex-col items-center gap-1 group hidden sm:flex"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            const nextSection = document.querySelector('#hero')?.nextElementSibling;
+                            if (nextSection) {
+                                nextSection.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        }}
                     >
-                        <div className="flex flex-col items-center text-muted-foreground">
-                            <span className="text-sm font-mono mb-3">Scroll to explore</span>
-                            <motion.div
-                                animate={{ y: [0, 8, 0] }}
-                                transition={{ repeat: Infinity, duration: 2 }}
-                                className="w-6 h-10 border-2 border-current rounded-full flex justify-center"
-                            >
-                                <motion.div
-                                    animate={{ y: [0, 12, 0] }}
-                                    transition={{ repeat: Infinity, duration: 2 }}
-                                    className="w-1 h-3 bg-current rounded-full mt-2"
-                                />
-                            </motion.div>
-                        </div>
-                    </motion.div>
+                        <span className="text-sm opacity-70 tracking-wide group-hover:opacity-100 transition-opacity">
+                            Scroll&nbsp;to&nbsp;Explore
+                        </span>
+                        <ChevronDown className="h-5 w-5 animate-bounce-slow" />
+                    </motion.a>
                 )}
             </div>
         </section>
