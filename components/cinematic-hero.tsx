@@ -26,10 +26,10 @@ export function CinematicHero() {
                 // After showing all roles, show the final message
                 setTimeout(() => {
                     setShowFinalMessage(true);
-                }, 1500);
+                }, 1000);
                 clearInterval(interval);
             }
-        }, 2000); // Show each role for 2 seconds
+        }, 1500); // Show each role for 1.5 seconds
 
         return () => clearInterval(interval);
     }, [currentRole]);
@@ -52,7 +52,7 @@ export function CinematicHero() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.6, ease: "easeOut" }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
                             className="space-y-4"
                         >
                             <h1 className="text-6xl sm:text-8xl lg:text-9xl font-bold leading-tight">
@@ -64,7 +64,7 @@ export function CinematicHero() {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1, ease: "easeOut" }}
+                            transition={{ duration: 0.7, ease: "easeOut" }}
                             className="space-y-8"
                         >
                             <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold leading-tight">
@@ -73,7 +73,7 @@ export function CinematicHero() {
                             <motion.p
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.5, duration: 0.8 }}
+                                transition={{ delay: 0.3, duration: 0.6 }}
                                 className="text-xl sm:text-2xl lg:text-3xl max-w-3xl mx-auto text-muted-foreground leading-relaxed"
                             >
                                 Turning narrative into revenue for founders & creators.
@@ -83,7 +83,7 @@ export function CinematicHero() {
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.8, duration: 0.8 }}
+                                transition={{ delay: 0.5, duration: 0.6 }}
                             >
                                 <RotatingTagline />
                             </motion.div>
@@ -91,7 +91,7 @@ export function CinematicHero() {
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1, duration: 0.8 }}
+                                transition={{ delay: 0.7, duration: 0.6 }}
                                 className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 pb-16"
                             >
                                 <Link
@@ -119,7 +119,7 @@ export function CinematicHero() {
                         href="#hero"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 2, duration: 0.8 }}
+                        transition={{ delay: 1.2, duration: 0.6 }}
                         className="absolute left-1/2 bottom-8 -translate-x-1/2 flex flex-col items-center gap-1 group hidden sm:flex"
                         onClick={(e) => {
                             e.preventDefault();
