@@ -9,6 +9,43 @@ export const metadata: Metadata = {
   title: "Khane – Business ≡ Poetry",
   description: "Flagship hub for the Khane brand. Turning narrative into revenue for founders & creators.",
   keywords: ["storytelling", "business strategy", "creative coaching", "growth marketing", "founder"],
+  authors: [{ name: "Nathan Khane" }],
+  creator: "Nathan Khane",
+  metadataBase: new URL("https://nathankhane.com"),
+  openGraph: {
+    title: "Khane – Business ≡ Poetry",
+    description: "Turning narrative into revenue for founders & creators.",
+    url: "https://nathankhane.com",
+    siteName: "Khane",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Nathan Khane - Business ≡ Poetry - Turning narrative into revenue for founders & creators",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Khane – Business ≡ Poetry",
+    description: "Turning narrative into revenue for founders & creators.",
+    creator: "@nathankmo",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -18,6 +55,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      </head>
       <body className="min-h-screen bg-background text-foreground antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {/* Navigation Header */}
