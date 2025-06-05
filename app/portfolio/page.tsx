@@ -26,6 +26,24 @@ const studies = [
             { label: "Lead Conv. Rate", value: "18 %" },
         ],
     },
+    {
+        title: "Reseeit — Receipt‑Compiling App",
+        description: "Prototype built at the Wolff Center introducing a fresh way to track expenses with zero manual entry.",
+        image: "/images/reseeit.jpg", // add image
+        kpis: [
+            { label: "Prototype Users", value: "50" },
+            { label: "Pitch Competition Wins", value: "1st Place" },
+        ],
+    },
+    {
+        title: "Intro to Modern Moguls — Live Panel",
+        description: "Produced & hosted a panel of young visionaries sharing textbook‑defying business insights.",
+        image: "/images/momo.jpg", // add image
+        kpis: [
+            { label: "Audience", value: "200+" },
+            { label: "Post‑event NPS", value: "92" },
+        ],
+    },
 ];
 
 export default function Portfolio() {

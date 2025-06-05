@@ -28,23 +28,11 @@ export default function RootLayout({
               </Link>
 
               <nav className="hidden md:flex items-center space-x-8">
-                <Link href="/work-with-me" className="hover:text-primary transition-colors">
-                  Work With Me
-                </Link>
                 <Link href="/portfolio" className="hover:text-primary transition-colors">
                   Portfolio
                 </Link>
-                <Link href="/blog" className="hover:text-primary transition-colors">
-                  Business ≡ Poetry
-                </Link>
-                <Link href="/about" className="hover:text-primary transition-colors">
-                  About
-                </Link>
-                <Link
-                  href="/contact"
-                  className="px-6 py-2 bg-primary text-primary-foreground rounded-full font-semibold hover:scale-105 transition-all duration-300"
-                >
-                  Start a Project
+                <Link href="/work-with-me" className="hover:text-primary transition-colors">
+                  Work With Me
                 </Link>
               </nav>
 
@@ -61,7 +49,11 @@ export default function RootLayout({
           {/* Footer */}
           <footer className="mt-24 py-10 border-t">
             <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-              <p className="text-sm opacity-70">&copy; 2024 Nathan Khane</p>
+              <p className="text-sm opacity-70">&copy; {new Date().getFullYear()} Nathan Khane</p>
+              <nav className="flex gap-6 text-sm opacity-80">
+                <Link href="/about">About</Link>
+                <Link href="/blog">Blog</Link>
+              </nav>
               <SocialLinks />
             </div>
           </footer>

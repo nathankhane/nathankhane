@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const RotatingTagline = dynamic(() => import("@/components/RotatingTagline"), { ssr: false });
 
 const roleSequence = [
     "Founder",
@@ -71,6 +74,15 @@ export function CinematicHero() {
                             >
                                 Turning narrative into revenue for founders & creators.
                             </motion.p>
+
+                            {/* rotating inspirational taglines */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.8, duration: 0.8 }}
+                            >
+                                <RotatingTagline />
+                            </motion.div>
 
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
