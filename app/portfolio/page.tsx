@@ -1,5 +1,5 @@
 import CaseStudyCard from "@/components/CaseStudyCard";
-import TikTokSection from "@/components/TikTokSection";
+import ContentCreationSection from "@/components/ContentCreationSection";
 
 export const metadata = {
     title: "Portfolio – Nathan Khane",
@@ -59,10 +59,9 @@ export default function Portfolio() {
                 ))}
             </div>
 
-            {/* TikTok reels brought over earlier remain below */}
-            <h2 className="text-3xl font-semibold mt-16">Reels & Shorts</h2>
-            {/* Retains dynamic TikTokEmbed imports already present */}
-            <TikTokSection />
+            <ContentCreationSection />
+
+
         </section>
     );
 } 
