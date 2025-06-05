@@ -16,7 +16,7 @@ Primary	/ Home	Hero, rotating taglines, latest essays, logo strip	✅
 /work-with-me	Service cards + prices + Calendly CTAs	✅
 Secondary	/about	Long-form bio (≥600 words)	Footer
 /blog	Substack RSS feed	Footer
-/404	Custom “Lost in the poetry”	—
+/404	Custom "Lost in the poetry"	—
 
 Header only shows 3 items; all others reachable via footer or in-page links.
 
@@ -29,7 +29,7 @@ Visual Identity:
 
 Neutral palette → Slate gray scale.
 
-Accent → #00E0FF electric-cyan.
+Accent → #4F8DFD trusting blue.
 
 Dark / Light toggle (class-based).
 
@@ -50,7 +50,7 @@ Footer SocialLinks	Instagram, TikTok, Substack icons + minimal about blurb.
 
 5. Content Requirements
 5.1 Bio (About page)
-Charismatic “social-genius” narrative; weave in empathy, Wolff Center origin, TrustedApp, music, superpower of turning ideas into stories. ≥ 600 words.
+Charismatic "social-genius" narrative; weave in empathy, Wolff Center origin, TrustedApp, music, superpower of turning ideas into stories. ≥ 600 words.
 
 5.2 Services (Work-with-me page)
 Service	Short Pitch	Price Hint	Calendly UTM
@@ -76,7 +76,7 @@ Accessibility: WCAG AA—contrast on both themes, keyboard-focus rings.
 
 Analytics Dimensions: Capture utm_service from Calendly links.
 
-7. Open “To-Do” List for Build
+7. Open "To-Do" List for Build
 Strip nav to 3 items, move About & Blog to footer.
 
 Implement typewriter rotating tagline component.

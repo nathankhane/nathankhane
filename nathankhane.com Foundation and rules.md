@@ -27,7 +27,7 @@ git add . && git commit -m "message" && git push  # Deploy to production
 - **Primary Colors**:
   - Ink Black: `#0F0F0F` (dark theme background)
   - Parchment White: `#FAF9F7` (light theme background) 
-  - Electric Cyan: `#00E0FF` (accent/CTA color)
+  - Electric Cyan: `#4F8DFD` (accent/CTA color)
 - **Typography**:
   - Headlines: Playfair Display (serif, bold)
   - Body: Inter (sans-serif)

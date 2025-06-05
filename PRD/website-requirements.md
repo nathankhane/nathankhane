@@ -63,7 +63,7 @@
 | Token | Value / Guidance |
 |-------|-----------------|
 | Neutrals | Slate palette for base grays (cool undertone). |
-| Accent | #00E0FF electric cyan. |
+| Accent | #4F8DFD trusting blue. |
 | Dark BG | #0F0F0F ink-black. |
 | Light BG | #FAF9F7 parchment-white. |
 | Typography | Oversized modern serif for headlines; monospaced or clean sans for body. |
