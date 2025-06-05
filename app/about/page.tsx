@@ -20,7 +20,7 @@ export default function About() {
             {/* Long-form Bio */}
             <article className="prose prose-neutral dark:prose-invert max-w-none">
                 <p className="text-xl font-semibold text-primary mb-6">
-                    Charismatic founder, creative specialist, empathy engine.
+                    Founder. Creative specialist. Empathy engine.
                 </p>
 
                 <p className="text-lg leading-relaxed mb-4">
@@ -28,7 +28,7 @@ export default function About() {
                 </p>
 
                 <p className="leading-relaxed mb-4">
-                    From prototyping Reseeit at UH&apos;s Wolff Center to launching TrustedApp and coaching indie artists, I&apos;ve learned that ideas don&apos;t change the world until someone feels them. I translate complex ambition into language that lands, then rally teams to ship.
+                    From prototyping Reseeit at UH's Wolff Center to launching TrustedApp and coaching indie artists, I've learned that ideas don't change the world until someone feels them. I translate complex ambition into language that lands, then rally teams to ship.
                 </p>
 
                 <p className="leading-relaxed mb-4">
