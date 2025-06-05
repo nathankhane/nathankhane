@@ -20,7 +20,7 @@ export function VisionCTA() {
                     transition={{ duration: 0.4, delay: 0.1 }}
                     viewport={{ once: true, amount: 0.1 }}
                 >
-                    Let's bring your vision to <em className="italic font-bold">life</em>.
+                    Let&apos;s bring your vision to <em className="italic font-bold">life</em>.
                 </motion.h2>
 
                 <motion.div
@@ -43,7 +43,7 @@ export function VisionCTA() {
                             }}
                             whileTap={{ scale: 0.98 }}
                         >
-                            LET'S TALK
+                            LET&apos;S TALK
                         </motion.button>
                     </Link>
                 </motion.div>

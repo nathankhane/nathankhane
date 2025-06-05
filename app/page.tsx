@@ -93,7 +93,7 @@ export default function Home() {
             <CaseStudyCard
               title="WSA Speed Academy"
               category="Startups"
-              description="End-to-end design & build; site ranked #1 locally for 'speed training' within 21 days."
+              description="End-to-end design & build; site ranked #1 locally for &apos;speed training&apos; within 21 days."
               image="/images/wsa-screenshot.png"
               kpi={{
                 metric: "Organic Site Visits",

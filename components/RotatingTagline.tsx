@@ -2,11 +2,11 @@
 import { useState, useEffect } from "react";
 
 const lines = [
-    "Let's bring your vision to life.",
+    "Let&apos;s bring your vision to life.",
     "Growth should be noticed, not forced.",
     "Smooth seas never made a skilled sailor.",
-    "Live in the future, then build what's missing.",
-    "Don't game the system—be the system.",
+    "Live in the future, then build what&apos;s missing.",
+    "Don&apos;t game the system—be the system.",
     "Raison d'être: reason for being.",
     "The most valuable truths are the unbelieved ones.",
     "Break uncertainty into parts; then decide.",
