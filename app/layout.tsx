@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
 import SocialLinks from "@/components/SocialLinks";
+import MobileNav from "@/components/MobileNav";
 
 export const metadata: Metadata = {
   title: "Khane – Business ≡ Poetry",
@@ -66,6 +67,7 @@ export default function RootLayout({
           {/* Navigation Header */}
           <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50 transition-all duration-300">
             <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+              {/* Left: Logo */}
               <Link
                 href="/"
                 className="text-2xl font-bold hover:scale-105 transition-all duration-300 hover:text-primary"
@@ -73,36 +75,40 @@ export default function RootLayout({
                 Khane<span className="text-primary">.</span>
               </Link>
 
-              <nav className="hidden md:flex items-center space-x-8">
-                <Link
-                  href="/portfolio"
-                  className="relative hover:text-primary transition-colors duration-300 group"
-                >
-                  Portfolio
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                </Link>
-                <Link
-                  href="/about"
-                  className="relative hover:text-primary transition-colors duration-300 group"
-                >
-                  Who Am I
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                </Link>
-                <Link
-                  href="/contact"
-                  className="relative hover:text-primary transition-colors duration-300 group"
-                >
-                  Work With Me
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                </Link>
-              </nav>
+              {/* Center: Desktop Nav + Theme Toggle */}
+              <div className="flex items-center space-x-8">
+                <nav className="hidden md:flex items-center space-x-8">
+                  <Link
+                    href="/portfolio"
+                    className="relative hover:text-primary transition-colors duration-300 group"
+                  >
+                    Portfolio
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                  </Link>
+                  <Link
+                    href="/about"
+                    className="relative hover:text-primary transition-colors duration-300 group"
+                  >
+                    Who Am I
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="relative hover:text-primary transition-colors duration-300 group"
+                  >
+                    Work With Me
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                  </Link>
+                </nav>
 
-              <div className="flex items-center space-x-4">
+                {/* Theme Toggle - Always visible, centered on mobile */}
                 <div className="hover:scale-110 transition-transform duration-200">
                   <ThemeToggle />
                 </div>
-                {/* Mobile menu button could go here */}
               </div>
+
+              {/* Right: Mobile Menu */}
+              <MobileNav />
             </div>
           </header>
 
