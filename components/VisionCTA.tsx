@@ -9,25 +9,25 @@ export function VisionCTA() {
             className="py-24 px-6 bg-background"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true, amount: 0.1 }}
         >
             <div className="max-w-4xl mx-auto text-center">
                 <motion.h2
                     className="text-4xl md:text-5xl lg:text-6xl font-bold mb-12 text-foreground"
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    viewport={{ once: true, amount: 0.1 }}
                 >
                     Let's bring your vision to <em className="italic font-bold">life</em>.
                 </motion.h2>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                    viewport={{ once: true, amount: 0.1 }}
                 >
                     <Link
                         href="https://calendly.com/nathankhane/20min"

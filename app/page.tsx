@@ -64,79 +64,77 @@ export default function Home() {
       <VisionCTA />
 
       {/* Featured Work Preview */}
-      <AnimatedSection direction="up" delay={0.3}>
-        <section className="py-20 px-6">
-          <div className="max-w-6xl mx-auto">
-            <AnimatedSection direction="fade" className="text-center mb-16">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-                Proof in the poetry
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Case studies that show how narrative strategy transforms into measurable results.
-              </p>
-            </AnimatedSection>
+      <section className="py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <AnimatedSection direction="fade" className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Proof in the poetry
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Case studies that show how narrative strategy transforms into measurable results.
+            </p>
+          </AnimatedSection>
 
-            <AnimatedSection direction="up" stagger={0.15} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <CaseStudyCard
-                title="TrustedApp"
-                category="Client Campaigns"
-                description="Scaled expert signup 300% in four weeks through narrative-driven cold outreach."
-                image="/images/trustedapp-screenshot.png"
-                kpi={{
-                  metric: "Email List Growth",
-                  value: "300%",
-                  context: "in 4 weeks"
-                }}
-                link="https://www.trustedapp.co"
-                featured
-              />
+          <AnimatedSection direction="up" stagger={0.1} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <CaseStudyCard
+              title="TrustedApp"
+              category="Client Campaigns"
+              description="Scaled expert signup 300% in four weeks through narrative-driven cold outreach."
+              image="/images/trustedapp-screenshot.png"
+              kpi={{
+                metric: "Email List Growth",
+                value: "300%",
+                context: "in 4 weeks"
+              }}
+              link="https://www.trustedapp.co"
+              featured
+            />
 
-              <CaseStudyCard
-                title="WSA Speed Academy"
-                category="Startups"
-                description="End-to-end design & build; site ranked #1 locally for 'speed training' within 21 days."
-                image="/images/wsa-screenshot.png"
-                kpi={{
-                  metric: "Organic Site Visits",
-                  value: "+2,700",
-                  context: "in 21 days"
-                }}
-                link="https://wilson-speed-academy.vercel.app/"
-              />
+            <CaseStudyCard
+              title="WSA Speed Academy"
+              category="Startups"
+              description="End-to-end design & build; site ranked #1 locally for 'speed training' within 21 days."
+              image="/images/wsa-screenshot.png"
+              kpi={{
+                metric: "Organic Site Visits",
+                value: "+2,700",
+                context: "in 21 days"
+              }}
+              link="https://wilson-speed-academy.vercel.app/"
+            />
 
-              <CaseStudyCard
-                title="Reseeit"
-                category="Startups"
-                description="Prototype built at the Wolff Center introducing a fresh way to track expenses with zero manual entry."
-                image="/images/reseeit-screens.jpg"
-                kpi={{
-                  metric: "Pitch Competition",
-                  value: "1st",
-                  context: "Place Winner"
-                }}
-                link="https://xd.adobe.com/view/57e025cb-48fb-4bb6-bcb3-4dee68792db9-02b3/"
-              />
-            </AnimatedSection>
+            <CaseStudyCard
+              title="Reseeit"
+              category="Startups"
+              description="Prototype built at the Wolff Center introducing a fresh way to track expenses with zero manual entry."
+              image="/images/reseeit-screens.jpg"
+              kpi={{
+                metric: "Pitch Competition",
+                value: "1st",
+                context: "Place Winner"
+              }}
+              link="https://xd.adobe.com/view/57e025cb-48fb-4bb6-bcb3-4dee68792db9-02b3/"
+            />
+          </AnimatedSection>
 
-            <AnimatedSection direction="scale" delay={0.4} className="text-center mt-12">
-              <Link
-                href="/portfolio"
-                className="inline-block px-8 py-4 border-2 border-primary text-primary rounded-2xl font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25"
-              >
-                View All Work
-              </Link>
-            </AnimatedSection>
-          </div>
-        </section>
-      </AnimatedSection>
+          <AnimatedSection direction="scale" delay={0.2} className="text-center mt-12">
+            <Link
+              href="/portfolio"
+              className="inline-block px-8 py-4 border-2 border-primary text-primary rounded-2xl font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25"
+            >
+              View All Work
+            </Link>
+          </AnimatedSection>
+        </div>
+      </section>
 
       {/* Latest Essays section */}
-      <AnimatedSection direction="up" delay={0.2}>
+      <AnimatedSection direction="up">
         <LatestPosts />
       </AnimatedSection>
 
       {/* Newsletter CTA */}
-      <AnimatedSection direction="fade" delay={0.3}>
+      <AnimatedSection direction="fade">
         <section className="py-20 px-6 bg-muted/30">
           <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection direction="scale">
@@ -147,7 +145,7 @@ export default function Home() {
                 Weekly insights on turning narrative into revenue. Stories, strategies, and behind-the-scenes from the intersection of business and creativity.
               </p>
             </AnimatedSection>
-            <AnimatedSection direction="up" delay={0.2} className="max-w-md mx-auto">
+            <AnimatedSection direction="up" delay={0.1} className="max-w-md mx-auto">
               <SubstackForm />
             </AnimatedSection>
           </div>
@@ -182,9 +180,6 @@ function ServiceCard({ icon, title, description, link, cta }: ServiceCardProps) 
         transition: { duration: 0.3, ease: "easeOut" }
       }}
       whileTap={{ scale: 0.98 }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
     >
       <motion.div
         className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/30 transition-all duration-300"

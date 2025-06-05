@@ -82,7 +82,7 @@ export default function AnimatedSection({
     className = "",
     delay = 0,
     direction = "up",
-    duration = 0.6,
+    duration = 0.4,
     stagger = 0
 }: AnimatedSectionProps) {
     const variants = getAnimationVariants(direction, duration, delay, stagger);
@@ -94,8 +94,8 @@ export default function AnimatedSection({
             whileInView="visible"
             viewport={{
                 once: true,
-                margin: "-100px",
-                amount: 0.3
+                margin: "0px",
+                amount: 0.1
             }}
             variants={variants}
         >
