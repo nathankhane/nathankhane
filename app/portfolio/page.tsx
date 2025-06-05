@@ -18,13 +18,13 @@ const studies = [
         ],
     },
     {
-        title: "WSA — Speed Academy Site",
-        description: "End-to-end design & build; site ranked #1 locally for 'speed training' within 21 days.",
-        image: "/images/wsa-screenshot.png",
-        link: "https://wilson-speed-academy.vercel.app/",
+        title: "Intro to Modern Moguls — Live Panel",
+        description: "Produced & hosted a panel of young visionaries sharing textbook‑defying business insights.",
+        image: "/images/momo-panel.jpeg",
+        link: "https://iondistrict.com/event/intro-to-modern-moguls/",
         kpis: [
-            { label: "Organic Site Visits", value: "+2,700" },
-            { label: "Lead Conv. Rate", value: "18 %" },
+            { label: "Audience", value: "200+" },
+            { label: "Post‑event NPS", value: "92" },
         ],
     },
     {
@@ -38,13 +38,13 @@ const studies = [
         ],
     },
     {
-        title: "Intro to Modern Moguls — Live Panel",
-        description: "Produced & hosted a panel of young visionaries sharing textbook‑defying business insights.",
-        image: "/images/momo-panel.jpeg",
-        link: "https://iondistrict.com/event/intro-to-modern-moguls/",
+        title: "WSA — Speed Academy Site",
+        description: "End-to-end design & build; site ranked #1 locally for 'speed training' within 21 days.",
+        image: "/images/wsa-screenshot.png",
+        link: "https://wilson-speed-academy.vercel.app/",
         kpis: [
-            { label: "Audience", value: "200+" },
-            { label: "Post‑event NPS", value: "92" },
+            { label: "Organic Site Visits", value: "+2,700" },
+            { label: "Lead Conv. Rate", value: "18 %" },
         ],
     },
 ];
