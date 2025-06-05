@@ -46,7 +46,7 @@ export default function RootLayout({
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
                 </Link>
                 <Link
-                  href="/work-with-me"
+                  href="/contact"
                   className="relative hover:text-primary transition-colors duration-300 group"
                 >
                   Work With Me
