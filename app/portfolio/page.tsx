@@ -10,7 +10,7 @@ const studies = [
     {
         title: "TrustedApp — SaaS Marketplace Launch",
         description: "Scaled expert signup 300 % in four weeks through narrative-driven cold outreach.",
-        image: "/images/Screenshot 2025-06-05 at 2.46.02 PM.png",
+        image: "/images/trustedapp-screenshot.png",
         link: "https://www.trustedapp.co",
         kpis: [
             { label: "Email List Growth", value: "300 %" },
@@ -20,7 +20,7 @@ const studies = [
     {
         title: "WSA — Speed Academy Site",
         description: "End-to-end design & build; site ranked #1 locally for 'speed training' within 21 days.",
-        image: "/images/Screenshot 2025-06-05 at 2.47.13 PM.png",
+        image: "/images/wsa-screenshot.png",
         link: "https://wilson-speed-academy.vercel.app/",
         kpis: [
             { label: "Organic Site Visits", value: "+2,700" },
@@ -30,7 +30,7 @@ const studies = [
     {
         title: "Reseeit — Receipt‑Compiling App",
         description: "Prototype built at the Wolff Center introducing a fresh way to track expenses with zero manual entry.",
-        image: "/images/All Screens.jpg",
+        image: "/images/reseeit-screens.jpg",
         link: "https://xd.adobe.com/view/57e025cb-48fb-4bb6-bcb3-4dee68792db9-02b3/",
         kpis: [
             { label: "Prototype Users", value: "50" },
@@ -40,7 +40,7 @@ const studies = [
     {
         title: "Intro to Modern Moguls — Live Panel",
         description: "Produced & hosted a panel of young visionaries sharing textbook‑defying business insights.",
-        image: "/images/CFC8DE66-F4E0-43E6-B8D6-2EC219EB5418.JPEG",
+        image: "/images/momo-panel.jpeg",
         link: "https://iondistrict.com/event/intro-to-modern-moguls/",
         kpis: [
             { label: "Audience", value: "200+" },

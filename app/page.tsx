@@ -84,7 +84,7 @@ export default function Home() {
                 title="TrustedApp"
                 category="Client Campaigns"
                 description="Scaled expert signup 300% in four weeks through narrative-driven cold outreach."
-                image="/images/Screenshot 2025-06-05 at 2.46.02 PM.png"
+                image="/images/trustedapp-screenshot.png"
                 kpi={{
                   metric: "Email List Growth",
                   value: "300%",
@@ -98,7 +98,7 @@ export default function Home() {
                 title="WSA Speed Academy"
                 category="Startups"
                 description="End-to-end design & build; site ranked #1 locally for 'speed training' within 21 days."
-                image="/images/Screenshot 2025-06-05 at 2.47.13 PM.png"
+                image="/images/wsa-screenshot.png"
                 kpi={{
                   metric: "Organic Site Visits",
                   value: "+2,700",
@@ -111,7 +111,7 @@ export default function Home() {
                 title="Reseeit"
                 category="Startups"
                 description="Prototype built at the Wolff Center introducing a fresh way to track expenses with zero manual entry."
-                image="/images/All Screens.jpg"
+                image="/images/reseeit-screens.jpg"
                 kpi={{
                   metric: "Pitch Competition",
                   value: "1st",

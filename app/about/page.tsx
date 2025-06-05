@@ -11,7 +11,7 @@ export default function About() {
             <h1 className="text-4xl font-bold">About Me</h1>
             {/* Portrait */}
             <Image
-                src="/images/IMG_9856.JPG"
+                src="/images/about-photo.jpg"
                 alt="Nathan Khane Morales"
                 width={800}
                 height={450}
