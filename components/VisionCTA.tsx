@@ -1,0 +1,53 @@
+"use client";
+
+import { motion } from "framer-motion";
+import Link from "next/link";
+
+export function VisionCTA() {
+    return (
+        <motion.section
+            className="py-24 px-6 bg-background"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+        >
+            <div className="max-w-4xl mx-auto text-center">
+                <motion.h2
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold mb-12 text-foreground"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    viewport={{ once: true }}
+                >
+                    Let's bring your vision to <em className="italic font-bold">life</em>.
+                </motion.h2>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    viewport={{ once: true }}
+                >
+                    <Link
+                        href="https://calendly.com/nathankhane/20min"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block"
+                    >
+                        <motion.button
+                            className="px-12 py-4 border-2 border-primary text-primary rounded-full font-semibold text-lg tracking-wider hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                            whileHover={{
+                                scale: 1.05,
+                                boxShadow: "0 10px 25px rgba(0, 224, 255, 0.25)"
+                            }}
+                            whileTap={{ scale: 0.98 }}
+                        >
+                            LET'S TALK
+                        </motion.button>
+                    </Link>
+                </motion.div>
+            </div>
+        </motion.section>
+    );
+} 

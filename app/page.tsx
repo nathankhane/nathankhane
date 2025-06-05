@@ -3,12 +3,11 @@
 import { CinematicHero } from "@/components/cinematic-hero";
 import { CredibilityBar } from "@/components/credibility-bar";
 import { CaseStudyCard } from "@/components/case-study-card";
+import { VisionCTA } from "@/components/VisionCTA";
 import AnimatedSection from "@/components/AnimatedSection";
 import LatestPosts from "@/components/LatestPosts";
 import Link from "next/link";
 import SubstackForm from "@/components/SubstackForm";
-import dynamic from "next/dynamic";
-const LogoStrip = dynamic(() => import("@/components/LogoStrip"));
 
 export default function Home() {
   return (
@@ -61,10 +60,8 @@ export default function Home() {
         <CredibilityBar />
       </AnimatedSection>
 
-      {/* Social proof logo strip */}
-      <AnimatedSection direction="scale" delay={0.2}>
-        <LogoStrip />
-      </AnimatedSection>
+      {/* Vision CTA */}
+      <VisionCTA />
 
       {/* Featured Work Preview */}
       <AnimatedSection direction="up" delay={0.3}>
