@@ -14,7 +14,7 @@ export default function TikTokEmbed({ videoId }: { videoId: string }) {
     }, []);
     return (
         <blockquote
-            className="tiktok-embed my-8"
+            className="tiktok-embed"
             data-video-id={videoId}
             style={{ maxWidth: 605, minWidth: 325 }}
         ></blockquote>

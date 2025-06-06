@@ -277,3 +277,18 @@
 .animate-flip {
   animation: flip 2.4s cubic-bezier(.55, .085, .68, .53) infinite;
 }
+
+/* TikTok Embed Optimization - Remove extra whitespace */
+.tiktok-embed {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Target TikTok iframe specifically to remove borders and extra space */
+blockquote.tiktok-embed iframe {
+  border: none !important;
+  border-radius: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
