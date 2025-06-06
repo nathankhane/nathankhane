@@ -4,27 +4,29 @@ import { useEffect } from "react";
 
 export default function ContentCreationSection() {
     useEffect(() => {
-        // Load TikTok embed script
+        // Preload TikTok embed script for faster loading
         if (!document.querySelector('script[src="https://www.tiktok.com/embed.js"]')) {
             const script = document.createElement('script');
             script.src = 'https://www.tiktok.com/embed.js';
             script.async = true;
-            document.body.appendChild(script);
+            script.defer = true;
+            document.head.appendChild(script); // Use head instead of body for preloading
         }
     }, []);
 
     return (
-        <div className="space-y-12">
+        <div className="space-y-16">
             {/* Content Creation Section */}
             <h2 className="text-3xl font-semibold mt-16">Content Creation</h2>
 
             {/* TikTok Videos - 3 side by side on desktop, stacked on mobile */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8 justify-items-center">
-                <div className="w-full max-w-[325px]">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 xl:gap-12 mt-12 justify-items-center">
+                <div className="w-full max-w-[400px] lg:max-w-[350px] xl:max-w-[400px]">
                     <blockquote
                         className="tiktok-embed"
                         cite="https://www.tiktok.com/@nathankmorales/video/7499259227735706923"
                         data-video-id="7499259227735706923"
+                        style={{ minHeight: '600px' }}
                     >
                         <section>
                             <a target="_blank" title="@nathankmorales" href="https://www.tiktok.com/@nathankmorales?refer=embed">@nathankmorales</a> reminder{" "}
@@ -34,11 +36,12 @@ export default function ContentCreationSection() {
                     </blockquote>
                 </div>
 
-                <div className="w-full max-w-[325px]">
+                <div className="w-full max-w-[400px] lg:max-w-[350px] xl:max-w-[400px]">
                     <blockquote
                         className="tiktok-embed"
                         cite="https://www.tiktok.com/@nathankmorales/video/7448001294297582890"
                         data-video-id="7448001294297582890"
+                        style={{ minHeight: '600px' }}
                     >
                         <section>
                             <a target="_blank" title="@nathankmorales" href="https://www.tiktok.com/@nathankmorales?refer=embed">@nathankmorales</a>{" "}
@@ -51,11 +54,12 @@ export default function ContentCreationSection() {
                     </blockquote>
                 </div>
 
-                <div className="w-full max-w-[325px]">
+                <div className="w-full max-w-[400px] lg:max-w-[350px] xl:max-w-[400px]">
                     <blockquote
                         className="tiktok-embed"
                         cite="https://www.tiktok.com/@nathankmorales/video/7456622147159510314"
                         data-video-id="7456622147159510314"
+                        style={{ minHeight: '600px' }}
                     >
                         <section>
                             <a target="_blank" title="@nathankmorales" href="https://www.tiktok.com/@nathankmorales?refer=embed">@nathankmorales</a>{" "}
@@ -68,7 +72,7 @@ export default function ContentCreationSection() {
             </div>
 
             {/* YouTube Video */}
-            <div className="mt-16 flex justify-center">
+            <div className="mt-20 flex justify-center">
                 <div className="w-full max-w-4xl">
                     <iframe
                         width="100%"
