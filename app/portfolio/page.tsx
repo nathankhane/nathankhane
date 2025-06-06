@@ -51,17 +51,17 @@ const studies = [
 
 export default function Portfolio() {
     return (
-        <section className="mx-auto max-w-4xl space-y-10">
-            <h1 className="text-4xl font-bold">Case Studies</h1>
-            <div className="grid md:grid-cols-2 gap-8">
-                {studies.map((s) => (
-                    <CaseStudyCard key={s.title} {...s} />
-                ))}
-            </div>
+        <div className="mx-auto max-w-4xl px-6 sm:px-8">
+            <section className="space-y-8 sm:space-y-10">
+                <h1 className="text-3xl sm:text-4xl font-bold">Case Studies</h1>
+                <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
+                    {studies.map((s) => (
+                        <CaseStudyCard key={s.title} {...s} />
+                    ))}
+                </div>
 
-            <ContentCreationSection />
-
-
-        </section>
+                <ContentCreationSection />
+            </section>
+        </div>
     );
 } 
