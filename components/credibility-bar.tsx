@@ -36,12 +36,12 @@ export function CredibilityBar() {
 
                 <div className="relative">
                     <motion.div
-                        className="flex space-x-12 whitespace-nowrap"
+                        className="flex space-x-16 whitespace-nowrap"
                         animate={{
                             x: ["0%", "-50%"],
                         }}
                         transition={{
-                            duration: 30,
+                            duration: 35,
                             repeat: Infinity,
                             ease: "linear",
                         }}
@@ -53,7 +53,7 @@ export function CredibilityBar() {
                                 href={item.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center justify-center min-w-[200px] h-16 opacity-60 hover:opacity-100 transition-all duration-300 group cursor-pointer"
+                                className="flex items-center justify-center min-w-[240px] h-16 opacity-60 hover:opacity-100 transition-all duration-300 group cursor-pointer"
                                 whileHover={{
                                     scale: 1.05,
                                     transition: { duration: 0.2 }
@@ -75,7 +75,7 @@ export function CredibilityBar() {
                                 href={item.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center justify-center min-w-[200px] h-16 opacity-60 hover:opacity-100 transition-all duration-300 group cursor-pointer"
+                                className="flex items-center justify-center min-w-[240px] h-16 opacity-60 hover:opacity-100 transition-all duration-300 group cursor-pointer"
                                 whileHover={{
                                     scale: 1.05,
                                     transition: { duration: 0.2 }
