@@ -1,38 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ChevronDown } from "lucide-react";
+import { Typewriter } from 'react-simple-typewriter';
 
 const RotatingTagline = dynamic(() => import("@/components/RotatingTagline"), { ssr: false });
 
-const roleSequence = [
-    "Founder",
-    "Storyteller",
-    "Artist"
-];
-
 export function CinematicHero() {
-    const [currentRole, setCurrentRole] = useState(0);
-    const [showFinalMessage, setShowFinalMessage] = useState(false);
+    const [showContent, setShowContent] = useState(false);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            if (currentRole < roleSequence.length - 1) {
-                setCurrentRole(prev => prev + 1);
-            } else {
-                // After showing all roles, show the final message
-                setTimeout(() => {
-                    setShowFinalMessage(true);
-                }, 1000);
-                clearInterval(interval);
-            }
-        }, 1500); // Show each role for 1.5 seconds
-
-        return () => clearInterval(interval);
-    }, [currentRole]);
+        // Show content immediately
+        setShowContent(true);
+    }, []);
 
     return (
         <section
@@ -45,35 +28,42 @@ export function CinematicHero() {
             </div>
 
             <div className="z-10 flex flex-col items-center max-w-4xl space-y-8">
-                <AnimatePresence mode="wait">
-                    {!showFinalMessage ? (
-                        <motion.div
-                            key={currentRole}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.4, ease: "easeOut" }}
-                            className="space-y-4"
+                {showContent && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.7, ease: "easeOut" }}
+                        className="space-y-8"
+                    >
+                        <h1
+                            aria-live="polite"
+                            className="font-bold leading-tight text-[clamp(2rem,5vw,3.5rem)] md:text-[clamp(2.5rem,4.5vw,4rem)]"
                         >
-                            <h1 className="text-6xl sm:text-8xl lg:text-9xl font-bold leading-tight">
-                                {roleSequence[currentRole]}<span className="text-primary">.</span>
-                            </h1>
-                            <div className="w-32 h-1 bg-primary mx-auto opacity-60" />
-                        </motion.div>
-                    ) : (
+                            I'm&nbsp;
+                            <Typewriter
+                                words={['Founder', 'Storyteller', 'Strategist']}
+                                loop={0}            // 0 = infinite
+                                cursor
+                                cursorStyle="|"
+                                typeSpeed={70}      // ms per character – tweak to taste
+                                deleteSpeed={50}
+                                delaySpeed={300}    // pause before deleting
+                            />
+                        </h1>
+
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.7, ease: "easeOut" }}
+                            transition={{ delay: 0.3, duration: 0.7, ease: "easeOut" }}
                             className="space-y-8"
                         >
-                            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold leading-tight">
+                            <h2 className="text-5xl sm:text-7xl lg:text-8xl font-bold leading-tight">
                                 Business <span className="text-primary">≡</span> Poetry
-                            </h1>
+                            </h2>
                             <motion.p
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.3, duration: 0.6 }}
+                                transition={{ delay: 0.6, duration: 0.6 }}
                                 className="text-xl sm:text-2xl lg:text-3xl max-w-3xl mx-auto text-muted-foreground leading-relaxed"
                             >
                                 Turning narrative into revenue for founders & creators.
@@ -83,7 +73,7 @@ export function CinematicHero() {
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.5, duration: 0.6 }}
+                                transition={{ delay: 0.8, duration: 0.6 }}
                             >
                                 <RotatingTagline />
                             </motion.div>
@@ -91,7 +81,7 @@ export function CinematicHero() {
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.7, duration: 0.6 }}
+                                transition={{ delay: 1.0, duration: 0.6 }}
                                 className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 pb-16"
                             >
                                 <Link
@@ -110,16 +100,16 @@ export function CinematicHero() {
                                 </Link>
                             </motion.div>
                         </motion.div>
-                    )}
-                </AnimatePresence>
+                    </motion.div>
+                )}
 
                 {/* Scroll indicator */}
-                {showFinalMessage && (
+                {showContent && (
                     <motion.a
                         href="#hero"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 1.2, duration: 0.6 }}
+                        transition={{ delay: 1.5, duration: 0.6 }}
                         className="absolute left-1/2 bottom-8 -translate-x-1/2 flex flex-col items-center gap-1 group hidden sm:flex"
                         onClick={(e) => {
                             e.preventDefault();

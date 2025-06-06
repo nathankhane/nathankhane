@@ -246,3 +246,34 @@
     border-color: var(--cyan-electric);
   }
 }
+
+/* Optional Pure-CSS fallback for typewriter effect */
+@keyframes flip {
+
+  0%,
+  8% {
+    transform: translateY(0%);
+  }
+
+  33%,
+  41% {
+    transform: translateY(-100%);
+  }
+
+  66%,
+  74% {
+    transform: translateY(-200%);
+  }
+
+  100% {
+    transform: translateY(-300%);
+  }
+}
+
+.word {
+  @apply absolute inset-0;
+}
+
+.animate-flip {
+  animation: flip 2.4s cubic-bezier(.55, .085, .68, .53) infinite;
+}
