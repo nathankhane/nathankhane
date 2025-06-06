@@ -3,16 +3,13 @@
 import { motion } from "framer-motion";
 
 const credibilityItems = [
-    { name: "TechCrunch", type: "press" },
-    { name: "Forbes", type: "press" },
-    { name: "Indie Hackers", type: "podcast" },
-    { name: "Product Hunt", type: "platform" },
-    { name: "Y Combinator", type: "accelerator" },
-    { name: "The Tim Ferriss Show", type: "podcast" },
-    { name: "Fast Company", type: "press" },
-    { name: "Substack", type: "platform" },
-    { name: "Harvard Business Review", type: "press" },
-    { name: "Masters of Scale", type: "podcast" },
+    { name: "TrustedApp", type: "company", url: "https://www.trustedapp.co/" },
+    { name: "Ion District", type: "innovation", url: "https://iondistrict.com/" },
+    { name: "buildspace", type: "education", url: "https://buildspace.so/" },
+    { name: "C.T. Bauer College of Business", type: "education", url: "https://www.bauer.uh.edu/" },
+    { name: "byomer", type: "creative", url: "https://www.byomer.com/" },
+    { name: "Capgemini", type: "consulting", url: "https://www.capgemini.com/us-en/" },
+    { name: "Nexus Veterinary Specialists", type: "healthcare", url: "https://ce.nexus.vet/" },
 ];
 
 export function CredibilityBar() {
@@ -51,8 +48,11 @@ export function CredibilityBar() {
                     >
                         {/* First set */}
                         {credibilityItems.map((item, index) => (
-                            <motion.div
+                            <motion.a
                                 key={`first-${index}`}
+                                href={item.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="flex items-center justify-center min-w-[200px] h-16 opacity-60 hover:opacity-100 transition-all duration-300 group cursor-pointer"
                                 whileHover={{
                                     scale: 1.05,
@@ -65,13 +65,16 @@ export function CredibilityBar() {
                                 <span className="text-lg font-semibold text-muted-foreground group-hover:text-primary transition-colors duration-300">
                                     {item.name}
                                 </span>
-                            </motion.div>
+                            </motion.a>
                         ))}
 
                         {/* Duplicate set for seamless loop */}
                         {credibilityItems.map((item, index) => (
-                            <motion.div
+                            <motion.a
                                 key={`second-${index}`}
+                                href={item.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="flex items-center justify-center min-w-[200px] h-16 opacity-60 hover:opacity-100 transition-all duration-300 group cursor-pointer"
                                 whileHover={{
                                     scale: 1.05,
@@ -81,7 +84,7 @@ export function CredibilityBar() {
                                 <span className="text-lg font-semibold text-muted-foreground group-hover:text-primary transition-colors duration-300">
                                     {item.name}
                                 </span>
-                            </motion.div>
+                            </motion.a>
                         ))}
                     </motion.div>
 
