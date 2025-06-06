@@ -61,9 +61,6 @@ export default function Home() {
         <CredibilityBar />
       </AnimatedSection>
 
-      {/* Vision CTA */}
-      <VisionCTA />
-
       {/* Featured Work Preview */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
@@ -128,6 +125,9 @@ export default function Home() {
           </AnimatedSection>
         </div>
       </section>
+
+      {/* Vision CTA */}
+      <VisionCTA />
 
       {/* Latest Essays section */}
       <AnimatedSection direction="up">

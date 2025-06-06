@@ -11,6 +11,39 @@ export default function CalendlyWidget() {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        // Add custom CSS to remove Calendly padding
+        if (!document.querySelector("#calendly-custom-styles")) {
+            const style = document.createElement("style");
+            style.id = "calendly-custom-styles";
+            style.textContent = `
+                .calendly-inline-widget {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    border-radius: 16px !important;
+                    overflow: hidden !important;
+                }
+                
+                .calendly-inline-widget iframe {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    border-radius: 16px !important;
+                }
+                
+                /* Remove default Calendly padding/margins */
+                .calendly-popup-content,
+                .calendly-popup-wrapper {
+                    padding: 0 !important;
+                    margin: 0 !important;
+                }
+                
+                /* Dark mode improvements */
+                .calendly-inline-widget {
+                    background: transparent !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
         // Preload Calendly script
         if (!document.querySelector("#calendly-script")) {
             const script = document.createElement("script");
@@ -23,12 +56,28 @@ export default function CalendlyWidget() {
         // Pre-mount the iframe off-screen if not already
         if (!calendlyIframe) {
             calendlyIframe = document.createElement("iframe");
-            calendlyIframe.src = CALENDLY_URL + "?embed_domain=" + window.location.hostname;
+
+            // Improved URL with better parameters for dark mode and minimal styling
+            const params = new URLSearchParams({
+                embed_domain: window.location.hostname,
+                embed_type: 'Inline',
+                hide_event_type_details: '1',
+                hide_gdpr_banner: '1',
+                primary_color: '4F8DFD', // Your brand primary color
+                text_color: 'ffffff',    // White text for dark mode
+                background_color: '0F0F0F' // Your dark background
+            });
+
+            calendlyIframe.src = `${CALENDLY_URL}?${params.toString()}`;
             calendlyIframe.style.position = "absolute";
             calendlyIframe.style.left = "-9999px";
             calendlyIframe.style.width = "100%";
             calendlyIframe.style.height = "700px";
             calendlyIframe.style.border = "none";
+            calendlyIframe.style.borderRadius = "16px";
+            calendlyIframe.style.overflow = "hidden";
+            calendlyIframe.style.margin = "0";
+            calendlyIframe.style.padding = "0";
             calendlyIframe.onload = () => setLoaded(true);
             document.body.appendChild(calendlyIframe);
         } else {
@@ -58,13 +107,22 @@ export default function CalendlyWidget() {
     }, []);
 
     return (
-        <div className="w-full min-h-[700px] relative">
+        <div className="w-full min-h-[700px] relative overflow-hidden rounded-2xl bg-card border border-border/50">
             {!loaded && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center z-10 bg-background">
-                    <span className="text-xl font-serif text-primary animate-fade-in">Business ≡ Poetry in progress…</span>
+                <div className="absolute inset-0 flex flex-col items-center justify-center z-10 bg-background/95 backdrop-blur-sm rounded-2xl">
+                    <div className="animate-spin w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full mb-4"></div>
+                    <span className="text-lg font-medium text-muted-foreground">Loading calendar...</span>
                 </div>
             )}
-            <div ref={containerRef} className={loaded ? "" : "invisible"} />
+            <div
+                ref={containerRef}
+                className={`calendly-widget-container ${loaded ? "opacity-100" : "opacity-0"} transition-opacity duration-500 rounded-2xl overflow-hidden`}
+                style={{
+                    margin: 0,
+                    padding: 0,
+                    borderRadius: '16px',
+                }}
+            />
         </div>
     );
 } 
