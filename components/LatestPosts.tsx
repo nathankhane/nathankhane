@@ -21,8 +21,8 @@ export default function LatestPosts() {
                 const response = await fetch('/api/rss');
                 const data = await response.json();
                 setPosts(data.slice(0, 3));
-            } catch (error) {
-                console.error('Failed to fetch posts:', error);
+            } catch {
+                // Fail silently in production
             } finally {
                 setLoading(false);
             }

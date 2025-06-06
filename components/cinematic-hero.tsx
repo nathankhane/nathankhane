@@ -23,7 +23,6 @@ export function CinematicHero() {
     useEffect(() => {
         if (currentWordIndex >= words.length) return;
 
-        const currentWord = words[currentWordIndex];
         const targetText = words.slice(0, currentWordIndex + 1).join(". ") + ".";
 
         if (currentCharIndex < targetText.length) {

@@ -14,7 +14,10 @@ export async function GET() {
 
         return NextResponse.json(posts);
     } catch (error) {
-        console.error('RSS fetch error:', error);
+        // Log error in development only
+        if (process.env.NODE_ENV === 'development') {
+            console.error('RSS fetch error:', error);
+        };
         return NextResponse.json([], { status: 500 });
     }
 } 

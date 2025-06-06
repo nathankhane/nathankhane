@@ -2,7 +2,7 @@
 
 import { CinematicHero } from "@/components/cinematic-hero";
 import { CredibilityBar } from "@/components/credibility-bar";
-import { CaseStudyCard } from "@/components/case-study-card";
+import CaseStudyCard from "@/components/CaseStudyCard";
 import { VisionCTA } from "@/components/VisionCTA";
 import AnimatedSection from "@/components/AnimatedSection";
 import LatestPosts from "@/components/LatestPosts";
@@ -76,41 +76,34 @@ export default function Home() {
           <AnimatedSection direction="up" stagger={0.1} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <CaseStudyCard
               title="TrustedApp"
-              category="Client Campaigns"
               description="Scaled expert signup 300% in four weeks through narrative-driven cold outreach."
               image="/images/trustedapp-screenshot.png"
-              kpi={{
-                metric: "Email List Growth",
-                value: "300%",
-                context: "in 4 weeks"
-              }}
+              kpis={[
+                { label: "Email List Growth", value: "300%" },
+                { label: "Timeline", value: "4 weeks" }
+              ]}
               link="https://www.trustedapp.co"
-              featured
             />
 
             <CaseStudyCard
               title="WSA Speed Academy"
-              category="Startups"
               description="End-to-end design & build; site ranked #1 locally for 'speed training' within 21 days."
               image="/images/wsa-screenshot.png"
-              kpi={{
-                metric: "Organic Site Visits",
-                value: "+2,700",
-                context: "in 21 days"
-              }}
+              kpis={[
+                { label: "Organic Site Visits", value: "+2,700" },
+                { label: "Timeline", value: "21 days" }
+              ]}
               link="https://wilson-speed-academy.vercel.app/"
             />
 
             <CaseStudyCard
               title="Reseeit"
-              category="Startups"
               description="Prototype built at the Wolff Center introducing a fresh way to track expenses with zero manual entry."
               image="/images/reseeit-screens.jpg"
-              kpi={{
-                metric: "Pitch Competition",
-                value: "1st",
-                context: "Place Winner"
-              }}
+              kpis={[
+                { label: "Pitch Competition", value: "1st Place" },
+                { label: "Users Tested", value: "50+" }
+              ]}
               link="https://xd.adobe.com/view/57e025cb-48fb-4bb6-bcb3-4dee68792db9-02b3/"
             />
           </AnimatedSection>
