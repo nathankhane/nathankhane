@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 interface CaseStudyCardProps {
     title: string;
@@ -107,7 +108,7 @@ export function CaseStudyCard({
                             animate={{ x: isHovered ? 4 : 0 }}
                             transition={{ duration: 0.2 }}
                         >
-                            →
+                            <ArrowRight className="h-4 w-4" />
                         </motion.div>
                     </div>
                 </div>

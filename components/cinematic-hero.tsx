@@ -5,17 +5,45 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ChevronDown } from "lucide-react";
-import { Typewriter } from 'react-simple-typewriter';
 
 const RotatingTagline = dynamic(() => import("@/components/RotatingTagline"), { ssr: false });
 
+const words = ["Founder", "Storyteller", "Artist"];
+
 export function CinematicHero() {
     const [showContent, setShowContent] = useState(false);
+    const [displayedText, setDisplayedText] = useState("");
+    const [currentWordIndex, setCurrentWordIndex] = useState(0);
+    const [currentCharIndex, setCurrentCharIndex] = useState(0);
 
     useEffect(() => {
-        // Show content immediately
         setShowContent(true);
     }, []);
+
+    useEffect(() => {
+        if (currentWordIndex >= words.length) return;
+
+        const currentWord = words[currentWordIndex];
+        const targetText = words.slice(0, currentWordIndex + 1).join(". ") + ".";
+
+        if (currentCharIndex < targetText.length) {
+            const timer = setTimeout(() => {
+                setDisplayedText(targetText.slice(0, currentCharIndex + 1));
+                setCurrentCharIndex(prev => prev + 1);
+            }, 100); // typing speed
+
+            return () => clearTimeout(timer);
+        } else {
+            // Finished typing current word, move to next after a pause
+            if (currentWordIndex < words.length - 1) {
+                const timer = setTimeout(() => {
+                    setCurrentWordIndex(prev => prev + 1);
+                }, 800); // pause before next word
+
+                return () => clearTimeout(timer);
+            }
+        }
+    }, [currentCharIndex, currentWordIndex]);
 
     return (
         <section
@@ -37,18 +65,19 @@ export function CinematicHero() {
                     >
                         <h1
                             aria-live="polite"
-                            className="font-bold leading-tight text-[clamp(2rem,5vw,3.5rem)] md:text-[clamp(2.5rem,4.5vw,4rem)]"
+                            className="font-bold leading-tight text-[clamp(2rem,5vw,3.5rem)] md:text-[clamp(2.5rem,4.5vw,4rem)] min-h-[1.2em]"
                         >
-                            I'm&nbsp;
-                            <Typewriter
-                                words={['Founder', 'Storyteller', 'Strategist']}
-                                loop={0}            // 0 = infinite
-                                cursor
-                                cursorStyle="|"
-                                typeSpeed={70}      // ms per character – tweak to taste
-                                deleteSpeed={50}
-                                delaySpeed={300}    // pause before deleting
-                            />
+                            {displayedText.split('.').map((word, index) => (
+                                <span key={index}>
+                                    {word}
+                                    {index < displayedText.split('.').length - 1 && (
+                                        <span className="text-primary">.</span>
+                                    )}
+                                </span>
+                            ))}
+                            {currentWordIndex < words.length && (
+                                <span className="animate-pulse text-primary">|</span>
+                            )}
                         </h1>
 
                         <motion.div

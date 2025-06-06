@@ -8,6 +8,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import LatestPosts from "@/components/LatestPosts";
 import Link from "next/link";
 import SubstackForm from "@/components/SubstackForm";
+import ServiceCard from "@/components/ServiceCard";
 
 export default function Home() {
   return (
@@ -30,25 +31,25 @@ export default function Home() {
 
             <AnimatedSection direction="up" stagger={0.1} className="grid md:grid-cols-3 gap-8">
               <ServiceCard
-                icon="📈"
+                icon="growth"
                 title="Growth Story Audit"
                 description="Uncover the narrative gaps holding back your growth and get a roadmap to fix them."
-                link="/work-with-me"
-                cta="Learn More →"
+                href="/work-with-me"
+                cta="Learn More"
               />
               <ServiceCard
-                icon="🎨"
+                icon="coaching"
                 title="Creative Coaching"
                 description="Bridge the gap between artistic vision and business strategy for sustainable creative success."
-                link="/work-with-me"
-                cta="Apply Now →"
+                href="/work-with-me"
+                cta="Apply Now"
               />
               <ServiceCard
-                icon="🚀"
+                icon="gtm"
                 title="Go-To-Market Sprints"
                 description="Rapid-fire strategy sessions to nail your positioning, messaging, and launch strategy."
-                link="/work-with-me"
-                cta="Book Sprint →"
+                href="/work-with-me"
+                cta="Book Sprint"
               />
             </AnimatedSection>
           </div>
@@ -155,71 +156,6 @@ export default function Home() {
   );
 }
 
-/* --------------------------- Service Card Component ---------------------------- */
-import { motion } from "framer-motion";
-import { useState } from "react";
 
-interface ServiceCardProps {
-  icon: string;
-  title: string;
-  description: string;
-  link: string;
-  cta: string;
-}
-
-function ServiceCard({ icon, title, description, link, cta }: ServiceCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <motion.div
-      className="text-center p-8 rounded-2xl bg-card border border-border/50 group cursor-pointer"
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      whileHover={{
-        y: -8,
-        transition: { duration: 0.3, ease: "easeOut" }
-      }}
-      whileTap={{ scale: 0.98 }}
-    >
-      <motion.div
-        className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/30 transition-all duration-300"
-        whileHover={{
-          scale: 1.1,
-          rotate: [0, -5, 5, 0],
-          transition: { duration: 0.5 }
-        }}
-      >
-        <span className="text-2xl">{icon}</span>
-      </motion.div>
-
-      <motion.h3
-        className="text-xl font-bold mb-4 group-hover:text-primary transition-colors duration-300"
-        whileHover={{ scale: 1.02 }}
-      >
-        {title}
-      </motion.h3>
-
-      <p className="text-muted-foreground mb-6 leading-relaxed">
-        {description}
-      </p>
-
-      <Link href={link}>
-        <motion.span
-          className="text-primary font-semibold hover:underline inline-flex items-center gap-2"
-          whileHover={{ x: 4 }}
-          transition={{ duration: 0.2 }}
-        >
-          {cta}
-          <motion.span
-            animate={{ x: isHovered ? [0, 4, 0] : 0 }}
-            transition={{ duration: 0.8, repeat: isHovered ? Infinity : 0 }}
-          >
-            →
-          </motion.span>
-        </motion.span>
-      </Link>
-    </motion.div>
-  );
-}
 
 

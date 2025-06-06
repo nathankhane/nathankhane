@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 
 interface KPI { label: string; value: string; }
 interface Props {
@@ -113,7 +114,7 @@ export default function CaseStudyCard({ title, description, image, kpis, link }:
                         animate={{ x: isHovered ? [0, 4, 0] : 0 }}
                         transition={{ duration: 1, repeat: isHovered ? Infinity : 0 }}
                     >
-                        →
+                        <ArrowRight className="h-4 w-4" />
                     </motion.span>
                 </motion.div>
             </div>
