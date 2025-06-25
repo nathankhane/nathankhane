@@ -33,8 +33,8 @@ export default function About() {
                             className="relative overflow-hidden rounded-xl"
                         >
                             <Image
-                                src="/images/about-photo.jpg"
-                                alt="Nathan Khane Morales"
+                                src="/nate_on_stage.JPG"
+                                alt="Nathan Khane Morales on stage"
                                 width={800}
                                 height={450}
                                 className="rounded-xl transition-transform duration-700 group-hover:scale-105 w-full h-auto max-h-[300px] sm:max-h-[400px] md:max-h-[450px] object-cover"
