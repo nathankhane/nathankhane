@@ -1,4 +1,4 @@
-import CalendlyWidget from "@/components/CalendlyWidget";
+import CalWidget from "@/components/CalWidget";
 
 export const metadata = { title: "Contact – Khane" };
 
@@ -11,7 +11,7 @@ export default function Contact() {
                     Pick a time that works for you and let's talk about turning business
                     into poetry.
                 </p>
-                <CalendlyWidget />
+                <CalWidget />
             </section>
         </div>
     );

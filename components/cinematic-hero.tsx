@@ -29,7 +29,7 @@ export function CinematicHero() {
             const timer = setTimeout(() => {
                 setDisplayedText(targetText.slice(0, currentCharIndex + 1));
                 setCurrentCharIndex(prev => prev + 1);
-            }, 100); // typing speed
+            }, 80); // slightly faster typing speed for better performance
 
             return () => clearTimeout(timer);
         } else {
@@ -37,7 +37,7 @@ export function CinematicHero() {
             if (currentWordIndex < words.length - 1) {
                 const timer = setTimeout(() => {
                     setCurrentWordIndex(prev => prev + 1);
-                }, 800); // pause before next word
+                }, 600); // shorter pause for better flow
 
                 return () => clearTimeout(timer);
             }

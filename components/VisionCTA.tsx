@@ -36,10 +36,10 @@ export function VisionCTA() {
                         className="inline-block"
                     >
                         <motion.button
-                            className="px-12 py-4 border-2 border-primary text-primary rounded-full font-semibold text-lg tracking-wider hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                            className="px-12 py-4 border-2 border-primary text-primary rounded-full font-semibold text-lg tracking-wider hover:bg-primary hover:text-primary-foreground transition-all duration-200"
                             whileHover={{
-                                scale: 1.05,
-                                boxShadow: "0 10px 25px rgba(0, 224, 255, 0.25)"
+                                scale: 1.02, // More subtle scale
+                                boxShadow: "0 8px 20px rgba(142, 45, 52, 0.25)" // Updated to cherry color
                             }}
                             whileTap={{ scale: 0.98 }}
                         >

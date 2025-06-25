@@ -27,8 +27,8 @@ export default function CaseStudyCard({ title, description, image, kpis, link }:
             onTouchStart={() => setIsTouched(true)}
             onTouchEnd={() => setIsTouched(false)}
             whileHover={{
-                y: -12,
-                transition: { duration: 0.3, ease: "easeOut" }
+                y: -8, // Reduced distance for smoother effect
+                transition: { duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }
             }}
             whileTap={{
                 scale: 0.98,
@@ -38,8 +38,8 @@ export default function CaseStudyCard({ title, description, image, kpis, link }:
         >
             <div className="relative overflow-hidden">
                 <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    whileHover={{ scale: 1.03 }} // Subtle scale for better performance
+                    transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                 >
                     <Image
                         src={previewImage}

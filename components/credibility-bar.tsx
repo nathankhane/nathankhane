@@ -35,17 +35,8 @@ export function CredibilityBar() {
                 </motion.div>
 
                 <div className="relative">
-                    <motion.div
-                        className="flex space-x-16 whitespace-nowrap"
-                        animate={{
-                            x: ["0%", "-50%"],
-                        }}
-                        transition={{
-                            duration: 35,
-                            repeat: Infinity,
-                            ease: "linear",
-                        }}
-                    >
+                    <div className="flex space-x-16 whitespace-nowrap animate-marquee">
+                    {/* Using CSS animation for better performance */}
                         {/* First set */}
                         {credibilityItems.map((item, index) => (
                             <motion.a
@@ -55,8 +46,8 @@ export function CredibilityBar() {
                                 rel="noopener noreferrer"
                                 className="flex items-center justify-center min-w-[240px] h-16 opacity-60 hover:opacity-100 transition-all duration-300 group cursor-pointer"
                                 whileHover={{
-                                    scale: 1.05,
-                                    transition: { duration: 0.2 }
+                                    scale: 1.02, // More subtle scale
+                                    transition: { duration: 0.15, ease: [0.25, 0.1, 0.25, 1] }
                                 }}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 0.6, y: 0 }}
@@ -77,8 +68,8 @@ export function CredibilityBar() {
                                 rel="noopener noreferrer"
                                 className="flex items-center justify-center min-w-[240px] h-16 opacity-60 hover:opacity-100 transition-all duration-300 group cursor-pointer"
                                 whileHover={{
-                                    scale: 1.05,
-                                    transition: { duration: 0.2 }
+                                    scale: 1.02, // More subtle scale
+                                    transition: { duration: 0.15, ease: [0.25, 0.1, 0.25, 1] }
                                 }}
                             >
                                 <span className="text-lg font-semibold text-muted-foreground group-hover:text-primary transition-colors duration-300">
@@ -86,7 +77,7 @@ export function CredibilityBar() {
                                 </span>
                             </motion.a>
                         ))}
-                    </motion.div>
+                    </div>
 
                     {/* Gradient overlays for fade effect */}
                     <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent pointer-events-none" />

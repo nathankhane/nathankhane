@@ -15,7 +15,7 @@ interface AnimatedSectionProps {
 const getAnimationVariants = (direction: string, duration: number, delay: number, stagger: number): Variants => {
     const baseTransition = {
         duration,
-        ease: "easeOut" as const,
+        ease: [0.25, 0.1, 0.25, 1] as const, // Custom cubic-bezier for smoother easing
         ...(delay > 0 && { delay }),
         ...(stagger > 0 && { staggerChildren: stagger })
     };
@@ -23,7 +23,7 @@ const getAnimationVariants = (direction: string, duration: number, delay: number
     switch (direction) {
         case "up":
             return {
-                hidden: { opacity: 0, y: 30 },
+                hidden: { opacity: 0, y: 20 }, // Reduced distance for smoother animation
                 visible: {
                     opacity: 1,
                     y: 0,
@@ -32,7 +32,7 @@ const getAnimationVariants = (direction: string, duration: number, delay: number
             };
         case "down":
             return {
-                hidden: { opacity: 0, y: -30 },
+                hidden: { opacity: 0, y: -20 },
                 visible: {
                     opacity: 1,
                     y: 0,
@@ -41,7 +41,7 @@ const getAnimationVariants = (direction: string, duration: number, delay: number
             };
         case "left":
             return {
-                hidden: { opacity: 0, x: -30 },
+                hidden: { opacity: 0, x: -20 },
                 visible: {
                     opacity: 1,
                     x: 0,
@@ -50,7 +50,7 @@ const getAnimationVariants = (direction: string, duration: number, delay: number
             };
         case "right":
             return {
-                hidden: { opacity: 0, x: 30 },
+                hidden: { opacity: 0, x: 20 },
                 visible: {
                     opacity: 1,
                     x: 0,
@@ -59,7 +59,7 @@ const getAnimationVariants = (direction: string, duration: number, delay: number
             };
         case "scale":
             return {
-                hidden: { opacity: 0, scale: 0.9 },
+                hidden: { opacity: 0, scale: 0.95 }, // Subtle scale for less jarring effect
                 visible: {
                     opacity: 1,
                     scale: 1,
@@ -94,8 +94,8 @@ export default function AnimatedSection({
             whileInView="visible"
             viewport={{
                 once: true,
-                margin: "0px",
-                amount: 0.1
+                margin: "-50px", // Trigger animation earlier for smoother entrance
+                amount: 0.15 // Slightly higher threshold for better timing
             }}
             variants={variants}
         >

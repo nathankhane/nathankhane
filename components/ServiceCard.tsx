@@ -26,8 +26,8 @@ export default function ServiceCard({
         backdrop-blur-sm
       "
             whileHover={{
-                y: -8,
-                transition: { duration: 0.3, ease: "easeOut" }
+                y: -6, // Reduced for smoother performance
+                transition: { duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }
             }}
         >
             <ServiceIcon name={icon} className="mx-auto group-hover:scale-110 transition-transform duration-300" />
