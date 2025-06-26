@@ -20,10 +20,10 @@ export const metadata: Metadata = {
     siteName: "Khane",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/khane-og-image.png",
         width: 1200,
         height: 630,
-        alt: "Nathan Khane - Business ≡ Poetry - Turning narrative into revenue for founders & creators",
+        alt: "Khane - Business ≡ Poetry - Turning narrative into revenue for founders & creators",
       },
     ],
     locale: "en_US",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "Khane – Business ≡ Poetry",
     description: "Turning narrative into revenue for founders & creators.",
     creator: "@nathankmo",
-    images: ["/og-image.jpg"],
+    images: ["/khane-og-image.png"],
   },
   robots: {
     index: true,

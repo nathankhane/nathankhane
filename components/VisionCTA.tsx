@@ -30,7 +30,7 @@ export function VisionCTA() {
                     viewport={{ once: true, amount: 0.1 }}
                 >
                     <Link
-                        href="https://calendly.com/nathankhane/20min"
+                        href="https://cal.com/nathankhane/discovery"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-block"

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-const CALENDLY_URL = "https://calendly.com/nathankhane/20min";
+const CAL_URL = "https://cal.com/nathankhane/discovery";
 
 // Singleton iframe for preloading
 let calendlyIframe: HTMLIFrameElement | null = null;
@@ -68,7 +68,7 @@ export default function CalendlyWidget() {
                 background_color: '0F0F0F' // Your dark background
             });
 
-            calendlyIframe.src = `${CALENDLY_URL}?${params.toString()}`;
+            calendlyIframe.src = `${CAL_URL}?${params.toString()}`;
             calendlyIframe.style.position = "absolute";
             calendlyIframe.style.left = "-9999px";
             calendlyIframe.style.width = "100%";

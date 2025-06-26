@@ -242,8 +242,15 @@
 }
 
 .animate-marquee {
-  animation: marquee 35s linear infinite;
+  animation: marquee 20s linear infinite;
   will-change: transform; /* GPU acceleration hint */
+}
+
+/* Faster animation for mobile devices */
+@media (max-width: 768px) {
+  .animate-marquee {
+    animation: marquee 15s linear infinite;
+  }
 }
 
 .animate-bounce-slow {

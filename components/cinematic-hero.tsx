@@ -6,7 +6,6 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ChevronDown } from "lucide-react";
 
-const RotatingTagline = dynamic(() => import("@/components/RotatingTagline"), { ssr: false });
 
 const words = ["Founder", "Storyteller", "Artist"];
 
@@ -97,19 +96,11 @@ export function CinematicHero() {
                                 Turning narrative into revenue for founders & creators.
                             </motion.p>
 
-                            {/* rotating inspirational taglines */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.8, duration: 0.6 }}
-                            >
-                                <RotatingTagline />
-                            </motion.div>
 
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.0, duration: 0.6 }}
+                                transition={{ delay: 0.8, duration: 0.6 }}
                                 className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 pb-16"
                             >
                                 <Link
@@ -137,7 +128,7 @@ export function CinematicHero() {
                         href="#hero"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 1.5, duration: 0.6 }}
+                        transition={{ delay: 1.2, duration: 0.6 }}
                         className="absolute left-1/2 bottom-8 -translate-x-1/2 flex flex-col items-center gap-1 group hidden sm:flex"
                         onClick={(e) => {
                             e.preventDefault();
