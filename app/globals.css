@@ -1,5 +1,5 @@
-/* Import fonts for brand typography */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Charter:wght@400;600;700;900&display=swap');
+/* Import retro fonts for brand typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Charter:wght@400;600;700;900&family=Bebas+Neue&family=Oswald:wght@400;700&family=Source+Sans+Pro:wght@400;600;700&family=Fredoka+One&display=swap');
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -50,88 +50,123 @@
 
 :root {
   --radius: 0.625rem;
+  
+  /* Retro Design System */
+  --retro-radius-sm: 0.375rem;
+  --retro-radius-md: 0.5rem;
+  --retro-radius-lg: 0.75rem;
+  --retro-radius-xl: 1rem;
+  --retro-radius-2xl: 1.5rem;
+  
+  /* Retro Shadows */
+  --retro-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --retro-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+  --retro-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+  --retro-shadow-vintage: 0 6px 12px rgba(183, 62, 42, 0.2);
+  
+  /* Retro Spacing */
+  --retro-space-xs: 0.25rem;
+  --retro-space-sm: 0.5rem;
+  --retro-space-md: 1rem;
+  --retro-space-lg: 1.5rem;
+  --retro-space-xl: 2rem;
+  --retro-space-2xl: 3rem;
+  
+  /* Retro Transitions */
+  --retro-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --retro-transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --retro-transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --retro-transition-bounce: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-  /* Brand Colors */
-  --primary-cherry: #8E2D34;
-  --primary-cherry-dark: #5B1E23;
-  --cream-paper: #FAF7F5;
-  --stone-ink: rgba(30, 30, 30, 0.9);
+  /* Retro Brand Colors */
+  --atlas-red: #B73E2A;
+  --atlas-red-dark: #8B2E1F;
+  --vintage-cream: #FDF6E3;
+  --ink-black: #1A1A1A;
+  --rust-orange: #D4741A;
+  --sage-green: #7A8B5C;
+  
+  /* Legacy Colors (for transition) */
+  --primary-cherry: #B73E2A;
+  --primary-cherry-dark: #8B2E1F;
+  --cream-paper: #FDF6E3;
+  --stone-ink: rgba(26, 26, 26, 0.9);
 
   /* Light Theme */
-  --background: #FAF7F5;
-  /* cream-paper */
-  --foreground: rgba(30, 30, 30, 0.9);
-  /* stone-ink */
+  --background: #FDF6E3;
+  /* vintage-cream */
+  --foreground: rgba(26, 26, 26, 0.9);
+  /* ink-black */
   --card: #FFFFFF;
-  --card-foreground: rgba(30, 30, 30, 0.9);
+  --card-foreground: rgba(26, 26, 26, 0.9);
   --popover: #FFFFFF;
-  --popover-foreground: rgba(30, 30, 30, 0.9);
-  --primary: #8E2D34;
-  /* primary-cherry */
+  --popover-foreground: rgba(26, 26, 26, 0.9);
+  --primary: #B73E2A;
+  /* atlas-red */
   --primary-foreground: #FFFFFF;
   --secondary: #F5F1EF;
-  --secondary-foreground: rgba(30, 30, 30, 0.9);
+  --secondary-foreground: rgba(26, 26, 26, 0.9);
   --muted: #F8F6F4;
   --muted-foreground: #64748B;
-  --accent: #8E2D34;
+  --accent: #B73E2A;
   --accent-foreground: #FFFFFF;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
   --border: #E8E2DE;
   --input: #F5F1EF;
-  --ring: #8E2D34;
-  --chart-1: #8E2D34;
+  --ring: #B73E2A;
+  --chart-1: #B73E2A;
   --chart-2: #64748B;
   --chart-3: #94A3B8;
   --chart-4: #CBD5E1;
   --chart-5: #E2E8F0;
   --sidebar: #FFFFFF;
-  --sidebar-foreground: rgba(30, 30, 30, 0.9);
-  --sidebar-primary: #8E2D34;
+  --sidebar-foreground: rgba(26, 26, 26, 0.9);
+  --sidebar-primary: #B73E2A;
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #F5F1EF;
-  --sidebar-accent-foreground: rgba(30, 30, 30, 0.9);
+  --sidebar-accent-foreground: rgba(26, 26, 26, 0.9);
   --sidebar-border: #E8E2DE;
-  --sidebar-ring: #8E2D34;
+  --sidebar-ring: #B73E2A;
 }
 
 .dark {
   /* Dark Theme */
-  --background: #1E1E1E;
-  /* stone-ink dark */
-  --foreground: #FAF7F5;
-  /* cream-paper */
+  --background: #1A1A1A;
+  /* ink-black */
+  --foreground: #FDF6E3;
+  /* vintage-cream */
   --card: #2A2A2A;
-  --card-foreground: #FAF7F5;
+  --card-foreground: #FDF6E3;
   --popover: #2A2A2A;
-  --popover-foreground: #FAF7F5;
-  --primary: #8E2D34;
-  /* primary-cherry */
+  --popover-foreground: #FDF6E3;
+  --primary: #B73E2A;
+  /* atlas-red */
   --primary-foreground: #FFFFFF;
   --secondary: #3A3A3A;
-  --secondary-foreground: #FAF7F5;
+  --secondary-foreground: #FDF6E3;
   --muted: #2A2A2A;
   --muted-foreground: #94A3B8;
-  --accent: #8E2D34;
+  --accent: #B73E2A;
   --accent-foreground: #FFFFFF;
   --destructive: #DC2626;
-  --destructive-foreground: #FAF7F5;
+  --destructive-foreground: #FDF6E3;
   --border: #3A3A3A;
   --input: #3A3A3A;
-  --ring: #8E2D34;
-  --chart-1: #8E2D34;
+  --ring: #B73E2A;
+  --chart-1: #B73E2A;
   --chart-2: #64748B;
   --chart-3: #475569;
   --chart-4: #3A3A3A;
   --chart-5: #2A2A2A;
   --sidebar: #2A2A2A;
-  --sidebar-foreground: #FAF7F5;
-  --sidebar-primary: #8E2D34;
+  --sidebar-foreground: #FDF6E3;
+  --sidebar-primary: #B73E2A;
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #3A3A3A;
-  --sidebar-accent-foreground: #FAF7F5;
+  --sidebar-accent-foreground: #FDF6E3;
   --sidebar-border: #3A3A3A;
-  --sidebar-ring: #8E2D34;
+  --sidebar-ring: #B73E2A;
 }
 
 @layer base {
@@ -141,7 +176,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Source Sans Pro', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   /* Performance optimizations */
@@ -162,8 +197,28 @@
   h4,
   h5,
   h6 {
-    font-family: 'Charter', ui-serif, Georgia, serif;
+    font-family: 'Oswald', 'Charter', ui-serif, Georgia, serif;
     font-weight: 700;
+  }
+  
+  /* Retro Typography Classes */
+  .font-hero {
+    font-family: 'Bebas Neue', Arial Black, sans-serif;
+    letter-spacing: 2px;
+  }
+  
+  .font-headline {
+    font-family: 'Oswald', Arial, sans-serif;
+    font-weight: 700;
+  }
+  
+  .font-body {
+    font-family: 'Source Sans Pro', 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+  
+  .font-accent {
+    font-family: 'Fredoka One', cursive;
   }
 
   .font-mono {
@@ -226,6 +281,39 @@
   }
 }
 
+/* Retro Animation Keyframes */
+@keyframes vintage-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes retro-typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes retro-slide {
+  from { 
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes retro-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes vintage-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.8s ease-out forwards;
 }
@@ -255,6 +343,27 @@
 
 .animate-bounce-slow {
   animation: bounce-slow 2s infinite;
+}
+
+/* Retro Animation Classes */
+.animate-vintage-pop {
+  animation: vintage-pop 0.6s var(--retro-transition-bounce);
+}
+
+.animate-retro-typewriter {
+  animation: retro-typewriter 3s steps(40, end);
+}
+
+.animate-retro-slide {
+  animation: retro-slide 0.5s var(--retro-transition-normal);
+}
+
+.animate-retro-bounce {
+  animation: retro-bounce 1s infinite;
+}
+
+.animate-vintage-pulse {
+  animation: vintage-pulse 2s infinite;
 }
 
 @keyframes blink-caret {
