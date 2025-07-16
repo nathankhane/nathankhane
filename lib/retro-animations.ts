@@ -5,7 +5,7 @@ export const retroAnimations = {
   // Vintage Pop Animation
   vintagePop: {
     initial: { scale: 1 },
-    animate: { 
+    animate: {
       scale: [1, 1.05, 1],
       transition: {
         duration: 0.6,
@@ -23,11 +23,11 @@ export const retroAnimations = {
 
   // Retro Slide Animation
   retroSlide: {
-    initial: { 
+    initial: {
       opacity: 0,
       x: -30
     },
-    animate: { 
+    animate: {
       opacity: 1,
       x: 0,
       transition: {
@@ -47,11 +47,11 @@ export const retroAnimations = {
 
   // Vintage Fade In
   vintageFadeIn: {
-    initial: { 
+    initial: {
       opacity: 0,
       y: 20
     },
-    animate: { 
+    animate: {
       opacity: 1,
       y: 0,
       transition: {
@@ -96,7 +96,7 @@ export const retroAnimations = {
   // Retro Typewriter Effect
   retroTypewriter: {
     initial: { width: 0 },
-    animate: { 
+    animate: {
       width: "100%",
       transition: {
         duration: 3,
@@ -107,11 +107,11 @@ export const retroAnimations = {
 
   // Vintage Scale In
   vintageScaleIn: {
-    initial: { 
+    initial: {
       scale: 0.8,
       opacity: 0
     },
-    animate: { 
+    animate: {
       scale: 1,
       opacity: 1,
       transition: {
@@ -131,11 +131,11 @@ export const retroAnimations = {
 
   // Retro Button Hover
   retroButtonHover: {
-    initial: { 
+    initial: {
       scale: 1,
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.12)"
     },
-    whileHover: { 
+    whileHover: {
       scale: 1.02,
       boxShadow: "0 8px 16px rgba(183, 62, 42, 0.2)",
       transition: {
@@ -143,7 +143,7 @@ export const retroAnimations = {
         ease: [0.4, 0, 0.2, 1]
       }
     },
-    whileTap: { 
+    whileTap: {
       scale: 0.98,
       transition: {
         duration: 0.1,
@@ -154,11 +154,11 @@ export const retroAnimations = {
 
   // Vintage Card Hover
   vintageCardHover: {
-    initial: { 
+    initial: {
       y: 0,
       boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
     },
-    whileHover: { 
+    whileHover: {
       y: -4,
       boxShadow: "0 8px 16px rgba(183, 62, 42, 0.15)",
       transition: {
@@ -180,11 +180,11 @@ export const retroAnimations = {
 
   // Vintage Badge Animation
   vintageBadge: {
-    initial: { 
+    initial: {
       scale: 0,
       rotate: -10
     },
-    animate: { 
+    animate: {
       scale: 1,
       rotate: 0,
       transition: {
@@ -206,8 +206,8 @@ export const retroAnimations = {
 
 // Utility functions for creating custom retro animations
 export const createRetroAnimation = (
-  initialState: any,
-  animateState: any,
+  initialState: Record<string, unknown>,
+  animateState: Record<string, unknown>,
   duration: number = 0.5,
   ease: string | number[] = [0.4, 0, 0.2, 1]
 ) => ({
@@ -222,7 +222,7 @@ export const createRetroAnimation = (
 })
 
 export const createRetroHover = (
-  hoverState: any,
+  hoverState: Record<string, unknown>,
   duration: number = 0.3
 ) => ({
   whileHover: {
