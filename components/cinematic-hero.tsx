@@ -46,12 +46,12 @@ export function CinematicHero() {
     return (
         <section
             id="hero"
-            className="relative flex flex-col items-center justify-center min-h-[calc(100dvh-4rem)] text-center px-4 sm:px-6 lg:px-8 bg-[#FDF6E3] dark:bg-[#1A1A1A]"
+            className="relative flex flex-col items-center justify-center min-h-[calc(100dvh-4rem)] text-center px-4 sm:px-6 lg:px-8 bg-[#FAF7F5] dark:bg-[#1E1E1E]"
         >
             {/* Retro Background Pattern */}
             <div className="absolute inset-0 opacity-10">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#B73E2A]/20 via-transparent to-[#D4741A]/10" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(183,62,42,0.1),transparent_50%)] opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#8E2D34]/20 via-transparent to-[#8E2D34]/10" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(142,45,52,0.1),transparent_50%)] opacity-60" />
             </div>
 
             <div className="z-10 flex flex-col items-center max-w-4xl space-y-8 mx-auto">
@@ -85,7 +85,7 @@ export function CinematicHero() {
                         >
                             <div className="relative">
                                 <h2 className="hero-title text-5xl sm:text-7xl lg:text-8xl leading-tight text-[#1A1A1A] dark:text-[#FAF7F5]">
-                                    <span className="ornamental">Business</span> <span className="hero-equals">≡</span> <span className="ornamental">Poetry</span>
+                                    <span className="ornamental mr-4">Business</span><span className="hero-equals mx-2">≡</span><span className="ornamental ml-4">Poetry</span>
                                 </h2>
                                 <div className="absolute -top-8 -right-8 hidden lg:block">
                                     <EstablishedBadge year="2020" />
