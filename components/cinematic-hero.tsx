@@ -85,7 +85,7 @@ export function CinematicHero() {
                         >
                             <div className="relative">
                                 <h2 className="hero-title text-5xl sm:text-7xl lg:text-8xl leading-tight text-[#1A1A1A] dark:text-[#FAF7F5]">
-                                    <span className="ornamental mr-4">Business</span><span className="hero-equals mx-2">≡</span><span className="ornamental ml-4">Poetry</span>
+                                    <span className="ornamental">Business</span><span className="hero-equals mx-3 sm:mx-4 lg:mx-6">≡</span><span className="ornamental">Poetry</span>
                                 </h2>
                                 <div className="absolute -top-8 -right-8 hidden lg:block">
                                     <EstablishedBadge year="2020" />
