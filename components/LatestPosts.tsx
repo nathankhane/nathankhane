@@ -34,7 +34,7 @@ export default function LatestPosts() {
     if (loading) {
         return (
             <section className="py-20 space-y-6 px-6 max-w-6xl mx-auto">
-                <h2 className="text-3xl font-semibold text-center">Latest Essays</h2>
+                <h2 className="font-display text-3xl font-bold text-center">Latest Essays</h2>
                 <div className="grid md:grid-cols-3 gap-6 pb-8">
                     {[1, 2, 3].map((i) => (
                         <div key={i} className="border rounded-xl p-4 animate-pulse">
@@ -50,7 +50,7 @@ export default function LatestPosts() {
     return (
         <section className="py-20 space-y-6 px-6 max-w-6xl mx-auto">
             <AnimatedSection direction="fade">
-                <h2 className="text-3xl font-semibold text-center">Latest Essays</h2>
+                <h2 className="font-display text-3xl font-bold text-center">Latest Essays</h2>
             </AnimatedSection>
             <AnimatedSection direction="up" stagger={0.1} className="grid md:grid-cols-3 gap-6 pb-8">
                 {posts.map((post, index) => (

@@ -62,7 +62,7 @@ export function CinematicHero() {
                     >
                         <h1
                             aria-live="polite"
-                            className="font-hero font-bold leading-tight text-[clamp(2rem,5vw,3.5rem)] md:text-[clamp(2.5rem,4.5vw,4rem)] min-h-[1.2em] text-[#B73E2A]"
+                            className="font-display text-[clamp(2rem,5vw,3.5rem)] md:text-[clamp(2.5rem,4.5vw,4rem)] min-h-[1.2em] text-[#8E2D34] font-bold leading-tight"
                         >
                             {displayedText.split('.').map((word, index) => (
                                 <span key={index}>
@@ -84,17 +84,17 @@ export function CinematicHero() {
                             className="space-y-8"
                         >
                             <div className="relative">
-                                <h2 className="font-hero text-5xl sm:text-7xl lg:text-8xl font-bold leading-tight text-[#1A1A1A] dark:text-[#FDF6E3]">
-                                    Business <span className="text-[#B73E2A]">≡</span> Poetry
+                                <h2 className="hero-title text-5xl sm:text-7xl lg:text-8xl leading-tight text-[#1A1A1A] dark:text-[#FAF7F5]">
+                                    <span className="ornamental">Business</span> <span className="hero-equals">≡</span> <span className="ornamental">Poetry</span>
                                 </h2>
                                 <div className="absolute -top-8 -right-8 hidden lg:block">
                                     <EstablishedBadge year="2020" />
                                 </div>
                             </div>
-                            
+
                             <motion.p
                                 {...retroAnimations.vintageFadeIn}
-                                className="font-body text-xl sm:text-2xl lg:text-3xl max-w-3xl mx-auto text-muted-foreground leading-relaxed"
+                                className="lead max-w-3xl mx-auto text-muted-foreground"
                             >
                                 Turning narrative into revenue for founders & creators.
                             </motion.p>

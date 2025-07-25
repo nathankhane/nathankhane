@@ -21,10 +21,10 @@ export default function Home() {
         <section className="py-20 px-6">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection direction="fade" delay={0.1} className="text-center mb-16">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
                 Every venture is a verse, every metric a rhyme
               </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              <p className="lead text-muted-foreground max-w-3xl mx-auto">
                 I help founders and creators transform their stories into strategic advantages that drive real growth.
               </p>
             </AnimatedSection>
@@ -65,10 +65,10 @@ export default function Home() {
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <AnimatedSection direction="fade" className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
               Proof in the poetry
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="lead text-muted-foreground max-w-3xl mx-auto">
               Case studies that show how narrative strategy transforms into measurable results.
             </p>
           </AnimatedSection>
@@ -132,10 +132,10 @@ export default function Home() {
         <section className="py-20 px-6 bg-muted/30">
           <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection direction="scale">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
                 Join the Business ≡ Poetry newsletter
               </h2>
-              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              <p className="lead text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Weekly insights on turning narrative into revenue. Stories, strategies, and behind-the-scenes from the intersection of business and creativity.
               </p>
             </AnimatedSection>
