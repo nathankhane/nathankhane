@@ -34,21 +34,21 @@ export default function Home() {
                 icon="growth"
                 title="Growth Story Audit"
                 description="Uncover the narrative gaps holding back your growth and get a roadmap to fix them."
-                href="/work-with-me"
+                href="/contact"
                 cta="Learn More"
               />
               <ServiceCard
                 icon="coaching"
                 title="Creative Coaching"
                 description="Bridge the gap between artistic vision and business strategy for sustainable creative success."
-                href="/work-with-me"
+                href="/contact"
                 cta="Apply Now"
               />
               <ServiceCard
                 icon="gtm"
                 title="Go-To-Market Sprints"
                 description="Rapid-fire strategy sessions to nail your positioning, messaging, and launch strategy."
-                href="/work-with-me"
+                href="/contact"
                 cta="Book Sprint"
               />
             </AnimatedSection>
