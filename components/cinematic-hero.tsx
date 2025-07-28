@@ -84,11 +84,11 @@ export function CinematicHero() {
                             className="space-y-8"
                         >
                             <div className="relative">
-                                <h2 className="hero-title text-5xl sm:text-7xl lg:text-8xl leading-tight text-[#1A1A1A] dark:text-[#FAF7F5]">
-                                    <span className="ornamental">Business</span><span className="hero-equals mx-3 sm:mx-4 lg:mx-6">≡</span><span className="ornamental">Poetry</span>
+                                <h2 className="hero-title text-5xl sm:text-7xl lg:text-8xl leading-tight text-[#1A1A1A] dark:text-[#FAF7F5] tracking-wide">
+                                    <span>Business</span> <span className="hero-equals mx-4 sm:mx-6 lg:mx-8">≡</span> <span>Poetry</span>
                                 </h2>
                                 <div className="absolute -top-8 -right-8 hidden lg:block">
-                                    <EstablishedBadge year="2020" />
+                                    <EstablishedBadge year="2000" />
                                 </div>
                             </div>
 
@@ -106,7 +106,7 @@ export function CinematicHero() {
                                 <motion.div {...retroAnimations.retroButtonHover}>
                                     <Link
                                         href="/contact"
-                                        className="group relative px-8 py-4 bg-gradient-to-r from-[#B73E2A] to-[#8B2E1F] text-white rounded-xl font-headline font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
+                                        className="discovery-call-button group relative px-8 py-4 bg-gradient-to-r from-[#B73E2A] to-[#8B2E1F] text-white rounded-xl font-headline font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
                                     >
                                         <span className="relative z-10">Book a Discovery Call</span>
                                         <VintageArrowRight size="sm" color="vintage-cream" className="transition-transform group-hover:translate-x-1" />
@@ -117,9 +117,9 @@ export function CinematicHero() {
                                 <motion.div {...retroAnimations.retroButtonHover}>
                                     <Link
                                         href="/blog"
-                                        className="px-8 py-4 border-2 border-[#B73E2A] text-[#B73E2A] rounded-xl font-headline font-semibold text-lg transition-all duration-300 hover:bg-[#B73E2A] hover:text-white shadow-md hover:shadow-lg"
+                                        className="blog-button px-8 py-4 border-2 border-[#B73E2A] text-[#B73E2A] rounded-xl font-headline font-semibold text-lg transition-all duration-300 hover:bg-[#B73E2A] hover:text-white"
                                     >
-                                        Read the Essays
+                                        Blog
                                     </Link>
                                 </motion.div>
                             </motion.div>

@@ -81,21 +81,21 @@ export default function RootLayout({
                 <nav className="hidden md:flex items-center space-x-8">
                   <Link
                     href="/portfolio"
-                    className="relative hover:text-[#B73E2A] transition-colors duration-300 group font-headline font-semibold text-sm uppercase tracking-wider"
+                    className="relative hover:text-[#B73E2A] transition-colors duration-300 group font-headline font-semibold text-base tracking-wider"
                   >
                     Portfolio
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#B73E2A] transition-all duration-300 group-hover:w-full"></span>
                   </Link>
                   <Link
                     href="/about"
-                    className="relative hover:text-[#B73E2A] transition-colors duration-300 group font-headline font-semibold text-sm uppercase tracking-wider"
+                    className="relative hover:text-[#B73E2A] transition-colors duration-300 group font-headline font-semibold text-base tracking-wider"
                   >
                     Who Am I
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#B73E2A] transition-all duration-300 group-hover:w-full"></span>
                   </Link>
                   <Link
                     href="/contact"
-                    className="relative hover:text-[#B73E2A] transition-colors duration-300 group font-headline font-semibold text-sm uppercase tracking-wider"
+                    className="relative hover:text-[#B73E2A] transition-colors duration-300 group font-headline font-semibold text-base tracking-wider"
                   >
                     Work With Me
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#B73E2A] transition-all duration-300 group-hover:w-full"></span>
@@ -120,7 +120,7 @@ export default function RootLayout({
           <footer className="mt-24 py-10 border-t">
             <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
               <p className="text-sm opacity-70 hover:opacity-100 transition-opacity duration-300">
-                &copy; {new Date().getFullYear()} Nathan Khane
+                &copy; {new Date().getFullYear()} Khane Creative, Inc. All Rights Reserved
               </p>
               <nav className="flex gap-6 text-sm opacity-80">
                 <Link

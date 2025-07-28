@@ -57,7 +57,7 @@ export function MobileNavOverlay() {
         >
             {/* Menu Header */}
             <div className="flex items-center justify-between p-6 border-b border-white/10">
-                <h2 className="text-xl font-semibold text-white">Menu</h2>
+                <h2 className="text-xl font-headline font-semibold text-white">Menu</h2>
                 <button
                     onClick={() => setIsOpen(false)}
                     className="p-2 text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors duration-200"
@@ -73,7 +73,7 @@ export function MobileNavOverlay() {
                     <Link
                         href="/portfolio"
                         onClick={() => setIsOpen(false)}
-                        className="block text-2xl font-medium text-white hover:text-primary px-4 py-4 rounded-xl transition-all duration-300 hover:bg-white/5 hover:pl-6"
+                        className="block text-2xl font-headline font-medium text-white hover:text-primary px-4 py-4 rounded-xl transition-all duration-300 hover:bg-white/5 hover:pl-6"
                     >
                         Portfolio
                     </Link>
@@ -81,7 +81,7 @@ export function MobileNavOverlay() {
                     <Link
                         href="/about"
                         onClick={() => setIsOpen(false)}
-                        className="block text-2xl font-medium text-white hover:text-primary px-4 py-4 rounded-xl transition-all duration-300 hover:bg-white/5 hover:pl-6"
+                        className="block text-2xl font-headline font-medium text-white hover:text-primary px-4 py-4 rounded-xl transition-all duration-300 hover:bg-white/5 hover:pl-6"
                     >
                         Who Am I
                     </Link>
@@ -89,7 +89,7 @@ export function MobileNavOverlay() {
                     <Link
                         href="/contact"
                         onClick={() => setIsOpen(false)}
-                        className="block text-2xl font-medium text-white hover:text-primary px-4 py-4 rounded-xl transition-all duration-300 hover:bg-white/5 hover:pl-6"
+                        className="block text-2xl font-headline font-medium text-white hover:text-primary px-4 py-4 rounded-xl transition-all duration-300 hover:bg-white/5 hover:pl-6"
                     >
                         Work With Me
                     </Link>
@@ -97,7 +97,7 @@ export function MobileNavOverlay() {
                     <Link
                         href="/blog"
                         onClick={() => setIsOpen(false)}
-                        className="block text-2xl font-medium text-white hover:text-primary px-4 py-4 rounded-xl transition-all duration-300 hover:bg-white/5 hover:pl-6"
+                        className="block text-2xl font-headline font-medium text-white hover:text-primary px-4 py-4 rounded-xl transition-all duration-300 hover:bg-white/5 hover:pl-6"
                     >
                         Blog
                     </Link>
@@ -149,7 +149,7 @@ export default function MobileNav() {
         >
             {/* Menu Header */}
             <div className={`flex items-center justify-between p-6 border-b ${isDark ? 'border-white/10' : 'border-black/10'}`}>
-                <h2 className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-black'}`}>Menu</h2>
+                <h2 className={`text-xl font-headline font-semibold ${isDark ? 'text-white' : 'text-black'}`}>Menu</h2>
                 <button
                     onClick={closeMenu}
                     className={`p-2 rounded-lg transition-colors duration-200 ${isDark
@@ -168,7 +168,7 @@ export default function MobileNav() {
                     <Link
                         href="/portfolio"
                         onClick={closeMenu}
-                        className={`block text-2xl font-medium px-4 py-4 rounded-xl transition-all duration-300 ${isDark
+                        className={`block text-2xl font-headline font-medium px-4 py-4 rounded-xl transition-all duration-300 ${isDark
                             ? 'text-white hover:text-primary hover:bg-white/5 hover:pl-6'
                             : 'text-black hover:text-primary hover:bg-black/5 hover:pl-6'
                             }`}
@@ -179,7 +179,7 @@ export default function MobileNav() {
                     <Link
                         href="/about"
                         onClick={closeMenu}
-                        className={`block text-2xl font-medium px-4 py-4 rounded-xl transition-all duration-300 ${isDark
+                        className={`block text-2xl font-headline font-medium px-4 py-4 rounded-xl transition-all duration-300 ${isDark
                             ? 'text-white hover:text-primary hover:bg-white/5 hover:pl-6'
                             : 'text-black hover:text-primary hover:bg-black/5 hover:pl-6'
                             }`}
@@ -190,7 +190,7 @@ export default function MobileNav() {
                     <Link
                         href="/contact"
                         onClick={closeMenu}
-                        className={`block text-2xl font-medium px-4 py-4 rounded-xl transition-all duration-300 ${isDark
+                        className={`block text-2xl font-headline font-medium px-4 py-4 rounded-xl transition-all duration-300 ${isDark
                             ? 'text-white hover:text-primary hover:bg-white/5 hover:pl-6'
                             : 'text-black hover:text-primary hover:bg-black/5 hover:pl-6'
                             }`}
@@ -201,7 +201,7 @@ export default function MobileNav() {
                     <Link
                         href="/blog"
                         onClick={closeMenu}
-                        className={`block text-2xl font-medium px-4 py-4 rounded-xl transition-all duration-300 ${isDark
+                        className={`block text-2xl font-headline font-medium px-4 py-4 rounded-xl transition-all duration-300 ${isDark
                             ? 'text-white hover:text-primary hover:bg-white/5 hover:pl-6'
                             : 'text-black hover:text-primary hover:bg-black/5 hover:pl-6'
                             }`}

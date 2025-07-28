@@ -64,7 +64,7 @@ export default function About() {
                     transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
                 >
                     <motion.p
-                        className="text-lg sm:text-xl font-semibold text-primary mb-4 sm:mb-6"
+                        className="text-xl sm:text-2xl font-bold text-primary mb-4 sm:mb-6"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
@@ -77,7 +77,7 @@ export default function About() {
                     </motion.p>
 
                     <motion.p
-                        className="text-base sm:text-lg leading-relaxed mb-3 sm:mb-4"
+                        className="text-base leading-relaxed mb-3 sm:mb-4"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.9, ease: "easeOut" }}
@@ -86,7 +86,7 @@ export default function About() {
                     </motion.p>
 
                     <motion.p
-                        className="leading-relaxed mb-3 sm:mb-4"
+                        className="text-base leading-relaxed mb-3 sm:mb-4"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 1.1, ease: "easeOut" }}
@@ -95,7 +95,7 @@ export default function About() {
                     </motion.p>
 
                     <motion.p
-                        className="leading-relaxed mb-3 sm:mb-4"
+                        className="text-base leading-relaxed mb-3 sm:mb-4"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 1.3, ease: "easeOut" }}
@@ -108,7 +108,7 @@ export default function About() {
                     </motion.p>
 
                     <motion.p
-                        className="leading-relaxed mb-3 sm:mb-4"
+                        className="text-base leading-relaxed mb-3 sm:mb-4"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 1.5, ease: "easeOut" }}
@@ -121,7 +121,7 @@ export default function About() {
                     </motion.p>
 
                     <motion.p
-                        className="leading-relaxed mb-3 sm:mb-4"
+                        className="text-base leading-relaxed mb-3 sm:mb-4"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 1.7, ease: "easeOut" }}
@@ -134,7 +134,7 @@ export default function About() {
                     </motion.p>
 
                     <motion.p
-                        className="leading-relaxed font-medium text-primary"
+                        className="text-base leading-relaxed font-medium text-primary"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 1.9, ease: "easeOut" }}

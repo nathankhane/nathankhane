@@ -22,32 +22,32 @@ export function VintageBadge({
   animate = true
 }: VintageBadgeProps) {
   const baseClasses = "inline-flex items-center justify-center font-bold text-white"
-  
+
   const variantClasses = {
     circular: "rounded-full border-2 border-white/20",
     ribbon: "relative overflow-hidden",
     stamp: "border-2 border-dashed border-white/40 rounded-lg",
     seal: "rounded-full border-4 border-white/30 shadow-lg"
   }
-  
+
   const sizeClasses = {
     sm: "px-3 py-1 text-xs min-h-[2rem] min-w-[2rem]",
     md: "px-4 py-2 text-sm min-h-[3rem] min-w-[3rem]",
     lg: "px-6 py-3 text-base min-h-[4rem] min-w-[4rem]"
   }
-  
+
   const colorClasses = {
     'atlas-red': "bg-gradient-to-br from-[#B73E2A] to-[#8B2E1F]",
     'rust-orange': "bg-gradient-to-br from-[#D4741A] to-[#B8611A]",
     'sage-green': "bg-gradient-to-br from-[#7A8B5C] to-[#6B7A50]"
   }
-  
-  const ribbonClasses = variant === 'ribbon' ? 
+
+  const ribbonClasses = variant === 'ribbon' ?
     "before:absolute before:left-0 before:top-0 before:w-0 before:h-0 before:border-l-[8px] before:border-r-[8px] before:border-b-[8px] before:border-l-transparent before:border-r-transparent before:border-b-black/20 after:absolute after:right-0 after:top-0 after:w-0 after:h-0 after:border-l-[8px] after:border-r-[8px] after:border-b-[8px] after:border-l-transparent after:border-r-transparent after:border-b-black/20" : ""
-  
+
   const Component = animate ? motion.div : 'div'
   const animationProps = animate ? retroAnimations.vintageBadge : {}
-  
+
   return (
     <Component
       className={cn(
@@ -84,7 +84,7 @@ export function VintageBadge({
 }
 
 // Preset vintage badges
-export function EstablishedBadge({ year = '2020' }: { year?: string }) {
+export function EstablishedBadge({ year = '2000' }: { year?: string }) {
   return (
     <VintageBadge variant="circular" size="md" color="atlas-red">
       <div className="text-center">
