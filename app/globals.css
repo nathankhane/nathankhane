@@ -542,17 +542,134 @@
   opacity: 0;
 }
 
-/* TikTok Embed Optimization - Remove extra whitespace */
+/* TikTok Embed Optimization - Remove all whitespace and ensure proper display */
 .tiktok-embed {
   margin: 0 !important;
   padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  display: block !important;
+  width: 100% !important;
 }
 
-/* Target TikTok iframe specifically to remove borders and extra space */
+/* Target all TikTok blockquote elements */
+blockquote.tiktok-embed {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Target TikTok iframe specifically */
 blockquote.tiktok-embed iframe {
   border: none !important;
-  border-radius: 8px !important;
+  border-radius: 12px !important;
   margin: 0 !important;
   padding: 0 !important;
   background: transparent !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Remove any extra containers or wrappers that TikTok might inject */
+.tiktok-embed > div,
+.tiktok-embed > section {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Hide TikTok footer/branding if it appears */
+.tiktok-embed [data-testid="embed-footer"],
+.tiktok-embed .tiktok-embed-footer {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Ensure consistent spacing in grid layouts */
+.tiktok-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
+/* Force proper aspect ratio and sizing */
+.tiktok-embed blockquote {
+  max-width: 400px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Mobile Optimization Styles */
+@media (max-width: 768px) {
+  /* Improve touch targets on mobile */
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Optimize animation performance on mobile */
+  .animate-marquee {
+    animation-duration: 25s; /* Slower on mobile for better performance */
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Mobile-specific typography improvements */
+  .hero-title {
+    line-height: 1.1;
+    word-spacing: -0.05em;
+  }
+
+  /* Better mobile scrolling */
+  body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+
+  /* Optimize TikTok embeds for mobile */
+  .tiktok-embed {
+    max-width: 350px !important;
+  }
+
+  /* Mobile-specific button improvements */
+  button, .button, a[role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+}
+
+/* Improve focus visibility for accessibility */
+@media (prefers-reduced-motion: no-preference) {
+  *:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    transition: outline-offset 150ms ease;
+  }
+}
+
+/* PWA safe area support for mobile devices with notches */
+@supports (padding: max(0px)) {
+  .safe-area-inset {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
 }

@@ -83,7 +83,7 @@ export function MobileNavOverlay() {
                         onClick={() => setIsOpen(false)}
                         className="block text-2xl font-headline font-medium text-white hover:text-primary px-4 py-4 rounded-xl transition-all duration-300 hover:bg-white/5 hover:pl-6"
                     >
-                        Who Am I
+                        About
                     </Link>
 
                     <Link
@@ -184,7 +184,7 @@ export default function MobileNav() {
                             : 'text-black hover:text-primary hover:bg-black/5 hover:pl-6'
                             }`}
                     >
-                        Who Am I
+                        About
                     </Link>
 
                     <Link

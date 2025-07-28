@@ -7,8 +7,8 @@ export default function CalWidget() {
   useEffect(() => {
     (async function () {
       const cal = await getCalApi({ namespace: "discovery" });
-      cal("ui", { 
-        hideEventTypeDetails: false, 
+      cal("ui", {
+        hideEventTypeDetails: false,
         layout: "month_view",
         theme: "auto"
       });
@@ -17,7 +17,7 @@ export default function CalWidget() {
 
   return (
     <div className="w-full min-h-[700px] relative overflow-hidden rounded-2xl bg-card border border-border/50">
-      <Cal 
+      <Cal
         namespace="discovery"
         calLink="nathankhane/discovery"
         style={{

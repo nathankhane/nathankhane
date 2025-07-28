@@ -13,44 +13,7 @@ export default function ContentCreationSection() {
             document.head.appendChild(script);
         }
 
-        // Add custom styles to remove TikTok embed white space
-        if (!document.querySelector('#tiktok-custom-styles')) {
-            const style = document.createElement('style');
-            style.id = 'tiktok-custom-styles';
-            style.textContent = `
-                .tiktok-embed {
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    border: none !important;
-                    background: transparent !important;
-                }
-                
-                .tiktok-embed blockquote {
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    border: none !important;
-                    background: transparent !important;
-                }
-                
-                .tiktok-embed iframe {
-                    border-radius: 12px !important;
-                    overflow: hidden !important;
-                    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1) !important;
-                }
-                
-                /* Hide TikTok branding/footer if present */
-                .tiktok-embed [data-testid="embed-footer"],
-                .tiktok-embed .footer {
-                    display: none !important;
-                }
-                
-                /* Remove any default margins from embedded content */
-                .tiktok-embed * {
-                    box-sizing: border-box;
-                }
-            `;
-            document.head.appendChild(style);
-        }
+        // TikTok embeds are now styled via globals.css for better performance
     }, []);
 
     return (
@@ -70,21 +33,12 @@ export default function ContentCreationSection() {
                     <p className="text-muted-foreground">Recent thoughts on creativity and rhythm</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 justify-items-center">
-                    <div className="w-full max-w-[400px] overflow-hidden rounded-xl">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 justify-items-center">
+                    <div className="tiktok-container">
                         <blockquote
                             className="tiktok-embed"
                             cite="https://www.tiktok.com/@nathankmorales/video/7528959342104694029"
                             data-video-id="7528959342104694029"
-                            style={{
-                                minHeight: '600px',
-                                maxWidth: '605px',
-                                minWidth: '325px',
-                                margin: 0,
-                                padding: 0,
-                                border: 'none',
-                                background: 'transparent'
-                            }}
                         >
                             <section>
                                 <a target="_blank" title="@nathankmorales" href="https://www.tiktok.com/@nathankmorales?refer=embed">@nathankmorales</a> thinking out loud{" "}
@@ -95,20 +49,11 @@ export default function ContentCreationSection() {
                         </blockquote>
                     </div>
 
-                    <div className="w-full max-w-[400px] overflow-hidden rounded-xl">
+                    <div className="tiktok-container">
                         <blockquote
                             className="tiktok-embed"
                             cite="https://www.tiktok.com/@nathankmorales/video/7530832917510098190"
                             data-video-id="7530832917510098190"
-                            style={{
-                                minHeight: '600px',
-                                maxWidth: '605px',
-                                minWidth: '325px',
-                                margin: 0,
-                                padding: 0,
-                                border: 'none',
-                                background: 'transparent'
-                            }}
                         >
                             <section>
                                 <a target="_blank" title="@nathankmorales" href="https://www.tiktok.com/@nathankmorales?refer=embed">@nathankmorales</a> when do you feel most creative?{" "}
@@ -129,19 +74,12 @@ export default function ContentCreationSection() {
                     <p className="text-muted-foreground">Authentic moments and strategic messaging in action</p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6 xl:gap-8 justify-items-center">
-                    <div className="w-full max-w-[400px] lg:max-w-[350px] xl:max-w-[400px] overflow-hidden rounded-xl">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 justify-items-center">
+                    <div className="tiktok-container">
                         <blockquote
                             className="tiktok-embed"
                             cite="https://www.tiktok.com/@nathankmorales/video/7499259227735706923"
                             data-video-id="7499259227735706923"
-                            style={{
-                                minHeight: '600px',
-                                margin: 0,
-                                padding: 0,
-                                border: 'none',
-                                background: 'transparent'
-                            }}
                         >
                             <section>
                                 <a target="_blank" title="@nathankmorales" href="https://www.tiktok.com/@nathankmorales?refer=embed">@nathankmorales</a> reminder{" "}
@@ -151,18 +89,11 @@ export default function ContentCreationSection() {
                         </blockquote>
                     </div>
 
-                    <div className="w-full max-w-[400px] lg:max-w-[350px] xl:max-w-[400px] overflow-hidden rounded-xl">
+                    <div className="tiktok-container">
                         <blockquote
                             className="tiktok-embed"
                             cite="https://www.tiktok.com/@nathankmorales/video/7448001294297582890"
                             data-video-id="7448001294297582890"
-                            style={{
-                                minHeight: '600px',
-                                margin: 0,
-                                padding: 0,
-                                border: 'none',
-                                background: 'transparent'
-                            }}
                         >
                             <section>
                                 <a target="_blank" title="@nathankmorales" href="https://www.tiktok.com/@nathankmorales?refer=embed">@nathankmorales</a>{" "}
@@ -175,18 +106,11 @@ export default function ContentCreationSection() {
                         </blockquote>
                     </div>
 
-                    <div className="w-full max-w-[400px] lg:max-w-[350px] xl:max-w-[400px] overflow-hidden rounded-xl">
+                    <div className="tiktok-container">
                         <blockquote
                             className="tiktok-embed"
                             cite="https://www.tiktok.com/@nathankmorales/video/7456622147159510314"
                             data-video-id="7456622147159510314"
-                            style={{
-                                minHeight: '600px',
-                                margin: 0,
-                                padding: 0,
-                                border: 'none',
-                                background: 'transparent'
-                            }}
                         >
                             <section>
                                 <a target="_blank" title="@nathankmorales" href="https://www.tiktok.com/@nathankmorales?refer=embed">@nathankmorales</a>{" "}

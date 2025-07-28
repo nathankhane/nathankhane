@@ -36,7 +36,7 @@ export function VisionCTA() {
                         className="inline-block"
                     >
                         <motion.button
-                            className="px-12 py-4 border-2 border-primary text-primary rounded-full font-semibold text-lg tracking-wider hover:bg-primary hover:text-primary-foreground transition-all duration-200"
+                            className="px-12 py-4 sm:px-16 sm:py-6 border-2 border-primary text-primary rounded-full font-semibold text-lg sm:text-xl tracking-wider hover:bg-primary hover:text-primary-foreground transition-all duration-200 min-h-[56px] touch-manipulation"
                             whileHover={{
                                 scale: 1.02, // More subtle scale
                                 boxShadow: "0 8px 20px rgba(142, 45, 52, 0.25)" // Updated to cherry color

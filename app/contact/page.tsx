@@ -8,8 +8,7 @@ export default function Contact() {
             <section className="space-y-6 sm:space-y-8">
                 <h1 className="text-3xl sm:text-4xl font-bold">Start a Project</h1>
                 <p className="text-base sm:text-lg leading-relaxed">
-                    Pick a time that works for you and let's talk about turning business
-                    into poetry.
+                    Pick a time that works for you and let's talk about bringing your ideas to life.
                 </p>
                 <CalWidget />
             </section>

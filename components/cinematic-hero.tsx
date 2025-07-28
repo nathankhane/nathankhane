@@ -29,14 +29,14 @@ export function CinematicHero() {
             const timer = setTimeout(() => {
                 setDisplayedText(targetText.slice(0, currentCharIndex + 1));
                 setCurrentCharIndex(prev => prev + 1);
-            }, 80);
+            }, 50);
 
             return () => clearTimeout(timer);
         } else {
             if (currentWordIndex < words.length - 1) {
                 const timer = setTimeout(() => {
                     setCurrentWordIndex(prev => prev + 1);
-                }, 600);
+                }, 400);
 
                 return () => clearTimeout(timer);
             }
@@ -62,7 +62,7 @@ export function CinematicHero() {
                     >
                         <h1
                             aria-live="polite"
-                            className="font-display text-[clamp(2rem,5vw,3.5rem)] md:text-[clamp(2.5rem,4.5vw,4rem)] min-h-[1.2em] text-[#8E2D34] font-bold leading-tight"
+                            className="font-display text-[clamp(1.75rem,4vw,3.5rem)] md:text-[clamp(2.5rem,4.5vw,4rem)] min-h-[1.2em] text-[#8E2D34] font-bold leading-tight px-4 sm:px-0"
                         >
                             {displayedText.split('.').map((word, index) => (
                                 <span key={index}>
@@ -84,8 +84,8 @@ export function CinematicHero() {
                             className="space-y-8"
                         >
                             <div className="relative">
-                                <h2 className="hero-title text-5xl sm:text-7xl lg:text-8xl leading-tight text-[#1A1A1A] dark:text-[#FAF7F5] tracking-wide">
-                                    <span>Business</span> <span className="hero-equals mx-4 sm:mx-6 lg:mx-8">≡</span> <span>Poetry</span>
+                                <h2 className="hero-title text-4xl sm:text-6xl lg:text-7xl xl:text-8xl leading-tight text-[#1A1A1A] dark:text-[#FAF7F5] tracking-wide px-4 sm:px-0">
+                                    <span>Business</span> <span className="hero-equals mx-2 sm:mx-4 lg:mx-6 xl:mx-8">≡</span> <span>Poetry</span>
                                 </h2>
                                 <div className="absolute -top-8 -right-8 hidden lg:block">
                                     <EstablishedBadge year="2000" />
@@ -106,7 +106,7 @@ export function CinematicHero() {
                                 <motion.div {...retroAnimations.retroButtonHover}>
                                     <Link
                                         href="/contact"
-                                        className="discovery-call-button group relative px-8 py-4 bg-gradient-to-r from-[#B73E2A] to-[#8B2E1F] text-white rounded-xl font-headline font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
+                                        className="discovery-call-button group relative px-8 py-4 sm:px-10 sm:py-5 bg-gradient-to-r from-[#B73E2A] to-[#8B2E1F] text-white rounded-xl font-headline font-semibold text-lg sm:text-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 min-h-[56px] touch-manipulation"
                                     >
                                         <span className="relative z-10">Book a Discovery Call</span>
                                         <VintageArrowRight size="sm" color="vintage-cream" className="transition-transform group-hover:translate-x-1" />
@@ -117,7 +117,7 @@ export function CinematicHero() {
                                 <motion.div {...retroAnimations.retroButtonHover}>
                                     <Link
                                         href="/blog"
-                                        className="blog-button px-8 py-4 border-2 border-[#B73E2A] text-[#B73E2A] rounded-xl font-headline font-semibold text-lg transition-all duration-300 hover:bg-[#B73E2A] hover:text-white"
+                                        className="blog-button px-8 py-4 sm:px-10 sm:py-5 border-2 border-[#B73E2A] text-[#B73E2A] rounded-xl font-headline font-semibold text-lg sm:text-xl transition-all duration-300 hover:bg-[#B73E2A] hover:text-white min-h-[56px] touch-manipulation"
                                     >
                                         Blog
                                     </Link>

@@ -22,34 +22,34 @@ export default function Home() {
           <div className="max-w-6xl mx-auto">
             <AnimatedSection direction="fade" delay={0.1} className="text-center mb-16">
               <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
-                Every venture is a verse, every metric a rhyme
+                Transform Your Story Into Revenue
               </h2>
               <p className="lead text-muted-foreground max-w-3xl mx-auto">
-                I help founders and creators transform their stories into strategic advantages that drive real growth.
+                I help ambitious founders and creators turn compelling narratives into strategic advantages that drive measurable business growth.
               </p>
             </AnimatedSection>
 
             <AnimatedSection direction="up" stagger={0.1} className="grid md:grid-cols-3 gap-8">
               <ServiceCard
-                icon="growth"
-                title="Growth Story Audit"
-                description="Uncover the narrative gaps holding back your growth and get a roadmap to fix them."
+                icon="gtm"
+                title="Go-To-Market Strategy"
+                description="Get clear positioning and launch strategy that resonates with your ideal customers in 2-3 focused sessions."
                 href="/contact"
-                cta="Learn More"
+                cta="Book Sprint"
               />
               <ServiceCard
                 icon="coaching"
-                title="Creative Coaching"
-                description="Bridge the gap between artistic vision and business strategy for sustainable creative success."
+                title="Creative Business Coaching"
+                description="Transform artistic vision into scalable business strategy with practical frameworks that preserve your creativity."
                 href="/contact"
                 cta="Apply Now"
               />
               <ServiceCard
-                icon="gtm"
-                title="Go-To-Market Sprints"
-                description="Rapid-fire strategy sessions to nail your positioning, messaging, and launch strategy."
+                icon="growth"
+                title="Brand Narrative Strategy"
+                description="Develop a compelling brand story that differentiates you from competitors and drives customer loyalty."
                 href="/contact"
-                cta="Book Sprint"
+                cta="Learn More"
               />
             </AnimatedSection>
           </div>
@@ -133,10 +133,10 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection direction="scale">
               <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
-                Join the Business ≡ Poetry newsletter
+                Fancy a new read?
               </h2>
               <p className="lead text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Weekly insights on turning narrative into revenue. Stories, strategies, and behind-the-scenes from the intersection of business and creativity.
+                Join the community
               </p>
             </AnimatedSection>
             <AnimatedSection direction="up" delay={0.1} className="max-w-md mx-auto">

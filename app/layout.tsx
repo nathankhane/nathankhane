@@ -57,13 +57,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="preload" href="https://assets.calendly.com/assets/external/widget.js" as="script" />
         <link rel="preload" href="https://www.tiktok.com/embed.js" as="script" />
       </head>
-      <body className="min-h-screen bg-background text-foreground antialiased">
+      <body className="min-h-screen bg-background text-foreground antialiased safe-area-inset">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {/* Navigation Header */}
           <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50 transition-all duration-300 shadow-sm">
@@ -90,7 +94,7 @@ export default function RootLayout({
                     href="/about"
                     className="relative hover:text-[#B73E2A] transition-colors duration-300 group font-headline font-semibold text-base tracking-wider"
                   >
-                    Who Am I
+                    About
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#B73E2A] transition-all duration-300 group-hover:w-full"></span>
                   </Link>
                   <Link
