@@ -73,7 +73,7 @@ export default function About() {
                             transition: { duration: 0.2 }
                         }}
                     >
-                        Founder. Creative specialist. Empathy engine.
+                        Community builder. Creator. Ethical Engine.
                     </motion.p>
 
                     <motion.p
@@ -82,7 +82,7 @@ export default function About() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.9, ease: "easeOut" }}
                     >
-                        I build products and stories that move people—because honest creativity is my main KPI.
+                        I build products and tell stories that move people.
                     </motion.p>
 
                     <motion.p
@@ -91,7 +91,7 @@ export default function About() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 1.1, ease: "easeOut" }}
                     >
-                        From prototyping Reseeit at UH's Wolff Center to launching TrustedApp and coaching indie artists, I've learned that ideas don't change the world until someone feels them. I translate complex ambition into language that lands, then rally teams to ship.
+                        I've learned that ideas don't change the world until someone feels them. I translate complex ambition into language that lands, then rally teams to ship.
                     </motion.p>
 
                     <motion.p
@@ -130,7 +130,7 @@ export default function About() {
                             transition: { duration: 0.2 }
                         }}
                     >
-                        Inspiring others is what fulfills me.
+                        Inspiring others and empowering them to dream is what fulfills me. It's what keeps me going every day.
                     </motion.p>
 
                     <motion.p
@@ -144,7 +144,7 @@ export default function About() {
                             transition: { duration: 0.2 }
                         }}
                     >
-                        It is how I am creating change in the world.
+                        It is how I am creating change in my communities, and hopefully one day, the world.
                     </motion.p>
                 </motion.article>
             </motion.section>

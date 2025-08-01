@@ -76,23 +76,17 @@ export default function Home() {
           <AnimatedSection direction="up" stagger={0.1} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <CaseStudyCard
               title="TrustedApp"
-              description="Scaled expert signup 300% in four weeks through narrative-driven cold outreach."
+              description="The marketplace where SaaS teams book discovery calls & content sessions with vetted power-users in minutes, instead of weeks."
               image="/images/trustedapp-screenshot.png"
-              kpis={[
-                { label: "Email List Growth", value: "300%" },
-                { label: "Timeline", value: "4 weeks" }
-              ]}
+              kpis={[]}
               link="https://www.trustedapp.co"
             />
 
             <CaseStudyCard
               title="WSA Speed Academy"
-              description="End-to-end design & build; site ranked #1 locally for 'speed training' within 21 days."
+              description="Elite speed training platform for athletes looking to transform their performance through personalized coaching and structured programs."
               image="/images/wsa-screenshot.png"
-              kpis={[
-                { label: "Organic Site Visits", value: "+2,700" },
-                { label: "Timeline", value: "21 days" }
-              ]}
+              kpis={[]}
               link="https://wilson-speed-academy.vercel.app/"
             />
 
@@ -100,10 +94,7 @@ export default function Home() {
               title="Reseeit"
               description="Prototype built at the Wolff Center introducing a fresh way to track expenses with zero manual entry."
               image="/images/reseeit-screens.jpg"
-              kpis={[
-                { label: "Pitch Competition", value: "1st Place" },
-                { label: "Users Tested", value: "50+" }
-              ]}
+              kpis={[]}
               link="https://xd.adobe.com/view/57e025cb-48fb-4bb6-bcb3-4dee68792db9-02b3/"
             />
           </AnimatedSection>
