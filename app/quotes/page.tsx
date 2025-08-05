@@ -2,8 +2,6 @@
 
 import AnimatedSection from "@/components/AnimatedSection";
 
-export const metadata = { title: "Quotes: Khane Creative" };
-
 const quotes = [
   "Let's bring your vision to life.",
   "Growth should be noticed, not forced.",

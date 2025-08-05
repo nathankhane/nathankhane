@@ -1,8 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Quotes – Nathan Khane",
-  description: "Inspirational quotes and insights on business, growth, and life philosophy.",
+  title: "Quotes: Khane Creative",
 };
 
 export default function QuotesLayout({
