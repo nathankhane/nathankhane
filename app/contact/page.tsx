@@ -1,6 +1,6 @@
 import CalWidget from "@/components/CalWidget";
 
-export const metadata = { title: "Contact – Khane" };
+export const metadata = { title: "Contact: Khane Creative" };
 
 export default function Contact() {
     return (

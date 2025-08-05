@@ -7,23 +7,26 @@ import SocialLinks from "@/components/SocialLinks";
 import MobileNav from "@/components/MobileNav";
 
 export const metadata: Metadata = {
-  title: "Khane – Business ≡ Poetry",
+  title: {
+    default: "Khane Creative",
+    template: "%s: Khane Creative"
+  },
   description: "Flagship hub for the Khane brand. Turning narrative into revenue for founders & creators.",
   keywords: ["storytelling", "business strategy", "creative coaching", "growth marketing", "founder"],
-  authors: [{ name: "Nathan Khane" }],
-  creator: "Nathan Khane",
+  authors: [{ name: "Khane Creative" }],
+  creator: "Khane Creative",
   metadataBase: new URL("https://nathankhane.com"),
   openGraph: {
-    title: "Khane – Business ≡ Poetry",
+    title: "Khane Creative",
     description: "Turning narrative into revenue for founders & creators.",
     url: "https://nathankhane.com",
-    siteName: "Khane",
+    siteName: "Khane Creative",
     images: [
       {
         url: "/khane-og-image.png",
         width: 1200,
         height: 630,
-        alt: "Khane - Business ≡ Poetry - Turning narrative into revenue for founders & creators",
+        alt: "Khane Creative - Turning narrative into revenue for founders & creators",
       },
     ],
     locale: "en_US",
@@ -31,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Khane – Business ≡ Poetry",
+    title: "Khane Creative",
     description: "Turning narrative into revenue for founders & creators.",
     creator: "@nathankmo",
     images: ["/khane-og-image.png"],

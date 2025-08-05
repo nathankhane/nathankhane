@@ -1,6 +1,6 @@
 import Parser from "rss-parser";
 
-export const metadata = { title: "Business ≡ Poetry – Blog" };
+export const metadata = { title: "Blog: Khane Creative" };
 
 interface RSSItem {
     title?: string;

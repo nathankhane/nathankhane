@@ -1,7 +1,7 @@
 import CalWidget from "@/components/CalWidget";
 
 export const metadata = {
-    title: "Work With Me – Nathan Khane",
+    title: "Work With Me: Khane Creative",
     description: "Strategic storytelling, creative coaching, and GTM sprints for founders & creators.",
 };
 

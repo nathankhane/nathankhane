@@ -1,6 +1,7 @@
-export const metadata = {
-    title: "About – Nathan Khane",
-    description: "Founder · Storyteller · Artist. The journey behind Business ≡ Poetry.",
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "About: Khane Creative",
 };
 
 export default function AboutLayout({

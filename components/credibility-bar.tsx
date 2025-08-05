@@ -36,7 +36,7 @@ export function CredibilityBar() {
 
                 <div className="relative">
                     <div className="flex space-x-16 whitespace-nowrap animate-marquee">
-                    {/* Using CSS animation for better performance */}
+                        {/* Using CSS animation for better performance */}
                         {/* First set */}
                         {credibilityItems.map((item, index) => (
                             <motion.a
