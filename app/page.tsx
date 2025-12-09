@@ -75,11 +75,11 @@ export default function Home() {
 
           <AnimatedSection direction="up" stagger={0.1} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <CaseStudyCard
-              title="TrustedApp"
-              description="The marketplace where SaaS teams book discovery calls & content sessions with vetted power-users in minutes, instead of weeks."
-              image="/images/trustedapp-screenshot.png"
+              title="Bridge"
+              description="The marketplace where SaaS teams book discovery calls and content sessions with vetted power-users—getting instant matches in 24 hours, not weeks."
+              image="/images/bridge-screenshot.png"
               kpis={[]}
-              link="https://www.trustedapp.co"
+              link="https://www.bridgenow.co"
             />
 
             <CaseStudyCard

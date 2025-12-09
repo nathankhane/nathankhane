@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 const credibilityItems = [
-    { name: "TrustedApp", type: "company", url: "https://www.trustedapp.co/" },
+    { name: "Bridge", type: "company", url: "https://www.bridgenow.co/" },
     { name: "Ion District", type: "innovation", url: "https://iondistrict.com/" },
     { name: "buildspace", type: "education", url: "https://buildspace.so/" },
     { name: "C.T. Bauer College of Business", type: "education", url: "https://www.bauer.uh.edu/" },

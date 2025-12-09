@@ -8,10 +8,10 @@ export const metadata = {
 
 const studies = [
     {
-        title: "TrustedApp — SaaS Marketplace Launch",
-        description: "The marketplace where SaaS teams book discovery calls & content sessions with vetted power-users in minutes, instead of weeks.",
-        image: "/images/trustedapp-screenshot.png",
-        link: "https://www.trustedapp.co",
+        title: "Bridge — SaaS Expert Marketplace",
+        description: "The marketplace where SaaS teams book discovery calls and content sessions with vetted power-users—getting instant matches in 24 hours, not weeks.",
+        image: "/images/bridge-screenshot.png",
+        link: "https://www.bridgenow.co",
         kpis: [],
     },
     {
