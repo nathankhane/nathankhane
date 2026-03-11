@@ -1,18 +1,22 @@
 /**
- * app/api/chat/route.ts — Anthropic streaming endpoint
+ * app/api/chat/route.ts — Google Gemini streaming endpoint
  *
- * Streams Claude responses for the AI agent in AgentCTA section.
+ * Streams Gemini responses for the AI agent in AgentCTA section.
+ * Using Google's own model is intentional — the fellowship application
+ * is itself built on Google's AI stack.
+ *
  * Uses AGENT_SYSTEM_PROMPT from lib/agent-prompt.ts.
  * Rate limiting via simple in-memory counter (upgrade to Redis for production).
  * Graceful error handling — never breaks the page.
+ *
+ * Env var: GOOGLE_AI_API_KEY (set in Vercel + .env.local)
+ * Get key at: https://aistudio.google.com/apikey
  */
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { AGENT_SYSTEM_PROMPT } from "@/lib/agent-prompt";
 
-const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY ?? "");
 
 // Simple in-memory rate limiting (per-IP, resets on cold start)
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
@@ -47,7 +51,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Validate API key is configured
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.GOOGLE_AI_API_KEY) {
     return NextResponse.json(
       { error: "AI agent not configured." },
       { status: 503 }
@@ -70,28 +74,32 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const stream = await client.messages.stream({
-      model: "claude-sonnet-4-6",
-      max_tokens: 512,
-      system: AGENT_SYSTEM_PROMPT,
-      messages: messages.map((m) => ({
-        role: m.role,
-        content: m.content,
-      })),
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.0-flash",
+      systemInstruction: AGENT_SYSTEM_PROMPT,
     });
 
-    // Stream as SSE
+    // Gemini uses "model" instead of "assistant" for AI turns
+    // History is everything except the final user message
+    const history = messages.slice(0, -1).map((m) => ({
+      role: m.role === "assistant" ? "model" : "user",
+      parts: [{ text: m.content }],
+    }));
+
+    const lastMessage = messages[messages.length - 1];
+    const chat = model.startChat({ history });
+    const result = await chat.sendMessageStream(lastMessage.content);
+
+    // Stream as SSE — same format as Anthropic endpoint so ChatInterface needs no changes
     const encoder = new TextEncoder();
     const readable = new ReadableStream({
       async start(controller) {
         try {
-          for await (const chunk of stream) {
-            if (
-              chunk.type === "content_block_delta" &&
-              chunk.delta.type === "text_delta"
-            ) {
+          for await (const chunk of result.stream) {
+            const text = chunk.text();
+            if (text) {
               const data = JSON.stringify({
-                choices: [{ delta: { content: chunk.delta.text } }],
+                choices: [{ delta: { content: text } }],
               });
               controller.enqueue(encoder.encode(`data: ${data}\n\n`));
             }
@@ -114,7 +122,7 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (err) {
-    console.error("[/api/chat] Anthropic error:", err);
+    console.error("[/api/chat] Gemini error:", err);
     return NextResponse.json(
       { error: "AI agent temporarily unavailable." },
       { status: 503 }

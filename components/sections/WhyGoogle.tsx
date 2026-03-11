@@ -125,6 +125,15 @@ export default function WhyGoogle() {
             </p>
           </div>
         </AnimatedSection>
+
+        {/* Site footer */}
+        <AnimatedSection delay={0.4}>
+          <div className="mt-20 pt-10 border-t border-white/10 text-center">
+            <p className="text-[10px] font-mono text-cream/15 tracking-widest">
+              Business Is Poetry · nathankhane.com · 2026
+            </p>
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );

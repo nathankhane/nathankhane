@@ -7,6 +7,7 @@
  */
 "use client";
 
+import Image from "next/image";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const BRIDGE_PRODUCTS = [
@@ -112,12 +113,15 @@ export default function SystemsArchitect() {
                   app.bridgenow.ai
                 </div>
               </div>
-              {/* Screenshot area */}
-              <div className="aspect-video bg-ink flex items-center justify-center">
-                <p className="text-xs font-mono text-cream/20 text-center px-8">
-                  Screenshot coming soon<br />
-                  <span className="text-cream/10">app.bridgenow.ai</span>
-                </p>
+              {/* Screenshot */}
+              <div className="aspect-video bg-ink relative overflow-hidden">
+                <Image
+                  src="/images/bridge-screenshot.png"
+                  alt="Bridge platform screenshot — app.bridgenow.ai"
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
               </div>
             </div>
           </AnimatedSection>

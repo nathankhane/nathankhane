@@ -89,7 +89,7 @@ export default function TheSpark() {
                 >
                   <div className="text-xs font-mono text-gold/80 mb-2">#{i + 1}</div>
                   <div className="text-sm font-display text-cream mb-1">{s.name}</div>
-                  <div className="text-xs text-cream/30 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="text-xs text-cream/30 leading-relaxed sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
                     {s.desc}
                   </div>
                 </motion.div>

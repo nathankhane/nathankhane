@@ -6,7 +6,7 @@
  *   V1 used News Plantin (serif) — preserved in /public/fonts/ and /archive/v1/
  *   V2 shifts to an editorial pairing:
  *     Display: Instrument Serif — literary, editorial serif — next/font/google
- *     Body:    Space Grotesk   — clean, distinct, NOT Inter — next/font/google
+ *     Body:    DM Sans         — geometric, approachable    — next/font/google
  *     Mono:    JetBrains Mono  — Google search bar motif   — next/font/google
  *
  *   V1 principles carried forward (fontImplementationGuide.md):
@@ -26,7 +26,7 @@
 ───────────────────────────────────────────────────────────────────────── */
 @theme {
   /* Typography */
-  --font-sans:    var(--font-space-grotesk),    "Space Grotesk",    system-ui, sans-serif;
+  --font-sans:    var(--font-dm-sans),    "DM Sans",    system-ui, sans-serif;
   --font-display: var(--font-instrument-serif), "Instrument Serif", Georgia,   serif;
   --font-mono:    var(--font-jetbrains-mono),   "JetBrains Mono",   "Courier New", monospace;
 
@@ -56,7 +56,7 @@ html {
 }
 
 body {
-  font-family: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
+  font-family: var(--font-dm-sans), "DM Sans", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -83,7 +83,7 @@ body {
 }
 
 .font-body {
-  font-family: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
+  font-family: var(--font-dm-sans), "DM Sans", system-ui, sans-serif;
   font-weight: 400;
 }
 

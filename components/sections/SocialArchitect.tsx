@@ -56,7 +56,7 @@ export default function SocialArchitect() {
 
         {/* Metrics row */}
         <AnimatedSection delay={0.15}>
-          <div className="flex gap-8 mb-12">
+          <div className="flex flex-wrap gap-8 mb-12">
             {METRICS.map((m) => (
               <div key={m.label}>
                 <div className="text-2xl font-display text-cream">{m.value}</div>

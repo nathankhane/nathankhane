@@ -3,7 +3,7 @@
  *
  * Music and sound engineering chapter. Audio opt-in (never autoplays).
  * Waveform visualization reacts to play state from AudioPlayer context.
- * Context: studio sessions with Mike McNeil (Travis Scott, Don Toliver).
+ * Context: studio sessions with Matt O'Neill (Travis Scott, Don Toliver).
  */
 "use client";
 
@@ -65,7 +65,7 @@ export default function AudioEngineer() {
             <AnimatedSection delay={0.2}>
               <div className="mt-6 space-y-4 text-cream/60 leading-relaxed text-sm">
                 <p>
-                  In 2022, I sat in a studio with Mike McNeil — producer for Travis Scott
+                  In late 2023, I sat in a studio with Matt O'Neill — producer for Travis Scott
                   and Don Toliver — and learned something no MBA teaches: every great
                   record is a system. Arrangement, tension, release. Architecture dressed
                   as emotion.
@@ -84,7 +84,7 @@ export default function AudioEngineer() {
             <AnimatedSection delay={0.3}>
               <div className="mt-8 flex items-center gap-3 text-xs font-mono text-cream/30">
                 <span className="w-1 h-1 rounded-full bg-gold/60" />
-                <span>Recorded with Mike McNeil, Houston TX, 2022</span>
+                <span>Recorded with Matt O&apos;Neill, San Francisco, 2023</span>
               </div>
             </AnimatedSection>
           </div>

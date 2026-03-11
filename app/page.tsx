@@ -15,7 +15,6 @@ const SocialArchitect = dynamic(() => import("@/components/sections/SocialArchit
 const SystemsArchitect = dynamic(() => import("@/components/sections/SystemsArchitect"));
 const CuratorOfTaste  = dynamic(() => import("@/components/sections/CuratorOfTaste"));
 const WhyGoogle       = dynamic(() => import("@/components/sections/WhyGoogle"));
-const AgentCTA        = dynamic(() => import("@/components/sections/AgentCTA"));
 
 export default function Home() {
   return (
@@ -33,7 +32,6 @@ export default function Home() {
 
       {/* Act 3 — The Future */}
       <WhyGoogle />
-      <AgentCTA />
     </main>
   );
 }

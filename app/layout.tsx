@@ -5,7 +5,7 @@
  * - Dark-only editorial design (no theme switching)
  * - Font loading via next/font/google — font-display: swap (V1 principle preserved)
  *     Instrument Serif  → --font-instrument-serif → .font-display  (display/headlines)
- *     Space Grotesk     → --font-space-grotesk    → font-sans       (body copy)
+ *     DM Sans           → --font-dm-sans           → font-sans       (body copy)
  *     JetBrains Mono    → --font-jetbrains-mono   → .font-mono      (search bar motif)
  * - AudioPlayer persistent at viewport bottom (never autoplays)
  * - Minimal shell — no nav bar; scroll-driven sections handle their own context
@@ -15,9 +15,11 @@
  *   - V2 editorial pairing chosen per googleCreativeFellowshipSiteBlueprint.md
  */
 import type { Metadata } from "next";
-import { Instrument_Serif, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Instrument_Serif, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import AudioPlayer from "@/components/AudioPlayer";
+import AgentSidebar from "@/components/AgentSidebar";
+import ScrollToTop from "@/components/ScrollToTop";
 import { Analytics } from "@vercel/analytics/next";
 
 // ── Fonts ──────────────────────────────────────────────────────────────
@@ -32,11 +34,10 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
-// Body: Space Grotesk — clean, intentionally designed, NOT Inter, NOT Roboto.
-// Blueprint spec: "clean but not generic"
-const spaceGrotesk = Space_Grotesk({
+// Body: DM Sans — geometric, approachable, pairs well with Instrument Serif.
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-dm-sans",
   display: "swap",
 });
 
@@ -72,7 +73,7 @@ export const metadata: Metadata = {
     description: "Born the year Google changed the world. Building parallel to it ever since.",
     url: "https://nathankhane.com",
     siteName: "Business Is Poetry",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Business Is Poetry" }],
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Business Is Poetry" }],
     locale: "en_US",
     type: "website",
   },
@@ -81,7 +82,7 @@ export const metadata: Metadata = {
     title: "Business Is Poetry",
     description: "Born the year Google changed the world. Building parallel to it ever since.",
     creator: "@nathankmo",
-    images: ["/og-image.png"],
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
@@ -97,23 +98,22 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`${instrumentSerif.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="preload" href="https://www.tiktok.com/embed.js" as="script" />
-        {/* Easter Egg #10: visible in page source */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `/* \n  If you're reading this,\n  you're exactly who this site was built for.\n  — Nathan Khane Morales | nathankhane.com\n*/`,
-          }}
-        />
+        {/* Easter Egg #10: visible in HTML source — "View Source" reward */}
+        {/* If you're reading this, you're exactly who this site was built for. — Nathan Khane Morales | nathankhane.com */}
       </head>
       <body className="bg-ink text-cream antialiased min-h-screen font-sans">
+        <ScrollToTop />
         {children}
         {/* Persistent audio mini-player — NEVER autoplays */}
         <AudioPlayer />
+        {/* Floating AI agent sidebar — bottom-right FAB */}
+        <AgentSidebar />
         <Analytics />
       </body>
     </html>

@@ -18,7 +18,7 @@ export interface MusicTrack {
 }
 
 // TODO: Add actual audio files to /public/audio/ before launch
-// Session recordings from Mike McNeil sessions (2022)
+// Session recordings with Matt O'Neill (2023–2024)
 export const tracks: MusicTrack[] = [
   {
     id: "track-01",
@@ -31,12 +31,12 @@ export const tracks: MusicTrack[] = [
   },
   {
     id: "track-02",
-    title: "Studio Session (ft. Mike McNeil)",
+    title: "Studio Session (ft. Matt O'Neill)",
     description: "Where sound engineering met systems thinking.",
     src: "/audio/track-02.mp3",
     duration: 195,
     act: 2,
-    credits: "Recorded with Mike McNeil",
+    credits: "Recorded with Matt O'Neill",
   },
   {
     id: "track-03",
