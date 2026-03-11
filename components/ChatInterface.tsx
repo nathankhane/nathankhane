@@ -179,7 +179,16 @@ export default function ChatInterface() {
         <div className="w-2 h-2 rounded-full bg-gold animate-pulse" />
         <span className="text-sm font-mono text-cream/70">Ask Nate&apos;s AI</span>
         {isUnavailable && (
-          <span className="ml-auto text-xs text-cream/30 font-mono">offline</span>
+          <div className="ml-auto flex items-center gap-2">
+            <span className="text-xs text-cream/30 font-mono">offline</span>
+            <button
+              onClick={() => { setIsUnavailable(false); inputRef.current?.focus(); }}
+              className="text-xs text-gold/60 hover:text-gold font-mono transition-colors"
+              aria-label="Retry connection"
+            >
+              retry
+            </button>
+          </div>
         )}
       </div>
 
