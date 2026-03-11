@@ -11,6 +11,12 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { SOCIAL_LINKS } from "@/lib/social-links";
+
+const MOBILE_NAV_SOCIAL_LABELS = ["TikTok", "LinkedIn", "YouTube"] as const;
+const mobileNavSocialLinks = MOBILE_NAV_SOCIAL_LABELS.map((label) =>
+  SOCIAL_LINKS.find((l) => l.label === label)
+).filter(Boolean);
 
 const NAV_LINKS = [
   { href: "#origin",    label: "Origin" },
@@ -100,11 +106,7 @@ function MobileNavPortal({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                 Business Is Poetry
               </p>
               <div className="flex gap-4">
-                {[
-                  { href: "https://www.tiktok.com/@nathankhane", label: "TikTok" },
-                  { href: "https://www.linkedin.com/in/nathankhane", label: "LinkedIn" },
-                  { href: "https://www.youtube.com/@nathankhane", label: "YouTube" },
-                ].map(({ href, label }) => (
+                {mobileNavSocialLinks.map(({ href, label }) => (
                   <a
                     key={label}
                     href={href}

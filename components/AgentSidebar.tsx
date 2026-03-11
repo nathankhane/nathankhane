@@ -13,13 +13,12 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ChatInterface from "@/components/ChatInterface";
+import { SOCIAL_LINKS } from "@/lib/social-links";
 
-const SOCIAL_LINKS = [
-  { label: "TikTok", href: "https://www.tiktok.com/@nathankhane" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/nathankhane" },
-  { label: "Substack", href: "https://substack.com/@nathankhane" },
-  { label: "YouTube", href: "https://www.youtube.com/@nathankhane" },
-];
+const SIDEBAR_LABELS = ["TikTok", "LinkedIn", "Substack", "YouTube"] as const;
+const sidebarLinks = SIDEBAR_LABELS.map((label) =>
+  SOCIAL_LINKS.find((l) => l.label === label)
+).filter(Boolean);
 
 export default function AgentSidebar() {
   const [open, setOpen] = useState(false);
@@ -133,7 +132,7 @@ export default function AgentSidebar() {
                   Find Nate
                 </p>
                 <div className="flex flex-wrap justify-center gap-x-5 gap-y-1.5">
-                  {SOCIAL_LINKS.map(({ label, href }) => (
+                  {sidebarLinks.map(({ label, href }) => (
                     <a
                       key={label}
                       href={href}

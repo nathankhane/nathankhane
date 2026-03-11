@@ -10,14 +10,12 @@
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
 import ChatInterface from "@/components/ChatInterface";
+import { SOCIAL_LINKS } from "@/lib/social-links";
 
-const SOCIAL_LINKS = [
-  { label: "TikTok", href: "https://www.tiktok.com/@nathankhane" },
-  { label: "YouTube", href: "https://www.youtube.com/@nathankhane" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/nathankhane" },
-  { label: "Substack", href: "https://substack.com/@nathankhane" },
-  { label: "Spotify", href: "https://open.spotify.com/artist/nathankhane" },
-];
+const FOOTER_LABELS = ["TikTok", "YouTube", "LinkedIn", "Substack", "Spotify"] as const;
+const footerLinks = FOOTER_LABELS.map((label) =>
+  SOCIAL_LINKS.find((l) => l.label === label)
+).filter(Boolean);
 
 // Easter Egg #7: 10 blue links that dissolve into the chat UI
 const TEN_BLUE_LINKS = [
@@ -92,7 +90,7 @@ export default function AgentCTA() {
               Find Nate
             </p>
             <div className="flex flex-wrap justify-center gap-6">
-              {SOCIAL_LINKS.map(({ label, href }) => (
+              {footerLinks.map(({ label, href }) => (
                 <a
                   key={label}
                   href={href}

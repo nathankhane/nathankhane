@@ -185,10 +185,14 @@ nathankhane/
 3. **Go-To-Market Sprints** - $5,000 per sprint
 
 ### Social Links (Footer)
-- TikTok: https://www.tiktok.com/@nathankhane
+Canonical list lives in `lib/social-links.ts` — update there to change links site-wide.
+- LinkedIn: https://www.linkedin.com/in/nathan-khane-morales/
+- TikTok: https://www.tiktok.com/@nathankmorales
+- X: https://x.com/nathankmo
+- Instagram: https://www.instagram.com/nathankmorales/
+- Substack: https://nathankhane.substack.com/
 - YouTube: https://www.youtube.com/@nathankhane
 - Spotify: https://open.spotify.com/artist/nathankhane
-- LinkedIn: https://www.linkedin.com/in/nathankhane
 
 ---
 

@@ -1,4 +1,5 @@
 import { Instagram, Music, Linkedin } from "lucide-react";
+import { SOCIAL_LINKS } from "@/lib/social-links";
 
 const TikTokIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -12,24 +13,36 @@ const TwitterIcon = () => (
     </svg>
 );
 
+const HEADER_LABELS = ["LinkedIn", "X", "Instagram", "TikTok", "Substack"] as const;
+
+function getIcon(label: string) {
+    switch (label) {
+        case "LinkedIn": return <Linkedin />;
+        case "X": return <TwitterIcon />;
+        case "Instagram": return <Instagram />;
+        case "TikTok": return <TikTokIcon />;
+        case "Substack": return <Music />;
+        default: return null;
+    }
+}
+
 export default function SocialLinks() {
+    const links = HEADER_LABELS.map((label) =>
+        SOCIAL_LINKS.find((l) => l.label === label)
+    ).filter(Boolean) as { label: string; href: string }[];
+
     return (
         <div className="flex gap-6">
-            <a href="https://www.linkedin.com/in/nathan-khane-morales/" aria-label="LinkedIn" className="hover:text-primary transition-colors duration-200">
-                <Linkedin />
-            </a>
-            <a href="https://x.com/nathankmo" aria-label="Twitter/X" className="hover:text-primary transition-colors duration-200">
-                <TwitterIcon />
-            </a>
-            <a href="https://www.instagram.com/nathankmorales/" aria-label="Instagram" className="hover:text-primary transition-colors duration-200">
-                <Instagram />
-            </a>
-            <a href="https://www.tiktok.com/@nathankmorales" aria-label="TikTok" className="hover:text-primary transition-colors duration-200">
-                <TikTokIcon />
-            </a>
-            <a href="https://nathankhane.substack.com/" aria-label="Substack" className="hover:text-primary transition-colors duration-200">
-                <Music />
-            </a>
+            {links.map(({ label, href }) => (
+                <a
+                    key={label}
+                    href={href}
+                    aria-label={label === "X" ? "Twitter/X" : label}
+                    className="hover:text-primary transition-colors duration-200"
+                >
+                    {getIcon(label)}
+                </a>
+            ))}
         </div>
     );
-} 
+}

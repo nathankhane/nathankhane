@@ -9,6 +9,7 @@
 
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
+import { TIKTOK_PROFILE_URL, TIKTOK_HANDLE } from "@/lib/social-links";
 
 // TODO: Replace with actual TikTok video IDs from @nathankhane
 const TIKTOK_VIDEOS = [
@@ -97,12 +98,12 @@ export default function SocialArchitect() {
         <AnimatedSection delay={0.4}>
           <div className="mt-10 flex items-center gap-4">
             <a
-              href="https://www.tiktok.com/@nathankhane"
+              href={TIKTOK_PROFILE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-mono text-gold hover:text-cream transition-colors border-b border-gold/30 hover:border-cream/30 pb-0.5"
             >
-              @nathankhane on TikTok
+              {TIKTOK_HANDLE} on TikTok
               <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" className="opacity-60">
                 <path d="M1 9L9 1M9 1H3M9 1v6" stroke="currentColor" strokeWidth="1.2" fill="none" />
               </svg>
