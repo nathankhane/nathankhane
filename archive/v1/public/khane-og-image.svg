@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FAF7F5"/>
+      <stop offset="100%" style="stop-color:#F5F1EF"/>
+    </linearGradient>
+    
+    <!-- Subtle pattern -->
+    <pattern id="pattern" x="0" y="0" width="70" height="70" patternUnits="userSpaceOnUse">
+      <rect width="70" height="70" fill="none"/>
+      <path d="M0,70 L70,0" stroke="#8E2D34" stroke-width="1" opacity="0.03"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background with gradient -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Pattern overlay -->
+  <rect width="1200" height="630" fill="url(#pattern)"/>
+  
+  <!-- Main content -->
+  <g transform="translate(600, 315)">
+    <!-- Logo -->
+    <text x="0" y="-40" text-anchor="middle" font-family="Charter, serif" font-size="120" font-weight="bold" fill="#8E2D34">Khane</text>
+    
+    <!-- Dot accent -->
+    <circle cx="140" cy="-90" r="12" fill="#8E2D34"/>
+    
+    <!-- Tagline -->
+    <text x="0" y="20" text-anchor="middle" font-family="Charter, serif" font-size="42" font-weight="700" fill="rgba(30, 30, 30, 0.9)">Business ≡ Poetry</text>
+    
+    <!-- Subtitle -->
+    <text x="0" y="65" text-anchor="middle" font-family="Charter, serif" font-size="28" font-weight="400" fill="rgba(30, 30, 30, 0.7)">Turning narrative into revenue</text>
+  </g>
+</svg>

@@ -1,145 +1,39 @@
-"use client";
+/**
+ * app/page.tsx — Main scroll experience
+ *
+ * Orchestrates all 9 narrative sections in sequence.
+ * Dynamic imports for below-fold sections to minimize initial bundle.
+ */
+import dynamic from "next/dynamic";
+import TitleCard from "@/components/sections/TitleCard";
 
-import { CinematicHero } from "@/components/cinematic-hero";
-import { CredibilityBar } from "@/components/credibility-bar";
-import CaseStudyCard from "@/components/CaseStudyCard";
-import { VisionCTA } from "@/components/VisionCTA";
-import AnimatedSection from "@/components/AnimatedSection";
-import LatestPosts from "@/components/LatestPosts";
-import Link from "next/link";
-import SubstackForm from "@/components/SubstackForm";
-import ServiceCard from "@/components/ServiceCard";
+// Dynamic imports for performance — above-fold TitleCard loads eagerly
+const ParallelTimeline = dynamic(() => import("@/components/sections/ParallelTimeline"));
+const TheSpark        = dynamic(() => import("@/components/sections/TheSpark"));
+const AudioEngineer   = dynamic(() => import("@/components/sections/AudioEngineer"));
+const SocialArchitect = dynamic(() => import("@/components/sections/SocialArchitect"));
+const SystemsArchitect = dynamic(() => import("@/components/sections/SystemsArchitect"));
+const CuratorOfTaste  = dynamic(() => import("@/components/sections/CuratorOfTaste"));
+const WhyGoogle       = dynamic(() => import("@/components/sections/WhyGoogle"));
+const AgentCTA        = dynamic(() => import("@/components/sections/AgentCTA"));
 
 export default function Home() {
   return (
-    <div className="overflow-hidden">
-      {/* Cinematic Hero */}
-      <CinematicHero />
+    <main>
+      {/* Act 1 — Origin */}
+      <TitleCard />
+      <ParallelTimeline />
+      <TheSpark />
 
-      {/* Value Propositions */}
-      <AnimatedSection direction="up" delay={0.2}>
-        <section className="py-20 px-6">
-          <div className="max-w-6xl mx-auto">
-            <AnimatedSection direction="fade" delay={0.1} className="text-center mb-16">
-              <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
-                Transform Your Story Into Revenue
-              </h2>
-              <p className="lead text-muted-foreground max-w-3xl mx-auto">
-                I help ambitious founders and creators turn compelling narratives into strategic advantages that drive measurable business growth.
-              </p>
-            </AnimatedSection>
+      {/* Act 2 — The Maker */}
+      <AudioEngineer />
+      <SocialArchitect />
+      <SystemsArchitect />
+      <CuratorOfTaste />
 
-            <AnimatedSection direction="up" stagger={0.1} className="grid md:grid-cols-3 gap-8">
-              <ServiceCard
-                icon="gtm"
-                title="Go-To-Market Strategy"
-                description="Get clear positioning and launch strategy that resonates with your ideal customers in 2-3 focused sessions."
-                href="/contact"
-                cta="Book Sprint"
-              />
-              <ServiceCard
-                icon="coaching"
-                title="Creative Business Coaching"
-                description="Transform artistic vision into scalable business strategy with practical frameworks that preserve your creativity."
-                href="/contact"
-                cta="Apply Now"
-              />
-              <ServiceCard
-                icon="growth"
-                title="Brand Narrative Strategy"
-                description="Develop a compelling brand story that differentiates you from competitors and drives customer loyalty."
-                href="/contact"
-                cta="Learn More"
-              />
-            </AnimatedSection>
-          </div>
-        </section>
-      </AnimatedSection>
-
-      {/* Credibility Bar */}
-      <AnimatedSection direction="fade">
-        <CredibilityBar />
-      </AnimatedSection>
-
-      {/* Featured Work Preview */}
-      <section className="py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <AnimatedSection direction="fade" className="text-center mb-16">
-            <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
-              Proof in the poetry
-            </h2>
-            <p className="lead text-muted-foreground max-w-3xl mx-auto">
-              Case studies that show how narrative strategy transforms into measurable results.
-            </p>
-          </AnimatedSection>
-
-          <AnimatedSection direction="up" stagger={0.1} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <CaseStudyCard
-              title="Bridge"
-              description="The marketplace where SaaS teams book discovery calls and content sessions with vetted power-users—getting instant matches in 24 hours, not weeks."
-              image="/images/bridge-screenshot.png"
-              kpis={[]}
-              link="https://www.bridgenow.co"
-            />
-
-            <CaseStudyCard
-              title="WSA Speed Academy"
-              description="Elite speed training platform for athletes looking to transform their performance through personalized coaching and structured programs."
-              image="/images/wsa-screenshot.png"
-              kpis={[]}
-              link="https://wilson-speed-academy.vercel.app/"
-            />
-
-            <CaseStudyCard
-              title="Reseeit"
-              description="Prototype built at the Wolff Center introducing a fresh way to track expenses with zero manual entry."
-              image="/images/reseeit-screens.jpg"
-              kpis={[]}
-              link="https://xd.adobe.com/view/57e025cb-48fb-4bb6-bcb3-4dee68792db9-02b3/"
-            />
-          </AnimatedSection>
-
-          <AnimatedSection direction="scale" delay={0.2} className="text-center mt-12">
-            <Link
-              href="/portfolio"
-              className="inline-block px-8 py-4 border-2 border-primary text-primary rounded-2xl font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25"
-            >
-              View All Work
-            </Link>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* Vision CTA */}
-      <VisionCTA />
-
-      {/* Latest Essays section */}
-      <AnimatedSection direction="up">
-        <LatestPosts />
-      </AnimatedSection>
-
-      {/* Newsletter CTA */}
-      <AnimatedSection direction="fade">
-        <section className="py-20 px-6 bg-muted/30">
-          <div className="max-w-4xl mx-auto text-center">
-            <AnimatedSection direction="scale">
-              <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
-                Fancy a new read?
-              </h2>
-              <p className="lead text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Join the community
-              </p>
-            </AnimatedSection>
-            <AnimatedSection direction="up" delay={0.1} className="max-w-md mx-auto">
-              <SubstackForm />
-            </AnimatedSection>
-          </div>
-        </section>
-      </AnimatedSection>
-    </div>
+      {/* Act 3 — The Future */}
+      <WhyGoogle />
+      <AgentCTA />
+    </main>
   );
 }
-
-
-
-

@@ -1,675 +1,215 @@
-/* Fallback fonts from Google Fonts for variety - must come first */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-/* Import custom fonts for classic, timeless typography */
-@font-face {
-  font-family: 'Sorts Mill Goudy';
-  src: url('/fonts/SortsMillGoudy-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Sorts Mill Goudy';
-  src: url('/fonts/SortsMillGoudy-Italic.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Import News Plantin - the exact font used by Creative Department */
-@font-face {
-  font-family: 'News Plantin';
-  src: url('/fonts/NewsPlantin-Regular.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/*
+ * Business Is Poetry — Global Styles (V2)
+ * Design System: "Editorial Futurism"
+ *
+ * Typography Decision Log (ref: fontImplementationGuide.md):
+ *   V1 used News Plantin (serif) — preserved in /public/fonts/ and /archive/v1/
+ *   V2 shifts to an editorial pairing:
+ *     Display: Instrument Serif — literary, editorial serif — next/font/google
+ *     Body:    Space Grotesk   — clean, distinct, NOT Inter — next/font/google
+ *     Mono:    JetBrains Mono  — Google search bar motif   — next/font/google
+ *
+ *   V1 principles carried forward (fontImplementationGuide.md):
+ *     - font-display: swap on all faces (handled by next/font)
+ *     - Utility classes: .font-display, .font-body, .font-mono
+ *     - Explicit fallback chains on all font declarations
+ *
+ *   News Plantin preserved at /public/fonts/NewsPlantin-Regular.otf
+ */
 
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* ─────────────────────────────────────────────────────────────────────────
+   Design Tokens — @theme
+   These become Tailwind utilities: bg-ink, text-cream, text-gold, etc.
+───────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Typography */
+  --font-sans:    var(--font-space-grotesk),    "Space Grotesk",    system-ui, sans-serif;
+  --font-display: var(--font-instrument-serif), "Instrument Serif", Georgia,   serif;
+  --font-mono:    var(--font-jetbrains-mono),   "JetBrains Mono",   "Courier New", monospace;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-primary-cherry: var(--primary-cherry);
-  --color-primary-cherry-dark: var(--primary-cherry-dark);
-  --color-cream-paper: var(--cream-paper);
-  --color-stone-ink: var(--stone-ink);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  /* Core palette */
+  --color-ink:              #0A0E17;
+  --color-cream:            #F5F0EB;
+  --color-gold:             #D4A853;
+  --color-gold-muted:       #A07830;
+  --color-surface:          #131929;
+  --color-surface-elevated: #1C2333;
 
-  /* Font Family Configuration */
-  --font-sans: 'News Plantin', 'Playfair Display', 'Crimson Text', 'Times New Roman', serif;
-  --font-serif: 'News Plantin', 'Playfair Display', 'Crimson Text', 'Times New Roman', serif;
-  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+  /* Google DNA — WhyGoogle section ONLY */
+  --color-google-blue:   #4285F4;
+  --color-google-red:    #EA4335;
+  --color-google-yellow: #FBBC05;
+  --color-google-green:  #34A853;
 }
 
-:root {
-  --radius: 0.625rem;
-
-  /* Brand Colors */
-  --primary-cherry: #8E2D34;
-  --primary-cherry-dark: #5B1E23;
-  --cream-paper: #FAF7F5;
-  --stone-ink: rgba(30, 30, 30, 0.9);
-
-  /* Light Theme */
-  --background: #FAF7F5;
-  /* cream-paper */
-  --foreground: rgba(30, 30, 30, 0.9);
-  /* stone-ink */
-  --card: #FFFFFF;
-  --card-foreground: rgba(30, 30, 30, 0.9);
-  --popover: #FFFFFF;
-  --popover-foreground: rgba(30, 30, 30, 0.9);
-  --primary: #8E2D34;
-  /* primary-cherry */
-  --primary-foreground: #FFFFFF;
-  --secondary: #F5F1EF;
-  --secondary-foreground: rgba(30, 30, 30, 0.9);
-  --muted: #F8F6F4;
-  --muted-foreground: #64748B;
-  --accent: #8E2D34;
-  --accent-foreground: #FFFFFF;
-  --destructive: #EF4444;
-  --destructive-foreground: #FFFFFF;
-  --border: #E8E2DE;
-  --input: #F5F1EF;
-  --ring: #8E2D34;
-  --chart-1: #8E2D34;
-  --chart-2: #64748B;
-  --chart-3: #94A3B8;
-  --chart-4: #CBD5E1;
-  --chart-5: #E2E8F0;
-  --sidebar: #FFFFFF;
-  --sidebar-foreground: rgba(30, 30, 30, 0.9);
-  --sidebar-primary: #8E2D34;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F5F1EF;
-  --sidebar-accent-foreground: rgba(30, 30, 30, 0.9);
-  --sidebar-border: #E8E2DE;
-  --sidebar-ring: #8E2D34;
+/* ─────────────────────────────────────────────────────────────────────────
+   Base
+───────────────────────────────────────────────────────────────────────── */
+html {
+  background-color: #0A0E17;
+  color: #F5F0EB;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
-.dark {
-  /* Dark Theme */
-  --background: #1E1E1E;
-  /* stone-ink dark */
-  --foreground: #FAF7F5;
-  /* cream-paper */
-  --card: #2A2A2A;
-  --card-foreground: #FAF7F5;
-  --popover: #2A2A2A;
-  --popover-foreground: #FAF7F5;
-  --primary: #8E2D34;
-  /* primary-cherry */
-  --primary-foreground: #FFFFFF;
-  --secondary: #3A3A3A;
-  --secondary-foreground: #FAF7F5;
-  --muted: #2A2A2A;
-  --muted-foreground: #94A3B8;
-  --accent: #8E2D34;
-  --accent-foreground: #FFFFFF;
-  --destructive: #DC2626;
-  --destructive-foreground: #FAF7F5;
-  --border: #3A3A3A;
-  --input: #3A3A3A;
-  --ring: #8E2D34;
-  --chart-1: #8E2D34;
-  --chart-2: #64748B;
-  --chart-3: #475569;
-  --chart-4: #3A3A3A;
-  --chart-5: #2A2A2A;
-  --sidebar: #2A2A2A;
-  --sidebar-foreground: #FAF7F5;
-  --sidebar-primary: #8E2D34;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #3A3A3A;
-  --sidebar-accent-foreground: #FAF7F5;
-  --sidebar-border: #3A3A3A;
-  --sidebar-ring: #8E2D34;
+body {
+  font-family: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background-color: #0A0E17;
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-    font-family: 'News Plantin', 'Playfair Display', 'Crimson Text', 'Times New Roman', serif;
-    font-weight: 400;
-    line-height: 1.7;
-    letter-spacing: 0.01em;
-  }
-
-  /* Performance optimizations */
-  * {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* GPU acceleration for transform-heavy elements */
-  .gpu-accelerated {
-    will-change: transform;
-    transform: translateZ(0);
-  }
-
-  /* Typography Hierarchy */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: 'News Plantin', 'Playfair Display', 'Crimson Text', 'Times New Roman', serif;
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: var(--foreground);
-  }
-
-  h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-  }
-
-  h2 {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 700;
-    margin-bottom: 1.25rem;
-  }
-
-  h3 {
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-
-  h4 {
-    font-size: clamp(1.25rem, 2.5vw, 2rem);
-    font-weight: 600;
-    margin-bottom: 0.875rem;
-  }
-
-  /* Hero Styling - Clean, even spacing */
-  .hero-title {
-    font-family: 'News Plantin', 'Playfair Display', serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    text-rendering: optimizeLegibility;
-  }
-
-  /* Force even spacing - override any font features */
-  .hero-title span {
-    font-feature-settings: "liga" 0, "dlig" 0, "swsh" 0, "salt" 0, "ornm" 0;
-    font-variant: normal;
-    text-transform: none;
-  }
-
-  /* Ensure first letters are exactly the same size */
-  .hero-title span::first-letter {
-    font-size: 1em !important;
-    font-weight: inherit !important;
-    float: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    line-height: inherit !important;
-    text-shadow: none !important;
-    letter-spacing: inherit !important;
-  }
-
-  /* Remove shadows from Blog button */
-  .blog-button {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-    filter: none !important;
-    text-shadow: none !important;
-    background: #FAF7F5 !important;
-    background-image: none !important;
-    background-gradient: none !important;
-    border: 2px solid #B73E2A !important;
-    border-image: none !important;
-    border-radius: 0.75rem !important;
-    -webkit-border-radius: 0.75rem !important;
-    -moz-border-radius: 0.75rem !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-    -webkit-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-    -moz-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-  }
-
-  .blog-button:hover {
-    background: #B73E2A !important;
-    background-image: none !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-    -webkit-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-    -moz-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-  }
-
-  /* Fix Discovery Call Button rounded corners */
-  .discovery-call-button {
-    background: #B73E2A !important;
-    background-image: none !important;
-    border-radius: 0.75rem !important;
-    -webkit-border-radius: 0.75rem !important;
-    -moz-border-radius: 0.75rem !important;
-    overflow: hidden !important;
-  }
-
-  .discovery-call-button:hover {
-    background: #8B2E1F !important;
-    background-image: none !important;
-  }
-
-  .discovery-call-button>div {
-    display: none !important;
-  }
-
-
-
-  /* Special styling for the equals symbol */
-  .hero-equals {
-    font-family: 'News Plantin', 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1.1em;
-    position: relative;
-    top: -0.05em;
-    color: var(--primary-cherry);
-    display: inline-block;
-  }
-
-  /* Body text styling */
-  p {
-    font-family: 'News Plantin', 'Playfair Display', 'Crimson Text', 'Times New Roman', serif;
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-    color: var(--foreground);
-  }
-
-  .lead {
-    font-size: 1.25rem;
-    line-height: 1.6;
-    font-weight: 400;
-    letter-spacing: 0.005em;
-  }
-
-  /* Monospace for code/technical content */
-  .font-mono,
-  code,
-  pre {
-    font-family: 'IBM Plex Mono', 'Courier New', monospace;
-    font-weight: 400;
-  }
-
-  /* Link styling */
-  a {
-    color: var(--primary-cherry);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  a:hover {
-    color: var(--primary-cherry-dark);
-    text-decoration: underline;
-  }
-
-  /* Custom font classes for specific use cases */
-  .font-display {
-    font-family: 'News Plantin', 'Playfair Display', serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .font-body {
-    font-family: 'News Plantin', 'Playfair Display', 'Crimson Text', serif;
-    font-weight: 400;
-  }
-
-  .font-secondary {
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-  }
-
-  /* Additional font classes for components */
-  .font-hero {
-    font-family: 'News Plantin', 'Playfair Display', serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .font-headline {
-    font-family: 'News Plantin', 'Playfair Display', serif;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-  }
+/* ─────────────────────────────────────────────────────────────────────────
+   Typography Utility Classes
+   Mirrors V1 pattern from fontImplementationGuide.md:
+     .font-display → display headlines  (was .font-hero / .font-headline)
+     .font-body    → body copy          (same name as V1)
+     .font-mono    → code / mono        (same name as V1)
+───────────────────────────────────────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-/* Custom animations for brand motion */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.font-display-italic {
+  font-family: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+.font-body {
+  font-family: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
+  font-weight: 400;
 }
 
-@keyframes typing {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 100%;
-  }
+.font-mono {
+  font-family: var(--font-jetbrains-mono), "JetBrains Mono", "Courier New", monospace;
+  font-weight: 400;
 }
 
-/* Retro-inspired animations */
-@keyframes vintage-pop {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.05);
-  }
-
-  100% {
-    transform: scale(1);
-  }
+/* ─────────────────────────────────────────────────────────────────────────
+   Easter Egg #1: Cursor blink at 530ms
+   Google's search bar cursor blinks at exactly 530ms.
+   This is a 1px-wide gold bar that blinks at that same rate.
+───────────────────────────────────────────────────────────────────────── */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
 }
 
-@keyframes retro-typewriter {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 100%;
-  }
+.cursor-blink {
+  animation: cursor-blink 530ms step-start infinite;
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: #D4A853;
+  vertical-align: baseline;
+  margin-left: 4px;
+  border-radius: 1px;
 }
 
-@keyframes retro-slide {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+/* ─────────────────────────────────────────────────────────────────────────
+   Waveform Bars (AudioEngineer section)
+───────────────────────────────────────────────────────────────────────── */
+@keyframes waveform-pulse {
+  0%, 100% { transform: scaleY(0.3); }
+  50%       { transform: scaleY(1.0); }
 }
 
-/* Hero text enhancement */
-@keyframes hero-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.waveform-bar {
+  display: inline-block;
+  width: 3px;
+  background-color: #D4A853;
+  border-radius: 2px;
+  transform-origin: bottom;
+  animation: waveform-pulse var(--duration, 0.8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
 }
 
-/* Marquee animation with better mobile performance */
-@keyframes marquee {
-  0% {
-    transform: translateX(100%);
-  }
-
-  100% {
-    transform: translateX(-100%);
-  }
+/* ─────────────────────────────────────────────────────────────────────────
+   Google DNA Gradient (WhyGoogle section — Easter Egg #5)
+───────────────────────────────────────────────────────────────────────── */
+@keyframes google-gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-@media (max-width: 768px) {
-  .animate-marquee {
-    animation: marquee 15s linear infinite;
-  }
+.google-dna-bg {
+  background: linear-gradient(
+    -45deg,
+    rgba(66, 133, 244, 0.06),
+    rgba(234, 67, 53, 0.06),
+    rgba(251, 188, 5, 0.06),
+    rgba(52, 168, 83, 0.06),
+    rgba(66, 133, 244, 0.06)
+  );
+  background-size: 400% 400%;
+  animation: google-gradient-shift 10s ease infinite;
 }
 
-@media (min-width: 769px) {
-  .animate-marquee {
-    animation: marquee 20s linear infinite;
-  }
+/* ─────────────────────────────────────────────────────────────────────────
+   Typing indicator dots (ChatInterface)
+───────────────────────────────────────────────────────────────────────── */
+@keyframes typing-dot {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; }
+  40%            { transform: scale(1.0); opacity: 1;   }
 }
 
-/* Slow bounce animation for hero scroll indicator */
-@keyframes bounce-slow {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
+/* ─────────────────────────────────────────────────────────────────────────
+   Section fade-up (used by AnimatedSection)
+───────────────────────────────────────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.animate-bounce-slow {
-  animation: bounce-slow 2s infinite;
-}
-
-/* Retro Animation Keyframes */
-@keyframes blink-caret {
-
-  from,
-  to {
-    border-color: transparent;
-  }
-
-  50% {
-    border-color: var(--cyan-electric);
-  }
-}
-
-/* Hero 3-word fade-in animation */
-@keyframes hero-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-hero-fade {
-  animation: hero-fade-in 0.6s ease-out forwards;
-}
-
-.animate-hero-fade-1 {
-  animation: hero-fade-in 0.6s ease-out 0.2s forwards;
-  opacity: 0;
-}
-
-.animate-hero-fade-2 {
-  animation: hero-fade-in 0.6s ease-out 0.4s forwards;
-  opacity: 0;
-}
-
-/* TikTok Embed Optimization - Remove all whitespace and ensure proper display */
-.tiktok-embed {
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
-  background: transparent !important;
-  display: block !important;
-  width: 100% !important;
-}
-
-/* Target all TikTok blockquote elements */
+/* ─────────────────────────────────────────────────────────────────────────
+   TikTok embed overrides (preserved from V1 — SocialArchitect section)
+───────────────────────────────────────────────────────────────────────── */
 blockquote.tiktok-embed {
   margin: 0 !important;
   padding: 0 !important;
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
-  outline: none !important;
 }
 
-/* Target TikTok iframe specifically */
 blockquote.tiktok-embed iframe {
-  border: none !important;
   border-radius: 12px !important;
   margin: 0 !important;
-  padding: 0 !important;
-  background: transparent !important;
   display: block !important;
   width: 100% !important;
-  max-width: 100% !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Remove any extra containers or wrappers that TikTok might inject */
-.tiktok-embed > div,
-.tiktok-embed > section {
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
-  background: transparent !important;
-}
+/* ─────────────────────────────────────────────────────────────────────────
+   Scrollbar — editorial dark
+───────────────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0A0E17; }
+::-webkit-scrollbar-thumb { background: #D4A853; border-radius: 2px; }
 
-/* Hide TikTok footer/branding if it appears */
-.tiktok-embed [data-testid="embed-footer"],
-.tiktok-embed .tiktok-embed-footer {
-  display: none !important;
-  visibility: hidden !important;
-}
-
-/* Ensure consistent spacing in grid layouts */
-.tiktok-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 0;
-  padding: 0;
-}
-
-/* Force proper aspect ratio and sizing */
-.tiktok-embed blockquote {
-  max-width: 400px !important;
-  margin: 0 auto !important;
-  padding: 0 !important;
-  border: none !important;
-  background: transparent !important;
-}
-
-/* Mobile Optimization Styles */
-@media (max-width: 768px) {
-  /* Improve touch targets on mobile */
-  .touch-manipulation {
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  /* Optimize animation performance on mobile */
-  .animate-marquee {
-    animation-duration: 25s; /* Slower on mobile for better performance */
-  }
-
-  /* Reduce motion for users who prefer it */
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-
-  /* Mobile-specific typography improvements */
-  .hero-title {
-    line-height: 1.1;
-    word-spacing: -0.05em;
-  }
-
-  /* Better mobile scrolling */
-  body {
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
-  }
-
-  /* Optimize TikTok embeds for mobile */
-  .tiktok-embed {
-    max-width: 350px !important;
-  }
-
-  /* Mobile-specific button improvements */
-  button, .button, a[role="button"] {
-    min-height: 44px;
-    min-width: 44px;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
+/* ─────────────────────────────────────────────────────────────────────────
+   Accessibility
+───────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-/* Improve focus visibility for accessibility */
-@media (prefers-reduced-motion: no-preference) {
-  *:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
-    transition: outline-offset 150ms ease;
-  }
+*:focus-visible {
+  outline: 2px solid #D4A853;
+  outline-offset: 2px;
 }
 
-/* PWA safe area support for mobile devices with notches */
+/* Safe area for iOS notch */
 @supports (padding: max(0px)) {
-  .safe-area-inset {
-    padding-left: max(1rem, env(safe-area-inset-left));
-    padding-right: max(1rem, env(safe-area-inset-right));
-  }
+  .safe-area-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 }

@@ -1,241 +1,162 @@
+/**
+ * MobileNav — minimal dark mobile menu
+ *
+ * Portal architecture (renders in document.body) for z-index isolation.
+ * Dark-only, no theme toggle. Minimal nav links for fellowship site.
+ * Smooth slide-in/out with Framer Motion.
+ */
 "use client";
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { X, Menu } from "lucide-react";
-import { useTheme } from "next-themes";
 
-// Create a context to share the mobile menu state
-import { createContext, useContext } from "react";
+const NAV_LINKS = [
+  { href: "#origin",    label: "Origin" },
+  { href: "#maker",     label: "The Maker" },
+  { href: "#curator",   label: "Taste" },
+  { href: "#google",    label: "Why Google" },
+  { href: "#agent",     label: "Just Ask" },
+];
 
-const MobileNavContext = createContext<{
-    isOpen: boolean;
-    setIsOpen: (open: boolean) => void;
-}>({
-    isOpen: false,
-    setIsOpen: () => { },
-});
-
-export function MobileNavProvider({ children }: { children: React.ReactNode }) {
-    const [isOpen, setIsOpen] = useState(false);
-
-    return (
-        <MobileNavContext.Provider value={{ isOpen, setIsOpen }}>
-            {children}
-        </MobileNavContext.Provider>
-    );
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <div className="w-5 h-4 flex flex-col justify-between">
+      <motion.span
+        animate={open ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+        className="block h-px bg-cream origin-left"
+        transition={{ duration: 0.25 }}
+      />
+      <motion.span
+        animate={open ? { opacity: 0 } : { opacity: 1 }}
+        className="block h-px bg-cream"
+        transition={{ duration: 0.15 }}
+      />
+      <motion.span
+        animate={open ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+        className="block h-px bg-cream origin-left"
+        transition={{ duration: 0.25 }}
+      />
+    </div>
+  );
 }
 
-export function MobileNavButton() {
-    const { isOpen, setIsOpen } = useContext(MobileNavContext);
+function MobileNavPortal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  return createPortal(
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 bg-ink/80 backdrop-blur-sm"
+            style={{ zIndex: 999998 }}
+            onClick={onClose}
+            aria-hidden="true"
+          />
 
-    return (
-        <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 hover:scale-110 transition-transform duration-200"
-            aria-label="Toggle menu"
-        >
-            <Menu className="h-6 w-6" />
-        </button>
-    );
-}
-
-export function MobileNavOverlay() {
-    const { isOpen, setIsOpen } = useContext(MobileNavContext);
-
-    if (!isOpen) return null;
-
-    return (
-        <div
-            className="fixed inset-0 z-[9999] md:hidden"
-            style={{
-                backgroundColor: '#0F0F0F',
-                background: 'linear-gradient(180deg, #0F0F0F 0%, #1A1A1A 100%)',
-                opacity: '1'
-            }}
-        >
-            {/* Menu Header */}
-            <div className="flex items-center justify-between p-6 border-b border-white/10">
-                <h2 className="text-xl font-headline font-semibold text-white">Menu</h2>
-                <button
-                    onClick={() => setIsOpen(false)}
-                    className="p-2 text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors duration-200"
-                    aria-label="Close menu"
+          {/* Drawer */}
+          <motion.nav
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed top-0 right-0 bottom-0 w-72 bg-surface border-l border-white/10 flex flex-col pt-20 pb-8 px-8"
+            style={{ zIndex: 999999 }}
+            role="navigation"
+            aria-label="Mobile navigation"
+          >
+            <ul className="space-y-2 flex-1">
+              {NAV_LINKS.map(({ href, label }, i) => (
+                <motion.li
+                  key={href}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 + i * 0.06, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 >
-                    <X className="h-6 w-6" />
-                </button>
-            </div>
+                  <Link
+                    href={href}
+                    onClick={onClose}
+                    className="block py-3 text-xl font-display text-cream/70 hover:text-cream transition-colors border-b border-white/5"
+                  >
+                    {label}
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
 
-            {/* Menu Items */}
-            <nav className="flex-1 px-6 py-8">
-                <div className="space-y-2">
-                    <Link
-                        href="/portfolio"
-                        onClick={() => setIsOpen(false)}
-                        className="block text-2xl font-headline font-medium text-white hover:text-primary px-4 py-4 rounded-xl transition-all duration-300 hover:bg-white/5 hover:pl-6"
-                    >
-                        Portfolio
-                    </Link>
-
-                    <Link
-                        href="/about"
-                        onClick={() => setIsOpen(false)}
-                        className="block text-2xl font-headline font-medium text-white hover:text-primary px-4 py-4 rounded-xl transition-all duration-300 hover:bg-white/5 hover:pl-6"
-                    >
-                        About
-                    </Link>
-
-                    <Link
-                        href="/contact"
-                        onClick={() => setIsOpen(false)}
-                        className="block text-2xl font-headline font-medium text-white hover:text-primary px-4 py-4 rounded-xl transition-all duration-300 hover:bg-white/5 hover:pl-6"
-                    >
-                        Work With Me
-                    </Link>
-
-                    <Link
-                        href="/blog"
-                        onClick={() => setIsOpen(false)}
-                        className="block text-2xl font-headline font-medium text-white hover:text-primary px-4 py-4 rounded-xl transition-all duration-300 hover:bg-white/5 hover:pl-6"
-                    >
-                        Blog
-                    </Link>
-                </div>
-            </nav>
-
-            {/* Footer */}
-            <div className="p-6 border-t border-white/10">
-                <p className="text-sm text-white/60 text-center">
-                    nathankhane.com
-                </p>
-            </div>
-        </div>
-    );
+            {/* Footer in nav */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.45 }}
+              className="space-y-3"
+            >
+              <p className="text-xs font-mono text-cream/30 uppercase tracking-widest">
+                Business Is Poetry
+              </p>
+              <div className="flex gap-4">
+                {[
+                  { href: "https://www.tiktok.com/@nathankhane", label: "TikTok" },
+                  { href: "https://www.linkedin.com/in/nathankhane", label: "LinkedIn" },
+                  { href: "https://www.youtube.com/@nathankhane", label: "YouTube" },
+                ].map(({ href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-cream/40 hover:text-gold transition-colors"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          </motion.nav>
+        </>
+      )}
+    </AnimatePresence>,
+    document.body
+  );
 }
 
 export default function MobileNav() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [mounted, setMounted] = useState(false);
-    const { resolvedTheme } = useTheme();
+  const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-    const toggleMenu = () => setIsOpen(!isOpen);
-    const closeMenu = () => setIsOpen(false);
+  // Lock body scroll when open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
-    // Determine if we're in dark mode
-    const isDark = resolvedTheme === 'dark';
+  return (
+    <>
+      <button
+        onClick={() => setIsOpen((v) => !v)}
+        className="relative z-50 p-2 rounded-md hover:bg-white/5 transition-colors"
+        aria-label={isOpen ? "Close menu" : "Open menu"}
+        aria-expanded={isOpen}
+      >
+        <MenuIcon open={isOpen} />
+      </button>
 
-    // Mobile menu overlay component
-    const MobileMenuOverlay = () => (
-        <div
-            className={`fixed inset-0 z-[999999] md:hidden ${isDark ? 'bg-ink-black' : 'bg-parchment-white'}`}
-            style={{
-                backgroundColor: isDark ? '#0F0F0F' : '#FAF9F7',
-                background: isDark
-                    ? 'linear-gradient(180deg, #0F0F0F 0%, #1A1A1A 100%)'
-                    : 'linear-gradient(180deg, #FAF9F7 0%, #F1F5F9 100%)',
-                width: '100vw',
-                height: '100vh',
-                position: 'fixed',
-                top: '0',
-                left: '0',
-                right: '0',
-                bottom: '0'
-            }}
-        >
-            {/* Menu Header */}
-            <div className={`flex items-center justify-between p-6 border-b ${isDark ? 'border-white/10' : 'border-black/10'}`}>
-                <h2 className={`text-xl font-headline font-semibold ${isDark ? 'text-white' : 'text-black'}`}>Menu</h2>
-                <button
-                    onClick={closeMenu}
-                    className={`p-2 rounded-lg transition-colors duration-200 ${isDark
-                        ? 'text-white/80 hover:text-white hover:bg-white/10'
-                        : 'text-black/80 hover:text-black hover:bg-black/10'
-                        }`}
-                    aria-label="Close menu"
-                >
-                    <X className="h-6 w-6" />
-                </button>
-            </div>
-
-            {/* Menu Items */}
-            <nav className="flex-1 px-6 py-8">
-                <div className="space-y-2">
-                    <Link
-                        href="/portfolio"
-                        onClick={closeMenu}
-                        className={`block text-2xl font-headline font-medium px-4 py-4 rounded-xl transition-all duration-300 ${isDark
-                            ? 'text-white hover:text-primary hover:bg-white/5 hover:pl-6'
-                            : 'text-black hover:text-primary hover:bg-black/5 hover:pl-6'
-                            }`}
-                    >
-                        Portfolio
-                    </Link>
-
-                    <Link
-                        href="/about"
-                        onClick={closeMenu}
-                        className={`block text-2xl font-headline font-medium px-4 py-4 rounded-xl transition-all duration-300 ${isDark
-                            ? 'text-white hover:text-primary hover:bg-white/5 hover:pl-6'
-                            : 'text-black hover:text-primary hover:bg-black/5 hover:pl-6'
-                            }`}
-                    >
-                        About
-                    </Link>
-
-                    <Link
-                        href="/contact"
-                        onClick={closeMenu}
-                        className={`block text-2xl font-headline font-medium px-4 py-4 rounded-xl transition-all duration-300 ${isDark
-                            ? 'text-white hover:text-primary hover:bg-white/5 hover:pl-6'
-                            : 'text-black hover:text-primary hover:bg-black/5 hover:pl-6'
-                            }`}
-                    >
-                        Work With Me
-                    </Link>
-
-                    <Link
-                        href="/blog"
-                        onClick={closeMenu}
-                        className={`block text-2xl font-headline font-medium px-4 py-4 rounded-xl transition-all duration-300 ${isDark
-                            ? 'text-white hover:text-primary hover:bg-white/5 hover:pl-6'
-                            : 'text-black hover:text-primary hover:bg-black/5 hover:pl-6'
-                            }`}
-                    >
-                        Blog
-                    </Link>
-                </div>
-            </nav>
-
-            {/* Footer */}
-            <div className={`p-6 border-t ${isDark ? 'border-white/10' : 'border-black/10'}`}>
-                <p className={`text-sm text-center ${isDark ? 'text-white/60' : 'text-black/60'}`}>
-                    nathankhane.com
-                </p>
-            </div>
-        </div>
-    );
-
-    return (
-        <>
-            {/* Hamburger Menu Button */}
-            <button
-                onClick={toggleMenu}
-                className="md:hidden p-2 hover:scale-110 transition-transform duration-200"
-                aria-label="Toggle menu"
-            >
-                <Menu className="h-6 w-6" />
-            </button>
-
-            {/* Mobile Menu Overlay - Rendered via Portal */}
-            {isOpen && mounted && createPortal(
-                <MobileMenuOverlay />,
-                document.body
-            )}
-        </>
-    );
-} 
+      {mounted && <MobileNavPortal isOpen={isOpen} onClose={() => setIsOpen(false)} />}
+    </>
+  );
+}
