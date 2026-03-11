@@ -15,7 +15,7 @@ import { SOCIAL_LINKS } from "@/lib/social-links";
 const FOOTER_LABELS = ["TikTok", "YouTube", "LinkedIn", "Substack", "Spotify"] as const;
 const footerLinks = FOOTER_LABELS.map((label) =>
   SOCIAL_LINKS.find((l) => l.label === label)
-).filter(Boolean);
+).filter((link): link is (typeof SOCIAL_LINKS)[number] => Boolean(link));
 
 // Easter Egg #7: 10 blue links that dissolve into the chat UI
 const TEN_BLUE_LINKS = [

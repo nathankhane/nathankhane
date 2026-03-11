@@ -18,7 +18,7 @@ import { SOCIAL_LINKS } from "@/lib/social-links";
 const SIDEBAR_LABELS = ["TikTok", "LinkedIn", "Substack", "YouTube"] as const;
 const sidebarLinks = SIDEBAR_LABELS.map((label) =>
   SOCIAL_LINKS.find((l) => l.label === label)
-).filter(Boolean);
+).filter((link): link is (typeof SOCIAL_LINKS)[number] => Boolean(link));
 
 export default function AgentSidebar() {
   const [open, setOpen] = useState(false);

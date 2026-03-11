@@ -16,7 +16,7 @@ import { SOCIAL_LINKS } from "@/lib/social-links";
 const MOBILE_NAV_SOCIAL_LABELS = ["TikTok", "LinkedIn", "YouTube"] as const;
 const mobileNavSocialLinks = MOBILE_NAV_SOCIAL_LABELS.map((label) =>
   SOCIAL_LINKS.find((l) => l.label === label)
-).filter(Boolean);
+).filter((link): link is (typeof SOCIAL_LINKS)[number] => Boolean(link));
 
 const NAV_LINKS = [
   { href: "#origin",    label: "Origin" },
