@@ -7,29 +7,33 @@
  */
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
 import { TIKTOK_PROFILE_URL, TIKTOK_HANDLE } from "@/lib/social-links";
 
-// TODO: Replace with actual TikTok video IDs from @nathankhane
 const TIKTOK_VIDEOS = [
-  { id: "placeholder-1", caption: "How I built a company with $0 in marketing spend" },
-  { id: "placeholder-2", caption: "The DJ mindset that changed how I run my startup" },
-  { id: "placeholder-3", caption: "What Fortune 500 UX consulting taught me about storytelling" },
-  { id: "placeholder-4", caption: "Bridge: from idea to AI platform in 90 days" },
-];
-
-const METRICS = [
-  { value: "—", label: "Total Views" },
-  { value: "—", label: "Avg Engagement" },
-  { value: "—", label: "Followers" },
+  { id: "7528959342104694029", caption: "thinking out loud" },
+  { id: "7534547380851445005", caption: "who else feels like life is on 2x speed rn?" },
+  { id: "7530832917510098190", caption: "when do you feel most creative?" },
+  { id: "7541877082519817486", caption: "Day In The Bay Vol. 3: Work + Dog + @RUSS" },
 ];
 
 export default function SocialArchitect() {
+  // Load TikTok embed script after component mounts so it processes blockquotes
+  useEffect(() => {
+    const SCRIPT_SRC = "https://www.tiktok.com/embed.js";
+    if (document.querySelector(`script[src="${SCRIPT_SRC}"]`)) return;
+    const s = document.createElement("script");
+    s.src = SCRIPT_SRC;
+    s.async = true;
+    document.body.appendChild(s);
+  }, []);
+
   return (
     <section
       id="social"
-      className="relative py-24 md:py-36 bg-surface overflow-hidden"
+      className="relative py-24 md:py-36 overflow-hidden"
       aria-label="Social Architect — Act 2"
       data-easter-egg="tiktok-swipe-up-transition"
     >
@@ -42,33 +46,28 @@ export default function SocialArchitect() {
             </span>
           </AnimatedSection>
           <AnimatedSection delay={0.1}>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-display text-cream leading-tight">
-              I didn&apos;t just consume culture. I made it.
+            <h2 className="mt-4 text-4xl sm:text-5xl md:text-6xl font-display text-cream leading-tight text-balance">
+              I don&apos;t just consume culture.{" "}
+              <span
+                className="animate-blue-glow-text"
+                style={{
+                  color: "rgba(66,133,244,1)",
+                  textShadow: "0 0 20px rgba(66,133,244,0.6), 0 0 40px rgba(66,133,244,0.3)",
+                }}
+              >
+                I create it.
+              </span>
             </h2>
           </AnimatedSection>
           <AnimatedSection delay={0.2}>
-            <p className="mt-4 text-cream/50 leading-relaxed text-sm">
-              TikTok taught me to read audiences in real-time — the fastest feedback loop
-              in creative history. Every video is a hypothesis. Every view is a data point.
-              Every comment is qualitative research.
+            <p className="mt-4 text-cream/30 italic font-mono text-xs tracking-wide">
+              [Placeholder — Nate to rewrite]
             </p>
           </AnimatedSection>
         </div>
 
-        {/* Metrics row */}
-        <AnimatedSection delay={0.15}>
-          <div className="flex flex-wrap gap-8 mb-12">
-            {METRICS.map((m) => (
-              <div key={m.label}>
-                <div className="text-2xl font-display text-cream">{m.value}</div>
-                <div className="text-xs font-mono text-cream/30 mt-1">{m.label}</div>
-              </div>
-            ))}
-          </div>
-        </AnimatedSection>
-
-        {/* TikTok grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {/* TikTok embed grid — 2 columns so videos breathe */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {TIKTOK_VIDEOS.map((video, i) => (
             <motion.div
               key={video.id}
@@ -76,20 +75,28 @@ export default function SocialArchitect() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: 0.1 + i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative rounded-xl overflow-hidden aspect-[9/16] bg-ink border border-white/10"
+              className="flex justify-center"
             >
-              {/* Placeholder until real TikTok IDs are added */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center mb-3">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" className="text-cream/40 ml-0.5">
-                    <path d="M3 2l9 5-9 5V2z" />
-                  </svg>
-                </div>
-                <p className="text-xs text-cream/30 leading-relaxed">{video.caption}</p>
+              {/* tiktok-video-wrap crops the "Watch more" footer chrome */}
+              <div className="tiktok-video-wrap w-full" style={{ maxWidth: "325px" }}>
+                <blockquote
+                  className="tiktok-embed"
+                  cite={`https://www.tiktok.com/@nathankmorales/video/${video.id}`}
+                  data-video-id={video.id}
+                  style={{ maxWidth: "325px", minWidth: "280px" }}
+                >
+                  <section>
+                    <a
+                      target="_blank"
+                      title="@nathankmorales"
+                      href="https://www.tiktok.com/@nathankmorales?refer=embed"
+                    >
+                      @nathankmorales
+                    </a>{" "}
+                    {video.caption}
+                  </section>
+                </blockquote>
               </div>
-
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
           ))}
         </div>

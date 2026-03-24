@@ -55,9 +55,12 @@ export default function Timeline({ items, side = "left", className }: TimelinePr
             <div
               className={cn(
                 "absolute top-1.5 w-2 h-2 rounded-full transition-all duration-300",
-                item.highlight ? "bg-gold w-3 h-3 top-1" : "bg-cream/30",
-                side === "left" ? "-right-1" : "-left-1"
+                item.highlight
+                  ? "bg-gold w-3 h-3 top-1"
+                  : "bg-cream/30",
+                side === "left" ? "-right-1.5" : "-left-1.5"
               )}
+              style={item.highlight ? { boxShadow: "0 0 8px rgba(212,168,83,0.5), 0 0 16px rgba(212,168,83,0.25)" } : undefined}
             />
 
             {/* Year */}

@@ -53,13 +53,11 @@ export default function AgentSidebar() {
         onClick={() => setOpen(true)}
         aria-label="Chat with Nate's AI agent"
         data-easter-egg="just-ask"
-        className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full bg-gold text-ink flex items-center justify-center shadow-lg shadow-gold/20 hover:bg-gold/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
-        /* One-cycle pulse on mount */
-        animate={pulseDone ? {} : { scale: [1, 1.18, 1] }}
+        className="fixed bottom-[104px] right-6 z-50 h-11 px-4 rounded-full bg-transparent border border-google-blue/50 text-cream/70 flex items-center gap-2.5 hover:text-cream hover:border-google-blue/80 transition-colors focus-visible:outline-none animate-blue-glow"
+        animate={pulseDone ? {} : { scale: [1, 1.06, 1] }}
         transition={pulseDone ? {} : { duration: 1.2, ease: "easeInOut", times: [0, 0.5, 1] }}
       >
-        {/* Chat bubble icon */}
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0 text-google-blue/80">
           <path
             d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
             stroke="currentColor"
@@ -68,6 +66,9 @@ export default function AgentSidebar() {
             strokeLinejoin="round"
           />
         </svg>
+        <span className="font-mono text-[11px] tracking-wide whitespace-nowrap">
+          Ask AI Nate something...
+        </span>
       </motion.button>
 
       <AnimatePresence>
@@ -91,15 +92,22 @@ export default function AgentSidebar() {
               role="dialog"
               aria-modal="true"
               aria-label="Ask Nate's AI agent"
-              /* Desktop: slide from right */
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
+              /* Desktop: slide from right. Mobile: slide up from bottom as sheet */
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={{
+                open:   { x: 0, y: 0 },
+                closed: {
+                  x: typeof window !== "undefined" && window.innerWidth < 640 ? 0 : "100%",
+                  y: typeof window !== "undefined" && window.innerWidth < 640 ? "100%" : 0,
+                },
+              }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-md bg-surface border-l border-white/10 flex flex-col shadow-2xl
+              className="fixed z-50 bg-ink/10 backdrop-blur-sm flex flex-col shadow-2xl
+                         top-0 right-0 bottom-0 w-full max-w-md border-l border-white/[0.06]
                          sm:w-[420px]
-                         max-sm:top-auto max-sm:left-0 max-sm:right-0 max-sm:bottom-0 max-sm:w-full max-sm:max-w-none max-sm:rounded-t-2xl max-sm:border-l-0 max-sm:border-t max-sm:border-white/10"
-              style={{ maxHeight: "100dvh" }}
+                         max-sm:top-auto max-sm:left-0 max-sm:right-0 max-sm:bottom-0 max-sm:w-full max-sm:max-w-none max-sm:rounded-t-2xl max-sm:border-l-0 max-sm:border-t max-sm:border-white/10 max-sm:max-h-[82vh]"
               /* Override slide direction on mobile via CSS — keeps JS simple */
             >
               {/* Header */}

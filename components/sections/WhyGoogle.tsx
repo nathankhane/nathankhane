@@ -15,12 +15,12 @@ const ROLES = [
   {
     title: "Writer / AI Prompt Artist",
     org: "YouTube Creative Studio",
-    why: "I built an AI that speaks in my voice. The prompt engineering IS the creative work. Every system prompt is a character brief.",
+    why: "[Placeholder — Nate to rewrite]",
   },
   {
     title: "Social Creative / Copywriter",
     org: "Brand Studio",
-    why: "TikTok is the fastest creative feedback loop ever invented. I didn't study it — I competed in it, in real-time, against the algorithm.",
+    why: "[Placeholder — Nate to rewrite]",
   },
 ];
 
@@ -39,35 +39,32 @@ export default function WhyGoogle() {
     >
       {/* Easter Egg #5 — Google DNA color gradient background */}
       <div
-        className="absolute inset-0 google-dna-bg opacity-30"
+        className="absolute inset-0 google-dna-bg opacity-50"
         aria-hidden="true"
         data-easter-egg="google-dna-colors"
       />
       {/* Overlay to keep text readable */}
-      <div className="absolute inset-0 bg-ink/85" aria-hidden="true" />
+      <div className="absolute inset-0 bg-ink/80" aria-hidden="true" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
         {/* Header */}
         <div className="mb-16 max-w-3xl">
           <AnimatedSection direction="fade">
             <span className="text-xs font-mono text-google-blue/70 tracking-[0.2em] uppercase">
-              Act III — The Future
+              Act III: The Future
             </span>
           </AnimatedSection>
 
           <AnimatedSection delay={0.1}>
-            <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-display text-cream leading-tight">
+            <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-display text-cream leading-tight text-balance">
               Why Google.
             </h2>
           </AnimatedSection>
 
           <AnimatedSection delay={0.2}>
-            <p className="mt-6 text-cream/60 leading-relaxed max-w-2xl">
-              I&apos;ve studied Google&apos;s creative output the way a songwriter studies their
-              favorite records. &ldquo;Dear Sophie&rdquo; — proof that technology can be tender.
-              &ldquo;Year in Search&rdquo; — proof that data, told right, makes people cry.
-              Ted&apos;s life, told through search queries — passive. I want to build the active version.
-              {/* Easter Egg #6: "Dear Sophie" reference already embedded above */}
+            <p className="mt-6 text-cream/30 italic font-mono text-xs tracking-wide">
+              [Placeholder — Nate to rewrite]
+              {/* Easter Egg #6: reference to "Dear Sophie" should live here */}
             </p>
           </AnimatedSection>
         </div>
@@ -81,9 +78,14 @@ export default function WhyGoogle() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: 0.1 + i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="rounded-2xl border border-white/10 bg-surface/80 backdrop-blur-sm p-6"
+              className={`rounded-2xl border border-white/10 bg-surface/80 backdrop-blur-sm p-6 overflow-hidden relative ${i === 0 ? "shadow-gold-glow" : ""}`}
             >
-              <div className="text-xs font-mono text-google-blue/60 mb-1">{role.org}</div>
+              {/* Google color top accent */}
+              <div
+                className={`absolute top-0 left-0 right-0 h-px ${i === 0 ? "bg-google-blue/50" : "bg-google-green/50"}`}
+                aria-hidden="true"
+              />
+              <div className={`text-xs font-mono mb-1 ${i === 0 ? "text-google-blue/60" : "text-google-green/60"}`}>{role.org}</div>
               <div className="text-lg font-display text-cream mb-4">{role.title}</div>
               <p className="text-sm text-cream/50 leading-relaxed">{role.why}</p>
             </motion.div>
@@ -106,7 +108,7 @@ export default function WhyGoogle() {
                     <div className="text-sm font-display text-cream/80">{c.name}</div>
                     <div className="text-xs text-cream/30 mt-1">{c.desc}</div>
                   </div>
-                  <div className="text-xs font-mono text-cream/20 shrink-0 ml-4">{c.year}</div>
+                  <div className="text-xs font-mono text-cream/40 shrink-0 ml-4">{c.year}</div>
                 </div>
               ))}
             </div>
@@ -116,9 +118,9 @@ export default function WhyGoogle() {
         {/* Direct statement */}
         <AnimatedSection delay={0.3}>
           <div className="mt-14 max-w-2xl">
-            <p className="text-xl font-display text-cream/80 leading-relaxed italic">
-              &ldquo;The site you&apos;re reading right now is the portfolio piece.
-              I didn&apos;t submit a PDF. I built the argument.&rdquo;
+            <p className="text-2xl md:text-3xl font-display text-cream/80 leading-relaxed italic text-balance">
+              <span className="text-gold not-italic">&ldquo;</span>The site you&apos;re reading right now is the portfolio piece.
+              I didn&apos;t submit a PDF. I built my case for a position in the Google Creative Fellowship from the ground up, since I was a curious infant.&rdquo;
             </p>
             <p className="mt-4 text-sm font-mono text-cream/30">
               — Nathan Khane Morales, March 2026
@@ -129,7 +131,7 @@ export default function WhyGoogle() {
         {/* Site footer */}
         <AnimatedSection delay={0.4}>
           <div className="mt-20 pt-10 border-t border-white/10 text-center">
-            <p className="text-[10px] font-mono text-cream/15 tracking-widest">
+            <p className="text-xs font-mono text-cream/25 tracking-widest">
               Business Is Poetry · nathankhane.com · 2026
             </p>
           </div>

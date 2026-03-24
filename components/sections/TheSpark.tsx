@@ -23,9 +23,15 @@ export default function TheSpark() {
   return (
     <section
       id="spark"
-      className="relative py-24 md:py-36 bg-surface overflow-hidden"
+      className="relative py-24 md:py-36 overflow-hidden"
       aria-label="The Spark — Act 1"
     >
+      {/* Soft gold ambient blob behind cards */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-48 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 80% 100% at 50% 100%, rgba(212,168,83,0.05) 0%, transparent 70%)" }}
+        aria-hidden="true"
+      />
       <div className="max-w-4xl mx-auto px-6">
         {/* Eyebrow */}
         <AnimatedSection direction="fade">
@@ -36,15 +42,15 @@ export default function TheSpark() {
 
         {/* Headline */}
         <AnimatedSection delay={0.1}>
-          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-display text-cream leading-tight max-w-2xl">
-            I didn&apos;t ask Google questions.{" "}
+          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-display text-cream leading-tight max-w-2xl text-balance">
+            I ask Google the right questions...{" "}
             <EasterEgg
               mode="hover"
               content="I'm Feeling Lucky"
               data-easter-egg="im-feeling-lucky"
             >
-              <span className="text-gold italic cursor-help">
-                I built the answers.
+              <span className="text-gold italic cursor-pointer underline decoration-gold/30 underline-offset-4">
+                then I build the answers.
               </span>
             </EasterEgg>
           </h2>
@@ -53,20 +59,8 @@ export default function TheSpark() {
         {/* Body copy */}
         <AnimatedSection delay={0.2}>
           <div className="mt-8 space-y-5 text-cream/60 leading-relaxed max-w-2xl">
-            <p>
-              Growing up in Houston, I was always the kid who took things apart —
-              not to break them, but to understand the system underneath. Music became
-              my first real laboratory. A beat isn&apos;t noise. It&apos;s architecture.
-            </p>
-            <p>
-              At Capgemini, I sat across the table from Fortune 500 executives and saw
-              something they couldn&apos;t: the gap between what their technology did and
-              what their story told. Systems thinking and narrative craft aren&apos;t
-              opposites. They&apos;re the same discipline in different clothes.
-            </p>
-            <p>
-              That&apos;s the spark. Seeing systems where others see chaos. Building
-              bridges — literal and figurative — between what exists and what&apos;s possible.
+            <p className="text-cream/30 italic font-mono text-xs tracking-wide">
+              [Placeholder — Nate to rewrite]
             </p>
           </div>
         </AnimatedSection>
@@ -77,7 +71,7 @@ export default function TheSpark() {
             <p className="text-xs font-mono text-cream/30 tracking-widest uppercase mb-6">
               CliftonStrengths Top 5
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {STRENGTHS.map((s, i) => (
                 <motion.div
                   key={s.name}
@@ -85,11 +79,15 @@ export default function TheSpark() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ delay: 0.35 + i * 0.07, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="group rounded-xl border border-white/10 bg-ink/60 p-4 hover:border-gold/30 transition-colors cursor-default"
+                  className={`group rounded-xl border p-4 hover:border-gold/40 transition-colors cursor-default active:scale-[0.98] ${
+                    i === 0
+                      ? "col-span-2 sm:col-span-4 border-gold/40 bg-surface-elevated shadow-gold-glow"
+                      : "border-white/10 bg-ink/60"
+                  }`}
                 >
-                  <div className="text-xs font-mono text-gold/80 mb-2">#{i + 1}</div>
-                  <div className="text-sm font-display text-cream mb-1">{s.name}</div>
-                  <div className="text-xs text-cream/30 leading-relaxed sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
+                  <div className={`text-xs font-mono mb-2 ${i === 0 ? "text-gold" : "text-gold/60"}`}>#{i + 1}</div>
+                  <div className={`font-display mb-1 ${i === 0 ? "text-base text-cream" : "text-sm text-cream"}`}>{s.name}</div>
+                  <div className="text-xs text-cream/40 leading-relaxed">
                     {s.desc}
                   </div>
                 </motion.div>

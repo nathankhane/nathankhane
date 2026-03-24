@@ -15,37 +15,37 @@ export interface MusicTrack {
   act: 1 | 2 | 3;       // which act of the narrative this track accompanies
   bpm?: number;
   credits?: string;
+  startAt?: number;      // seek to this position (seconds) on every load
 }
 
-// TODO: Add actual audio files to /public/audio/ before launch
-// Session recordings with Matt O'Neill (2023–2024)
 export const tracks: MusicTrack[] = [
   {
     id: "track-01",
-    title: "Valentine / Signal",
-    description: "The origin. Born on Valentine's Day, 2000.",
-    src: "/audio/track-01.mp3",
-    duration: 210,
+    title: "Cruise Freestyle",
+    description: "Performed and Co-produced by Nathan Khane Morales",
+    src: "/audio/Booze Cruise Freestyle.mp3",
+    duration: 180,
     act: 1,
-    credits: "Produced by Nathan Khane Morales",
+    credits: "Performed and Co-produced by Nathan Khane Morales",
   },
   {
     id: "track-02",
-    title: "Studio Session (ft. Matt O'Neill)",
-    description: "Where sound engineering met systems thinking.",
-    src: "/audio/track-02.mp3",
-    duration: 195,
+    title: "wastin' time with u",
+    description: "Written, Recorded, and Engineered by Nathan Khane Morales",
+    src: "/audio/wastin' time with u DEMO (Master).mp3",
+    duration: 210,
     act: 2,
-    credits: "Recorded with Matt O'Neill",
+    credits: "Written, Recorded, and Engineered by Nathan Khane Morales",
   },
   {
     id: "track-03",
-    title: "Bridge",
-    description: "The future. Architecture as art.",
-    src: "/audio/track-03.mp3",
-    duration: 180,
+    title: "Love Songs 4 U",
+    description: "Written, Performed, and co-composed by Nathan Khane Morales",
+    src: "/audio/Love Songs 4 U.mp3",
+    duration: 240,
     act: 3,
-    credits: "Produced by Nathan Khane Morales",
+    credits: "Written, Performed, and co-composed by Nathan Khane Morales",
+    startAt: 35,
   },
 ];
 

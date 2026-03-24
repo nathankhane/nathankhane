@@ -20,6 +20,8 @@ import "./globals.css";
 import AudioPlayer from "@/components/AudioPlayer";
 import AgentSidebar from "@/components/AgentSidebar";
 import ScrollToTop from "@/components/ScrollToTop";
+import CustomCursor from "@/components/CustomCursor";
+import ScrollProgress from "@/components/ScrollProgress";
 import { Analytics } from "@vercel/analytics/next";
 
 // ── Fonts ──────────────────────────────────────────────────────────────
@@ -52,7 +54,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 // ── Metadata ────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "Business Is Poetry — Nathan Khane Morales",
+  title: "Real Eyes Realize",
   description:
     "Systems architect. Audio engineer. Social architect. Curator of unique taste. Born February 14, 2000 — the year Google became the world's most-used search engine.",
   keywords: [
@@ -69,7 +71,7 @@ export const metadata: Metadata = {
   creator: "Nathan Khane Morales",
   metadataBase: new URL("https://nathankhane.com"),
   openGraph: {
-    title: "Business Is Poetry — Nathan Khane Morales",
+    title: "Real Eyes Realize",
     description: "Born the year Google changed the world. Building parallel to it ever since.",
     url: "https://nathankhane.com",
     siteName: "Business Is Poetry",
@@ -79,7 +81,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Business Is Poetry",
+    title: "Real Eyes Realize",
     description: "Born the year Google changed the world. Building parallel to it ever since.",
     creator: "@nathankmo",
     images: ["/og-image.jpg"],
@@ -103,17 +105,21 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="preload" href="https://www.tiktok.com/embed.js" as="script" />
         {/* Easter Egg #10: visible in HTML source — "View Source" reward */}
         {/* If you're reading this, you're exactly who this site was built for. — Nathan Khane Morales | nathankhane.com */}
       </head>
       <body className="bg-ink text-cream antialiased min-h-screen font-sans">
+        <CustomCursor />
+        <ScrollProgress />
         <ScrollToTop />
         {children}
-        {/* Persistent audio mini-player — NEVER autoplays */}
-        <AudioPlayer />
-        {/* Floating AI agent sidebar — bottom-right FAB */}
-        <AgentSidebar />
+        {/* Persistent UI — hidden by HeroScrollCanvas until hero scroll completes */}
+        <div id="persistent-ui" style={{ transition: "opacity 1s ease" }}>
+          {/* Persistent audio mini-player — NEVER autoplays */}
+          <AudioPlayer />
+          {/* Floating AI agent sidebar — bottom-right FAB */}
+          <AgentSidebar />
+        </div>
         <Analytics />
       </body>
     </html>

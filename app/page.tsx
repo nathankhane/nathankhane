@@ -5,9 +5,9 @@
  * Dynamic imports for below-fold sections to minimize initial bundle.
  */
 import dynamic from "next/dynamic";
-import TitleCard from "@/components/sections/TitleCard";
+import HeroScrollCanvas from "@/components/sections/HeroScrollCanvas";
 
-// Dynamic imports for performance — above-fold TitleCard loads eagerly
+// Dynamic imports for performance — above-fold HeroScrollCanvas loads eagerly
 const ParallelTimeline = dynamic(() => import("@/components/sections/ParallelTimeline"));
 const TheSpark        = dynamic(() => import("@/components/sections/TheSpark"));
 const AudioEngineer   = dynamic(() => import("@/components/sections/AudioEngineer"));
@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <main>
       {/* Act 1 — Origin */}
-      <TitleCard />
+      <HeroScrollCanvas />
       <ParallelTimeline />
       <TheSpark />
 
@@ -32,6 +32,13 @@ export default function Home() {
 
       {/* Act 3 — The Future */}
       <WhyGoogle />
+
+      {/* Subliminal watermark — visible only if you look */}
+      <footer className="py-8 flex justify-center" aria-hidden="true">
+        <span className="font-mono text-[9px] tracking-[0.4em] uppercase text-cream/[0.06] select-none">
+          Site built using Google&apos;s AI Suite
+        </span>
+      </footer>
     </main>
   );
 }

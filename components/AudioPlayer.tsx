@@ -33,6 +33,7 @@ type HowlConstructor = new (opts: {
   preload: boolean;
   onload?: () => void;
   onloaderror?: (id: number, err: unknown) => void;
+  onplay?: () => void;
   onend?: () => void;
 }) => HowlInstance;
 
@@ -116,7 +117,21 @@ export default function AudioPlayer() {
         setIsLoading(false);
         if (howlRef.current) {
           setDuration(howlRef.current.duration());
+          if (track.startAt) {
+            howlRef.current.seek(track.startAt);
+            setProgress(track.startAt);
+          }
+          if (autoPlayOnLoadRef.current) {
+            autoPlayOnLoadRef.current = false;
+            howlRef.current.play();
+            setIsPlaying(true);
+            // progress loop starts via onplay callback below
+          }
         }
+      },
+      // onplay fires after Howler confirms playback started — safe place to begin RAF loop
+      onplay: () => {
+        startProgressLoop();
       },
       onloaderror: () => {
         setIsLoading(false);
@@ -140,6 +155,21 @@ export default function AudioPlayer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTrackIdx]);
 
+  // Listen for track-select events from other sections (e.g. AudioEngineer)
+  // Payload: { index: number, autoPlay?: boolean }
+  const autoPlayOnLoadRef = useRef(false);
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const { index, autoPlay } = (e as CustomEvent<{ index: number; autoPlay?: boolean }>).detail;
+      if (typeof index === "number" && index >= 0 && index < tracks.length) {
+        autoPlayOnLoadRef.current = autoPlay ?? false;
+        setCurrentTrackIdx(index);
+      }
+    };
+    window.addEventListener("audioTrackSelect", handler);
+    return () => window.removeEventListener("audioTrackSelect", handler);
+  }, []);
+
   // Cleanup on unmount
   useEffect(() => {
     return () => {
@@ -160,7 +190,6 @@ export default function AudioPlayer() {
     } else {
       howlRef.current.play();
       setIsPlaying(true);
-      startProgressLoop();
     }
   };
 
@@ -200,15 +229,7 @@ export default function AudioPlayer() {
           role="region"
           aria-label="Music player"
         >
-          {/* Progress bar — full width, above player body */}
-          <div className="h-0.5 bg-white/10 w-full">
-            <div
-              className="h-full bg-gold transition-none"
-              style={{ width: `${progressPct}%` }}
-            />
-          </div>
-
-          <div className="bg-surface/95 backdrop-blur-xl border-t border-white/10">
+          <div className="bg-surface/40 backdrop-blur-xl border-t border-white/10">
             {/* Expanded seek row */}
             <AnimatePresence>
               {isExpanded && (
@@ -237,7 +258,7 @@ export default function AudioPlayer() {
             </AnimatePresence>
 
             {/* Main player row */}
-            <div className="flex items-center gap-4 px-4 py-3 max-w-screen-lg mx-auto">
+            <div className="flex items-center gap-4 px-4 py-4 max-w-screen-lg mx-auto">
               {/* Track info */}
               <button
                 onClick={() => setIsExpanded((v) => !v)}
@@ -261,10 +282,10 @@ export default function AudioPlayer() {
                     ))}
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs font-display text-cream truncate leading-tight">
+                    <p className="text-sm font-display text-cream truncate leading-tight">
                       {currentTrack.title}
                     </p>
-                    <p className="text-[10px] text-cream/40 truncate">
+                    <p className="text-xs text-cream/40 truncate">
                       {hasError ? "Audio not yet available" : currentTrack.credits ?? currentTrack.description}
                     </p>
                   </div>
@@ -288,18 +309,18 @@ export default function AudioPlayer() {
                 <button
                   onClick={handlePlayPause}
                   disabled={isLoading}
-                  className="w-9 h-9 rounded-full bg-gold flex items-center justify-center hover:bg-gold/80 transition-colors disabled:opacity-50"
+                  className="w-9 h-9 rounded-full bg-transparent border-2 border-google-blue/70 flex items-center justify-center hover:border-google-blue transition-colors disabled:opacity-50 animate-blue-glow"
                   aria-label={isPlaying ? "Pause" : "Play"}
                 >
                   {isLoading ? (
-                    <span className="w-3 h-3 border border-ink border-t-transparent rounded-full animate-spin" />
+                    <span className="w-3 h-3 border border-google-blue/60 border-t-transparent rounded-full animate-spin" />
                   ) : isPlaying ? (
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="#0A0E17">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="rgba(245,240,235,0.9)">
                       <rect x="2" y="1" width="3" height="10" />
                       <rect x="7" y="1" width="3" height="10" />
                     </svg>
                   ) : (
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="#0A0E17">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="rgba(245,240,235,0.9)">
                       <path d="M2 1l9 5-9 5V1z" />
                     </svg>
                   )}
@@ -356,7 +377,7 @@ export default function AudioPlayer() {
                 </div>
 
                 {/* Act indicator */}
-                <span className="hidden sm:block text-[10px] font-mono text-cream/30 ml-1">
+                <span className="hidden sm:block text-xs font-mono text-cream/30 ml-1">
                   ACT {currentTrack.act}
                 </span>
               </div>
