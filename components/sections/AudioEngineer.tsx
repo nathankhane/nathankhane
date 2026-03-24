@@ -106,7 +106,7 @@ export default function AudioEngineer() {
               <div className="mt-6 space-y-4 text-cream/60 leading-relaxed text-sm">
                 <p>
                   In late 2023, I sat in a studio with Matt O&apos;Neill, producer for Travis Scott
-                  and Don Toliver, and learned something no MBA teaches.
+                  and Don Toliver, and UM? — an artist and a brother — and learned something no MBA teaches.
                 </p>
                 <p className="text-cream/30 italic font-mono text-xs tracking-wide">
                   [Placeholder — Nate to rewrite]

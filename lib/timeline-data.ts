@@ -110,7 +110,7 @@ export const timelineData: TimelineEvent[] = [
   },
   {
     year: 2023,
-    nate: "Moved to SF. Capgemini. Khane Creative. First recordings with Matt O'Neill.",
+    nate: "Moved to SF. Capgemini. Khane Creative. First recordings with Matt O'Neill and UM?.",
     google: "Bard (Gemini). YouTube Creative Studio investment accelerates.",
     nateDetail: "June 3rd — landed in San Francisco. UX consulting for Fortune 500 by day. Building Khane Creative and recording studio tracks by night. Befriended a ton of Googlers.",
     googleDetail: "Google's creative teams start speaking the language of builders.",
@@ -120,7 +120,7 @@ export const timelineData: TimelineEvent[] = [
     year: 2024,
     nate: "Co-producing beats. Audio engineering. Managing a band in LA.",
     google: "Gemini everywhere. NotebookLM. Google Creative Fellowship announces.",
-    nateDetail: "Started co-producing in Dec 2023 / Jan 2024. Now 4 tracks recorded with Matt O'Neill. Became a band manager in Los Angeles.",
+    nateDetail: "Started co-producing in Dec 2023 / Jan 2024. Now 4 tracks recorded with Matt O'Neill and UM?. Became a band manager in Los Angeles.",
     googleDetail: "The fellowship is created for exactly this kind of person.",
     highlight: true,
   },

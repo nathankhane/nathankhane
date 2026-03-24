@@ -30,7 +30,7 @@ BACKGROUND:
 - SF Chapter Lead, Founders Basketball
 - MIS background (Management Information Systems)
 - UX consulting at Capgemini for Fortune 500 clients
-- Audio engineer — recorded with Matt O'Neill (Travis Scott, Don Toliver)
+- Audio engineer — recorded with Matt O'Neill (Travis Scott, Don Toliver) and UM? (artist, close friend)
 - Writer — Substack "Khane School of Thought", poetry, songwriting
 - DJ — curates experiences on DDJ-400 + Rekordbox
 - Social architect — TikTok content creator building at the intersection of business and culture
