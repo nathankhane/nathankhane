@@ -180,6 +180,8 @@ export default function AudioPlayer() {
 
   const handlePlayPause = () => {
     if (!howlRef.current) {
+      // User explicitly clicked play — autoplay once track loads
+      autoPlayOnLoadRef.current = true;
       loadTrack(currentTrack);
       return;
     }
@@ -208,10 +210,12 @@ export default function AudioPlayer() {
   };
 
   const handlePrev = () => {
+    autoPlayOnLoadRef.current = true;
     setCurrentTrackIdx((idx) => (idx - 1 + tracks.length) % tracks.length);
   };
 
   const handleNext = () => {
+    autoPlayOnLoadRef.current = true;
     setCurrentTrackIdx((idx) => (idx + 1) % tracks.length);
   };
 
@@ -229,6 +233,18 @@ export default function AudioPlayer() {
           role="region"
           aria-label="Music player"
         >
+          {/* Progress bar — full width, above player body, Google blue glow */}
+          <div className="h-0.5 bg-white/10 w-full">
+            <div
+              className="h-full transition-none"
+              style={{
+                width: `${progressPct}%`,
+                background: "rgba(66,133,244,0.9)",
+                boxShadow: "0 0 6px rgba(66,133,244,0.7), 0 0 12px rgba(66,133,244,0.4)",
+              }}
+            />
+          </div>
+
           <div className="bg-surface/40 backdrop-blur-xl border-t border-white/10">
             {/* Expanded seek row */}
             <AnimatePresence>
