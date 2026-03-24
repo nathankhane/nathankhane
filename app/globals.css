@@ -26,9 +26,10 @@
 ───────────────────────────────────────────────────────────────────────── */
 @theme {
   /* Typography */
-  --font-sans:    var(--font-dm-sans),    "DM Sans",    system-ui, sans-serif;
-  --font-display: var(--font-instrument-serif), "Instrument Serif", Georgia,   serif;
-  --font-mono:    var(--font-jetbrains-mono),   "JetBrains Mono",   "Courier New", monospace;
+  --font-sans:     var(--font-dm-sans),          "DM Sans",         system-ui, sans-serif;
+  --font-display:  var(--font-instrument-serif), "Instrument Serif", Georgia,   serif;
+  --font-mono:     var(--font-jetbrains-mono),   "JetBrains Mono",   "Courier New", monospace;
+  --font-playfair: var(--font-playfair),         "Playfair Display", Georgia,   serif;
 
   /* Core palette */
   --color-ink:              #0A0E17;

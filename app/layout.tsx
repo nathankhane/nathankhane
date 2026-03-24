@@ -15,7 +15,7 @@
  *   - V2 editorial pairing chosen per googleCreativeFellowshipSiteBlueprint.md
  */
 import type { Metadata } from "next";
-import { Instrument_Serif, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Instrument_Serif, DM_Sans, JetBrains_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import AudioPlayer from "@/components/AudioPlayer";
 import AgentSidebar from "@/components/AgentSidebar";
@@ -40,6 +40,15 @@ const instrumentSerif = Instrument_Serif({
 const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-dm-sans",
+  display: "swap",
+});
+
+// Timeline: Playfair Display — high-contrast serif for timeline entry text.
+// Tested in ParallelTimeline to improve readability against space background.
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-playfair",
   display: "swap",
 });
 
@@ -111,7 +120,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
+      className={`${instrumentSerif.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable}`}
     >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />

@@ -77,7 +77,8 @@ export default function Timeline({ items, side = "left", className }: TimelinePr
             <p
               className={cn(
                 "text-sm leading-snug",
-                item.highlight ? "text-cream font-medium" : "text-cream/70"
+                "font-[family-name:var(--font-playfair)]",
+                item.highlight ? "text-cream font-semibold" : "text-cream/80"
               )}
             >
               {item.text}
@@ -85,7 +86,7 @@ export default function Timeline({ items, side = "left", className }: TimelinePr
 
             {/* Detail (hover reveal on desktop, always visible on mobile) */}
             {item.detail && (
-              <p className="text-xs text-cream/40 mt-1 leading-relaxed hidden md:block group-hover:block">
+              <p className="text-xs text-cream/50 mt-1 leading-relaxed hidden md:block group-hover:block">
                 {item.detail}
               </p>
             )}
