@@ -16,13 +16,28 @@ const BRIDGE_PRODUCTS = [
   { url: "brand.bridgenow.ai", label: "Brand Studio", desc: "AI-powered brand tooling" },
 ];
 
-const STACK = ["Next.js", "Anthropic API", "Supabase", "Vercel", "TypeScript", "Tailwind"];
+// Color-coded by category: language, framework, infra, AI
+const STACK: { name: string; category: "language" | "framework" | "infra" | "ai" }[] = [
+  { name: "TypeScript", category: "language" },
+  { name: "Next.js",    category: "framework" },
+  { name: "Tailwind",   category: "framework" },
+  { name: "Supabase",   category: "infra" },
+  { name: "Vercel",     category: "infra" },
+  { name: "Anthropic API", category: "ai" },
+];
+
+const STACK_STYLES: Record<string, string> = {
+  language:  "text-cream/60 border-cream/20 bg-cream/5",
+  framework: "text-google-blue/70 border-google-blue/20 bg-google-blue/5",
+  infra:     "text-google-green/70 border-google-green/20 bg-google-green/5",
+  ai:        "text-gold/80 border-gold/30 bg-gold/5",
+};
 
 export default function SystemsArchitect() {
   return (
     <section
       id="systems"
-      className="relative py-24 md:py-36 bg-ink overflow-hidden"
+      className="relative py-24 md:py-36 overflow-hidden"
       aria-label="Systems Architect — Act 2"
     >
       <div className="max-w-6xl mx-auto px-6">
@@ -34,7 +49,7 @@ export default function SystemsArchitect() {
             </span>
           </AnimatedSection>
           <AnimatedSection delay={0.1}>
-            <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-display text-cream leading-tight max-w-2xl">
+            <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-display text-cream leading-tight max-w-2xl text-balance">
               From UX consultant to AI platform founder.
             </h2>
           </AnimatedSection>
@@ -46,7 +61,7 @@ export default function SystemsArchitect() {
           <div>
             <AnimatedSection delay={0.1}>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center shadow-gold-glow-md ring-1 ring-gold/20">
                   <span className="text-gold font-mono text-xs font-bold">B</span>
                 </div>
                 <div>
@@ -59,7 +74,7 @@ export default function SystemsArchitect() {
             <AnimatedSection delay={0.15}>
               <p className="text-cream/60 leading-relaxed text-sm mb-6">
                 AI Business Intelligence platform for founders and operators. Bridge turns
-                fragmented business data into decision-ready insight — the kind of clarity
+                fragmented business data into decision-ready insight: the kind of clarity
                 I spent years helping Fortune 500 companies find at Capgemini, now
                 available to founders building on a budget.
               </p>
@@ -88,10 +103,10 @@ export default function SystemsArchitect() {
                 <div className="flex flex-wrap gap-2">
                   {STACK.map((tech) => (
                     <span
-                      key={tech}
-                      className="text-xs font-mono text-cream/40 border border-white/10 rounded-full px-3 py-1"
+                      key={tech.name}
+                      className={`text-xs font-mono border rounded-full px-3 py-1 ${STACK_STYLES[tech.category]}`}
                     >
-                      {tech}
+                      {tech.name}
                     </span>
                   ))}
                 </div>
@@ -101,9 +116,9 @@ export default function SystemsArchitect() {
 
           {/* Right — screenshot placeholder */}
           <AnimatedSection direction="left" delay={0.1}>
-            <div className="rounded-2xl border border-white/10 bg-surface overflow-hidden">
+            <div className="rounded-2xl border border-white/10 bg-surface overflow-hidden shadow-navy-lg" style={{ boxShadow: "0 8px 32px rgba(10,14,23,0.6), inset 0 1px 0 rgba(255,255,255,0.05)" }}>
               {/* Browser chrome */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-surface-elevated">
+              <div className="flex items-center gap-2 px-4 py-3.5 border-b border-white/10 bg-surface-elevated">
                 <div className="flex gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
                   <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
@@ -129,7 +144,7 @@ export default function SystemsArchitect() {
 
         {/* Morális — secondary mention */}
         <AnimatedSection delay={0.1}>
-          <div className="rounded-2xl border border-white/10 bg-surface p-8 grid md:grid-cols-2 gap-8 items-center">
+          <div className="rounded-2xl border border-white/10 bg-surface-elevated p-8 grid md:grid-cols-2 gap-8 items-center">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 rounded-lg bg-cream/5 border border-white/10 flex items-center justify-center">
@@ -142,7 +157,7 @@ export default function SystemsArchitect() {
               </div>
               <p className="text-cream/50 text-sm leading-relaxed">
                 AI automation for brick-and-mortar businesses. Where Bridge is intelligence,
-                Morális is execution — automating the operational layer so small business owners
+                Morális is execution: automating the operational layer so small business owners
                 can focus on what makes them irreplaceable.
               </p>
             </div>

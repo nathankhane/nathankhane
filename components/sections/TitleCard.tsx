@@ -30,25 +30,25 @@ export default function TitleCard() {
   return (
     <section
       id="origin"
-      className="relative min-h-screen flex flex-col items-center justify-center bg-ink overflow-hidden"
+      className="relative min-h-[100dvh] flex flex-col justify-center bg-ink overflow-hidden"
       aria-label="Title Card — Act 1"
     >
-      {/* Subtle radial glow */}
+      {/* Radial glow — left-offset to match text position */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(212,168,83,0.04) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse 70% 60% at 25% 55%, rgba(212,168,83,0.10) 0%, transparent 65%)",
         }}
       />
 
-      <div className="relative z-10 max-w-2xl mx-auto px-8 text-center">
+      <div className="relative z-10 max-w-2xl px-8 md:px-16 lg:px-24">
         {LINES.map((line, i) => (
           <motion.p
             key={i}
             initial={{ opacity: 0, y: 12 }}
             animate={visibleLines > i ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className={`leading-tight ${
+            className={`leading-tight text-balance ${
               i === 0
                 ? "text-4xl sm:text-5xl md:text-6xl font-display text-cream mb-6"
                 : i === 1
@@ -72,7 +72,7 @@ export default function TitleCard() {
           initial={{ opacity: 0, y: 20 }}
           animate={visibleLines >= LINES.length ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-12 flex items-center justify-center gap-2 font-mono text-xs text-cream/25"
+          className="mt-12 flex items-center gap-2 font-mono text-xs text-cream/25"
           aria-hidden="true"
         >
           <div className="flex gap-1">
@@ -86,19 +86,19 @@ export default function TitleCard() {
         </motion.div>
       </div>
 
-      {/* Scroll cue */}
+      {/* Scroll cue — left-aligned, no text label */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={visibleLines >= LINES.length ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.6, delay: 1.2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cream/20"
+        className="absolute bottom-10 left-8 md:left-16 lg:left-24 flex flex-col gap-2"
         aria-hidden="true"
       >
-        <span className="text-xs font-mono tracking-widest uppercase">scroll</span>
+        <span className="text-[10px] font-mono text-cream/20 tracking-[0.25em]">01</span>
         <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-px h-8 bg-gradient-to-b from-cream/20 to-transparent"
+          animate={{ opacity: [0.25, 0.55, 0.25] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          className="w-px h-10 bg-gradient-to-b from-cream/40 to-transparent"
         />
       </motion.div>
     </section>

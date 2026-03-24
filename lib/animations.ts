@@ -94,3 +94,26 @@ export const pageTransition: Variants = {
 export function parallaxStyle(y: number | string) {
   return { y };
 }
+
+/**
+ * Spring card hover — use with Framer Motion whileHover.
+ * Replaces CSS transition-all with spring physics (taste-skill).
+ * Usage: <motion.div whileHover={springHover}>
+ */
+export const springHover = {
+  scale: 1.015,
+  transition: { type: "spring" as const, stiffness: 400, damping: 25 },
+};
+
+/**
+ * Spring dot pulse — for timeline highlighted dots entering viewport.
+ * Usage: <motion.div variants={dotPulse} initial="hidden" whileInView="visible">
+ */
+export const dotPulse: Variants = {
+  hidden:  { opacity: 0, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { type: "spring", stiffness: 200, damping: 18 },
+  },
+};

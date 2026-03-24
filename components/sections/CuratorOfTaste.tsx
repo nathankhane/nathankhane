@@ -30,12 +30,12 @@ const ACTIVITIES = [
   {
     title: "Founders Basketball",
     subtitle: "SF Chapter Lead",
-    desc: "Where operators and builders play. Community as creative practice — because the best ideas emerge when the stakes are low and the sweat is real.",
+    desc: "[Placeholder — Nate to rewrite]",
   },
   {
     title: "DJ",
     subtitle: "DDJ-400 + Rekordbox",
-    desc: "Reading a room is the oldest data skill. You sequence experiences, you build arcs, you read energy in real-time. Every set is a product demo.",
+    desc: "[Placeholder — Nate to rewrite]",
   },
 ];
 
@@ -54,7 +54,7 @@ export default function CuratorOfTaste() {
   return (
     <section
       id="curator"
-      className="relative py-24 md:py-36 bg-surface overflow-hidden"
+      className="relative py-24 md:py-36 overflow-hidden"
       aria-label="Curator of Taste — Act 2"
     >
       {/* Easter Egg #4 — hidden search query */}
@@ -73,7 +73,7 @@ export default function CuratorOfTaste() {
             </span>
           </AnimatedSection>
           <AnimatedSection delay={0.1}>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-display text-cream leading-tight max-w-2xl">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-display text-cream leading-tight max-w-2xl text-balance">
               The connective tissue between everything.
             </h2>
           </AnimatedSection>
@@ -81,7 +81,7 @@ export default function CuratorOfTaste() {
 
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20">
           {/* Left column */}
-          <div className="space-y-14">
+          <div className="space-y-20">
             {/* Substack */}
             <AnimatedSection delay={0.1}>
               <div>
@@ -110,7 +110,7 @@ export default function CuratorOfTaste() {
                       className="block group"
                     >
                       <div className="border border-white/10 rounded-xl p-4 hover:border-gold/30 transition-colors">
-                        <div className="text-sm font-display text-cream/80 group-hover:text-cream transition-colors leading-snug mb-2">
+                        <div className="text-sm font-display text-cream/80 group-hover:text-cream group-hover:translate-x-1 transition-all duration-200 leading-snug mb-2">
                           {post.title}
                         </div>
                         {post.contentSnippet && (
@@ -136,9 +136,9 @@ export default function CuratorOfTaste() {
               <div>
                 <div className="text-xs font-mono text-cream/30 tracking-widest uppercase mb-4">Poetry</div>
                 <blockquote className="border-l-2 border-gold/40 pl-5">
-                  <pre className="font-display text-cream/70 text-sm leading-relaxed whitespace-pre-wrap italic">
+                  <p className="font-display text-cream/70 text-sm leading-relaxed italic whitespace-pre-line">
                     {POETRY_SAMPLE}
-                  </pre>
+                  </p>
                   <footer className="mt-3 text-xs font-mono text-cream/25">
                     — Nathan Khane Morales
                   </footer>
@@ -156,7 +156,7 @@ export default function CuratorOfTaste() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ delay: 0.1 + i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="rounded-2xl border border-white/10 bg-ink/60 p-6"
+                className={`rounded-2xl border border-white/10 bg-ink/60 p-6 border-l-2 ${i === 0 ? "border-l-gold/50" : "border-l-cream/20"}`}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="text-sm font-display text-cream">{a.title}</div>
@@ -172,16 +172,14 @@ export default function CuratorOfTaste() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: 0.3, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="rounded-2xl border border-white/10 bg-ink/60 p-6"
+              className="rounded-2xl border border-white/10 bg-ink/60 p-6 border-l-2 border-l-google-blue/30"
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="text-sm font-display text-cream">UX Consulting</div>
                 <div className="text-xs font-mono text-cream/40">Capgemini</div>
               </div>
-              <p className="text-xs text-cream/40 leading-relaxed">
-                Fortune 500 clients. The gap between what technology does and what the
-                story tells. Systems thinking at enterprise scale, before I started
-                building at startup speed.
+              <p className="text-xs text-cream/30 italic font-mono tracking-wide">
+                [Placeholder — Nate to rewrite]
               </p>
             </motion.div>
           </div>

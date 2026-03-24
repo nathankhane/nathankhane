@@ -75,7 +75,14 @@ export const metadata: Metadata = {
     description: "Born the year Google changed the world. Building parallel to it ever since.",
     url: "https://nathankhane.com",
     siteName: "Business Is Poetry",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Business Is Poetry" }],
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Hero screen — this is Nate, birth date, and Google year lines",
+      },
+    ],
     locale: "en_US",
     type: "website",
   },
@@ -91,6 +98,10 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: "/icon.svg",
+  },
 };
 
 // ── Layout ──────────────────────────────────────────────────────────────
@@ -104,7 +115,6 @@ export default function RootLayout({
     >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
         {/* Easter Egg #10: visible in HTML source — "View Source" reward */}
         {/* If you're reading this, you're exactly who this site was built for. — Nathan Khane Morales | nathankhane.com */}
       </head>
