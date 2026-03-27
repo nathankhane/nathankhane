@@ -23,11 +23,23 @@ const sidebarLinks = SIDEBAR_LABELS.map((label) =>
 export default function AgentSidebar() {
   const [open, setOpen] = useState(false);
   const [pulseDone, setPulseDone] = useState(false);
+  const [searchQuery, setSearchQuery] = useState<string | null>(null);
 
   // One-cycle pulse: mark done after ~1.5s
   useEffect(() => {
     const t = setTimeout(() => setPulseDone(true), 1500);
     return () => clearTimeout(t);
+  }, []);
+
+  // Easter Egg #13 — listen for Cmd+K search overlay submissions
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const { query } = (e as CustomEvent<{ query: string }>).detail;
+      setSearchQuery(query);
+      setOpen(true);
+    };
+    window.addEventListener("nate:search", handler);
+    return () => window.removeEventListener("nate:search", handler);
   }, []);
 
   // Close on Escape
@@ -104,14 +116,20 @@ export default function AgentSidebar() {
                 },
               }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed z-50 bg-ink/10 backdrop-blur-sm flex flex-col shadow-2xl
-                         top-0 right-0 bottom-0 w-full max-w-md border-l border-white/[0.06]
+              className="fixed z-50 flex flex-col
+                         top-0 right-0 bottom-0 w-full max-w-md
+                         bg-surface/60 backdrop-blur-xl
+                         border-l border-white/[0.08]
+                         shadow-[inset_1px_0_0_rgba(255,255,255,0.04),-24px_0_48px_rgba(0,0,0,0.5)]
                          sm:w-[420px]
                          max-sm:top-auto max-sm:left-0 max-sm:right-0 max-sm:bottom-0 max-sm:w-full max-sm:max-w-none max-sm:rounded-t-2xl max-sm:border-l-0 max-sm:border-t max-sm:border-white/10 max-sm:max-h-[82vh]"
               /* Override slide direction on mobile via CSS — keeps JS simple */
             >
+              {/* Inset top highlight — same depth cue as AudioPlayer */}
+              <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent shrink-0" aria-hidden="true" />
+
               {/* Header */}
-              <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 shrink-0">
+              <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.07] shrink-0">
                 <div>
                   <p className="text-xs font-mono text-gold/60 tracking-[0.15em] uppercase">Just Ask</p>
                   <p className="text-sm font-display text-cream mt-0.5">Nate&apos;s AI agent</p>
@@ -119,7 +137,7 @@ export default function AgentSidebar() {
                 <button
                   onClick={() => setOpen(false)}
                   aria-label="Close chat"
-                  className="w-8 h-8 flex items-center justify-center rounded-full text-cream/40 hover:text-cream hover:bg-white/5 transition-colors"
+                  className="w-8 h-8 flex items-center justify-center rounded-full text-cream/60 hover:text-cream hover:bg-white/5 transition-colors"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -130,13 +148,16 @@ export default function AgentSidebar() {
               {/* Chat area */}
               <div className="flex-1 overflow-y-auto min-h-0">
                 <div className="px-4 py-4 h-full">
-                  <ChatInterface />
+                  <ChatInterface
+                    initialQuery={searchQuery}
+                    onInitialQueryConsumed={() => setSearchQuery(null)}
+                  />
                 </div>
               </div>
 
               {/* Footer links */}
-              <div className="px-5 py-4 border-t border-white/10 shrink-0">
-                <p className="text-[10px] font-mono text-cream/20 tracking-widest uppercase mb-3 text-center">
+              <div className="px-5 py-4 border-t border-white/[0.07] shrink-0">
+                <p className="text-[10px] font-mono text-cream/70 tracking-widest uppercase mb-3 text-center">
                   Find Nate
                 </p>
                 <div className="flex flex-wrap justify-center gap-x-5 gap-y-1.5">
@@ -146,7 +167,7 @@ export default function AgentSidebar() {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-mono text-cream/35 hover:text-gold transition-colors"
+                      className="text-xs font-mono text-cream/60 hover:text-gold transition-colors"
                     >
                       {label}
                     </a>
@@ -154,13 +175,13 @@ export default function AgentSidebar() {
                   <a
                     href="/resume.pdf"
                     download
-                    className="text-xs font-mono text-cream/35 hover:text-gold transition-colors"
+                    className="text-xs font-mono text-cream/60 hover:text-gold transition-colors"
                   >
                     Resume ↓
                   </a>
                   <a
                     href="mailto:nathan@nathankhane.com"
-                    className="text-xs font-mono text-cream/35 hover:text-gold transition-colors"
+                    className="text-xs font-mono text-cream/60 hover:text-gold transition-colors"
                   >
                     Email
                   </a>

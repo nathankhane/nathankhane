@@ -2,19 +2,14 @@
  * Business Is Poetry — Global Styles (V2)
  * Design System: "Editorial Futurism"
  *
- * Typography Decision Log (ref: fontImplementationGuide.md):
- *   V1 used News Plantin (serif) — preserved in /public/fonts/ and /archive/v1/
- *   V2 shifts to an editorial pairing:
- *     Display: Instrument Serif — literary, editorial serif — next/font/google
- *     Body:    DM Sans         — geometric, approachable    — next/font/google
- *     Mono:    JetBrains Mono  — Google search bar motif   — next/font/google
- *
- *   V1 principles carried forward (fontImplementationGuide.md):
- *     - font-display: swap on all faces (handled by next/font)
- *     - Utility classes: .font-display, .font-body, .font-mono
- *     - Explicit fallback chains on all font declarations
- *
- *   News Plantin preserved at /public/fonts/NewsPlantin-Regular.otf
+ * Typography: single Google family — intentional for Google Creative Fellowship.
+ *   Google Sans Flex — loaded via CSS API below (open-sourced Nov 2025)
+ *     400 → body copy, captions
+ *     500 → labels, metadata
+ *     600 → sub-headings, emphasis
+ *     700 → display headlines
+ *   Google Sans Code — loaded via next/font/google
+ *     400/500 → search bar motif, code, mono elements
  */
 
 @import "tailwindcss";
@@ -25,11 +20,10 @@
    These become Tailwind utilities: bg-ink, text-cream, text-gold, etc.
 ───────────────────────────────────────────────────────────────────────── */
 @theme {
-  /* Typography */
-  --font-sans:     var(--font-dm-sans),          "DM Sans",         system-ui, sans-serif;
-  --font-display:  var(--font-instrument-serif), "Instrument Serif", Georgia,   serif;
-  --font-mono:     var(--font-jetbrains-mono),   "JetBrains Mono",   "Courier New", monospace;
-  --font-playfair: var(--font-playfair),         "Playfair Display", Georgia,   serif;
+  /* Typography — Outfit base */
+  --font-sans:    var(--font-outfit), "Outfit", system-ui, sans-serif;
+  --font-display: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  --font-mono:    var(--font-google-sans-code), "Google Sans Code", "Courier New", monospace;
 
   /* Core palette */
   --color-ink:              #0A0E17;
@@ -89,44 +83,95 @@ html {
 }
 
 body {
-  font-family: var(--font-dm-sans), "DM Sans", system-ui, sans-serif;
+  font-family: var(--font-outfit), "Outfit", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  background-color: #0A0E17;
-  background-image: url('/images/space-bg.png');
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center center;
+  /* background-color intentionally omitted — SpaceBackground (fixed, z-index:-2)
+     provides the background. html fallback keeps #0A0E17 so no white flash. */
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   Typography Utility Classes
-   Mirrors V1 pattern from fontImplementationGuide.md:
-     .font-display → display headlines  (was .font-hero / .font-headline)
-     .font-body    → body copy          (same name as V1)
-     .font-mono    → code / mono        (same name as V1)
+   Typography Utility Classes — Outfit base
+     .font-display        → Space Grotesk 700 — display headlines
+     .font-display-italic → Space Grotesk 600 italic — emphasis
+     .font-body           → Space Grotesk 400 — body copy
+     .font-mono           → Google Sans Code — code / search-bar motif
 ───────────────────────────────────────────────────────────────────────── */
 .font-display {
-  font-family: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
-  font-weight: 400;
+  font-family: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  font-weight: 700;
   font-style: normal;
+  letter-spacing: -0.02em;
 }
 
 .font-display-italic {
-  font-family: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
-  font-weight: 400;
+  font-family: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  font-weight: 600;
   font-style: italic;
 }
 
 .font-body {
-  font-family: var(--font-dm-sans), "DM Sans", system-ui, sans-serif;
+  font-family: var(--font-outfit), "Outfit", system-ui, sans-serif;
   font-weight: 400;
 }
 
 .font-mono {
-  font-family: var(--font-jetbrains-mono), "JetBrains Mono", "Courier New", monospace;
+  font-family: var(--font-google-sans-code), "Google Sans Code", "Courier New", monospace;
   font-weight: 400;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Section Display Fonts — one per section for typographic comparison
+   Each section gets a distinct typeface personality. Base font-display
+   (Google Sans Flex 700) applies to TitleCard, WhyGoogle, AgentCTA.
+───────────────────────────────────────────────────────────────────────── */
+
+/* Hero — Instrument Serif italic: literary, warm, poetic ("this is Nate.") */
+.font-display-hero {
+  font-family: var(--font-instrument-serif), Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* TheSpark — Fraunces: quirky optical serif with soul and personality */
+.font-display-spark {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 600;
+}
+
+/* SystemsArchitect — Space Grotesk: technical, geometric, tight */
+.font-display-systems {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* AudioEngineer — Syne: design-forward, expressive, angular */
+.font-display-audio {
+  font-family: var(--font-syne), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ParallelTimeline — Cormorant Garamond: luxury editorial, historical authority */
+.font-display-timeline {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* CuratorOfTaste — DM Serif Display: clean editorial, considered restraint */
+.font-display-curator {
+  font-family: var(--font-dm-serif-display), Georgia, serif;
+  font-weight: 400;
+}
+
+/* SocialArchitect — Outfit: contemporary, social-native, friendly geometric */
+.font-display-social {
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -265,4 +310,32 @@ blockquote.tiktok-embed iframe {
 ───────────────────────────────────────────────────────────────────────── */
 @media (pointer: fine) {
   * { cursor: none !important; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Act transition label background punch-through
+───────────────────────────────────────────────────────────────────────── */
+.act-label-bg {
+  background-color: #0A0E17;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   TikTok swipe-up overlay (SocialArchitect — Easter Egg #3)
+───────────────────────────────────────────────────────────────────────── */
+@keyframes tiktok-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes swipe-up-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Ambient waveform backdrop (AudioEngineer section)
+───────────────────────────────────────────────────────────────────────── */
+@keyframes waveform-ambient {
+  0%, 100% { transform: scaleY(0.2); }
+  50%       { transform: scaleY(1.0); }
 }

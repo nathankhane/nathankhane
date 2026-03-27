@@ -3,34 +3,42 @@
  *
  * Orchestrates all 9 narrative sections in sequence.
  * Dynamic imports for below-fold sections to minimize initial bundle.
+ * ActTransition components mark the cinematic act breaks.
  */
 import dynamic from "next/dynamic";
-import HeroScrollCanvas from "@/components/sections/HeroScrollCanvas";
+import HeroScrollCanvas from "@/components/sections/HeroScrollCanvasClient";
+import ActTransition from "@/components/ActTransition";
 
-// Dynamic imports for performance — above-fold HeroScrollCanvas loads eagerly
-const ParallelTimeline = dynamic(() => import("@/components/sections/ParallelTimeline"));
-const TheSpark        = dynamic(() => import("@/components/sections/TheSpark"));
-const AudioEngineer   = dynamic(() => import("@/components/sections/AudioEngineer"));
-const SocialArchitect = dynamic(() => import("@/components/sections/SocialArchitect"));
-const SystemsArchitect = dynamic(() => import("@/components/sections/SystemsArchitect"));
-const CuratorOfTaste  = dynamic(() => import("@/components/sections/CuratorOfTaste"));
-const WhyGoogle       = dynamic(() => import("@/components/sections/WhyGoogle"));
+// Dynamic imports for performance — below-fold sections loaded on demand
+const ParallelTimeline  = dynamic(() => import("@/components/sections/ParallelTimeline"));
+const TheSpark          = dynamic(() => import("@/components/sections/TheSpark"));
+const AudioEngineer     = dynamic(() => import("@/components/sections/AudioEngineer"));
+const SocialArchitect   = dynamic(() => import("@/components/sections/SocialArchitect"));
+const SystemsArchitect  = dynamic(() => import("@/components/sections/SystemsArchitect"));
+const CuratorOfTaste    = dynamic(() => import("@/components/sections/CuratorOfTaste"));
+const WhyGoogle         = dynamic(() => import("@/components/sections/WhyGoogle"));
 
 export default function Home() {
   return (
     <main>
-      {/* Act 1 — Origin */}
+      {/* ── Act 1: Origin ───────────────────────────────────────────────── */}
       <HeroScrollCanvas />
       <ParallelTimeline />
       <TheSpark />
 
-      {/* Act 2 — The Maker */}
+      {/* ── Act Break: I → II ───────────────────────────────────────────── */}
+      <ActTransition act="ACT II" subtitle="The Maker" color="gold" />
+
+      {/* ── Act 2: The Maker ────────────────────────────────────────────── */}
       <AudioEngineer />
       <SocialArchitect />
       <SystemsArchitect />
       <CuratorOfTaste />
 
-      {/* Act 3 — The Future */}
+      {/* ── Act Break: II → III ─────────────────────────────────────────── */}
+      <ActTransition act="ACT III" subtitle="The Future" color="blue" />
+
+      {/* ── Act 3: The Future ───────────────────────────────────────────── */}
       <WhyGoogle />
 
       {/* Subliminal watermark — visible only if you look */}

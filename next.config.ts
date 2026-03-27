@@ -5,6 +5,10 @@ import type { NextConfig } from "next";
  * Adds image domains, security headers, and remote patterns for embeds.
  */
 const nextConfig: NextConfig = {
+  experimental: {
+    // Only bundle named exports that are actually imported — critical for GSAP (2.4MB) and framer-motion
+    optimizePackageImports: ["framer-motion", "gsap", "howler"],
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "**.tiktok.com" },

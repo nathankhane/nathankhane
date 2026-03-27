@@ -4,6 +4,13 @@
  * The closing section: AI agent chat interface + social links footer.
  * Easter Egg #8: "Just Ask" prompt — direct callback to the Ted ad campaign name.
  * Easter Egg #7: "10 blue links" dissolving into the chat interface appear above.
+ *
+ * AG1: Phase machine — links stagger IN on mount (each appears with offset delay),
+ *      then the container dissolves out when the section reaches the viewport.
+ *      This gives them a proper entrance before the cinematic exit.
+ *
+ * AG2: A scan line sweeps through the blue links block once on mount —
+ *      mimicking a search engine reading through results.
  */
 "use client";
 
@@ -39,25 +46,53 @@ export default function AgentCTA() {
       aria-label="Just Ask — Act 3"
     >
       <div className="max-w-3xl mx-auto px-6">
-        {/* Easter Egg #7 — 10 blue links dissolving into agent */}
+        {/* Easter Egg #7 — 10 blue links: stagger in on mount, dissolve out on viewport entry */}
         <motion.div
           initial={{ opacity: 1 }}
           whileInView={{ opacity: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-8 space-y-1.5"
+          className="mb-8 relative"
           aria-hidden="true"
           data-easter-egg="ten-blue-links"
         >
-          {TEN_BLUE_LINKS.map((link, i) => (
-            <div
-              key={i}
-              className="text-xs font-mono text-google-blue/50 underline"
-              style={{ opacity: 1 - i * 0.08 }}
-            >
-              {link}
-            </div>
-          ))}
+          {/* AG2 — scan line sweeps through the links once */}
+          <motion.div
+            className="absolute inset-x-0 h-px pointer-events-none z-10"
+            style={{
+              background:
+                "linear-gradient(to right, transparent 0%, rgba(66,133,244,0.5) 50%, transparent 100%)",
+              top: 0,
+            }}
+            initial={{ top: "0%", opacity: 0 }}
+            animate={{ top: ["0%", "110%"], opacity: [0, 0.9, 0.9, 0] }}
+            transition={{
+              delay: 1.0,
+              duration: 1.6,
+              ease: "linear",
+              times: [0, 0.08, 0.92, 1],
+            }}
+            aria-hidden="true"
+          />
+
+          {/* AG1 — links stagger in on mount */}
+          <div className="space-y-1.5">
+            {TEN_BLUE_LINKS.map((link, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -5 }}
+                animate={{ opacity: 1 - i * 0.08, x: 0 }}
+                transition={{
+                  delay: 0.15 + i * 0.06,
+                  duration: 0.4,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="text-xs font-mono text-google-blue/50 underline"
+              >
+                {link}
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Header */}
@@ -71,7 +106,7 @@ export default function AgentCTA() {
           <h2 className="mt-4 text-3xl sm:text-4xl font-display text-cream leading-tight mb-2">
             Want to know more?
           </h2>
-          <p className="text-cream/50 text-sm leading-relaxed mb-10">
+          <p className="text-cream/75 text-sm leading-relaxed mb-10">
             {/* Easter Egg #8: "Just Ask" reference */}
             I trained an AI on my background, work, and creative philosophy.{" "}
             <span data-easter-egg="just-ask">Just ask.</span>
@@ -86,7 +121,7 @@ export default function AgentCTA() {
         {/* Links */}
         <AnimatedSection delay={0.3}>
           <div className="mt-16 pt-12 border-t border-white/10">
-            <p className="text-xs font-mono text-cream/25 tracking-widest uppercase mb-6 text-center">
+            <p className="text-xs font-mono text-cream/70 tracking-widest uppercase mb-6 text-center">
               Find Nate
             </p>
             <div className="flex flex-wrap justify-center gap-6">
@@ -96,7 +131,7 @@ export default function AgentCTA() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-mono text-cream/40 hover:text-gold transition-colors"
+                  className="text-sm font-mono text-cream/70 hover:text-gold transition-colors py-2 px-1"
                 >
                   {label}
                 </a>
@@ -108,13 +143,13 @@ export default function AgentCTA() {
               <a
                 href="/resume.pdf"
                 download
-                className="text-xs font-mono text-cream/30 hover:text-cream transition-colors border-b border-white/10 hover:border-white/30 pb-0.5"
+                className="text-xs font-mono text-cream/70 hover:text-cream transition-colors border-b border-white/10 hover:border-white/30 pb-0.5"
               >
                 Resume PDF ↓
               </a>
               <a
                 href="mailto:nathan@nathankhane.com"
-                className="text-xs font-mono text-cream/30 hover:text-cream transition-colors border-b border-white/10 hover:border-white/30 pb-0.5"
+                className="text-xs font-mono text-cream/70 hover:text-cream transition-colors border-b border-white/10 hover:border-white/30 pb-0.5"
               >
                 Email
               </a>

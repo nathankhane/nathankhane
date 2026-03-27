@@ -8,7 +8,7 @@ export const SOCIAL_LINKS = [
   { label: "TikTok", href: "https://www.tiktok.com/@nathankmorales" },
   { label: "X", href: "https://x.com/nathankmo" },
   { label: "Instagram", href: "https://www.instagram.com/nathankmorales/" },
-  { label: "Substack", href: "https://nathankhane.substack.com/" },
+  { label: "Substack", href: "https://nathankhane.substack.com/?utm_campaign=profile_chips" },
   { label: "YouTube", href: "https://www.youtube.com/@nathankhane" },
   { label: "Spotify", href: "https://open.spotify.com/artist/nathankhane" },
 ] as const;

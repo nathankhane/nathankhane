@@ -1,10 +1,14 @@
 /**
  * HeroScrollCanvas — Act 1, Section 1
  *
- * Scroll-driven canvas animation: 193 frames at 24fps.
- * GSAP ScrollTrigger pins the section while frames advance on scroll.
- * Text lines stagger in during the final scroll phase, right-aligned.
- * Persistent UI (AudioPlayer + AgentSidebar) is hidden until hero completes.
+ * Reversed scroll animation: starts on normal Nate (frame 383), brain opens
+ * and elements emerge as user scrolls to frame 12 (full glow).
+ *
+ * Frame assets: 383 WebP frames at 1928×1072, motion-interpolated to 48fps
+ * from the original 24fps source. 2× smoother scrubbing, full native resolution.
+ *
+ * Text is visible immediately on load, drifts apart as user scrolls.
+ * Frame 383 is priority-loaded so the canvas shows Nate right away.
  */
 "use client";
 
@@ -13,60 +17,61 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const TOTAL_FRAMES = 193;
+const TOTAL_FRAMES = 383;
 const FRAME_PATH = (n: number) =>
-  `/hero-frames/frame-${String(n).padStart(3, "0")}.jpg`;
+  `/hero-frames/frame-${String(n).padStart(3, "0")}.webp`;
 
-// Progress thresholds for staggered text reveals
-const T1 = 0.68; // "this is Nate."
-const T2 = 0.76; // birth date
-const T3 = 0.84; // Google year line
-const T4 = 0.91; // Google dots + search begins here
+// Reversed playback: scroll starts on normal Nate (frame 383), ends on full glow (frame 12).
+// Frames 1–11 (indices 0–10) are pre-glow/dull — never rendered.
+// At 48fps, original frame 6 (index 5) ≈ new frame 12 (index 11).
+const FRAME_END_IDX   = 382; // 0-indexed = frame 383 = normal Nate (start of scroll)
+const FRAME_START_IDX = 11;  // 0-indexed = frame 12 = first fully-glowing frame (end of scroll)
+const EFFECTIVE_FRAMES = FRAME_END_IDX - FRAME_START_IDX; // 371
+
 const T_DONE = 0.995; // unlock persistent UI
+
+// Linear interpolation for scroll-exit animations
+// Returns `from` when p <= start, `to` when p >= end, linear in between
+const exitVal = (p: number, start: number, end: number, from: number, to: number) =>
+  p <= start ? from : p >= end ? to : from + (to - from) * ((p - start) / (end - start));
 
 export default function HeroScrollCanvas() {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
-  const currentFrameRef = useRef<number>(0);
+  const currentFrameRef = useRef<number>(FRAME_END_IDX);
   const heroDoneRef = useRef(false);
 
-  const [loadedCount, setLoadedCount] = useState(0);
+  const loadedCountRef = useRef(0);
+  const [loadProgress, setLoadProgress] = useState(0);
+  const [firstFrameLoaded, setFirstFrameLoaded] = useState(false); // hides black screen
   const [allLoaded, setAllLoaded] = useState(false);
-  const [showLine1, setShowLine1] = useState(false);
-  const [showLine2, setShowLine2] = useState(false);
-  const [showLine3, setShowLine3] = useState(false);
-  const [showDots, setShowDots] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0); // 0–1, drives text exit
 
   // ── Draw a single frame to canvas ──────────────────────────────────────────
-  // Desktop (landscape): cover-fit — fills viewport, crops excess height/width
-  // Mobile (portrait):   contain-fit — fits full image width, letterboxes vertically
-  //                      This shows the full 16:9 frame so creative objects are visible
   const drawFrame = useCallback((img: HTMLImageElement) => {
     const canvas = canvasRef.current;
     if (!canvas || !img.complete || img.naturalWidth === 0) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const cw = canvas.width;
-    const ch = canvas.height;
+    const dpr = window.devicePixelRatio || 1;
+    const cw = canvas.width / dpr;   // logical width
+    const ch = canvas.height / dpr;  // logical height
 
     ctx.clearRect(0, 0, cw, ch);
 
     const isMobilePortrait = ch > cw;
 
     if (isMobilePortrait) {
-      // Balanced mobile fit: 1.5× from contain — shows creative objects around face
-      // while keeping face prominent. Crops a little on sides, letterboxes vertically.
       const zoomFactor = 1.5;
       const scale = (cw / img.naturalWidth) * zoomFactor;
       const drawW = img.naturalWidth * scale;
       const drawH = img.naturalHeight * scale;
-      const dx = (cw - drawW) / 2; // negative = slight side crop
-      const dy = (ch - drawH) / 2; // center vertically, letterbox if needed
+      const dx = (cw - drawW) / 2;
+      const dy = (ch - drawH) / 2;
       ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight, dx, dy, drawW, drawH);
     } else {
-      // Cover-fit: fill canvas, crop excess dimension, center
       const imgAspect = img.naturalWidth / img.naturalHeight;
       const canvasAspect = cw / ch;
       let sx = 0, sy = 0, sw = img.naturalWidth, sh = img.naturalHeight;
@@ -81,13 +86,20 @@ export default function HeroScrollCanvas() {
     }
   }, []);
 
-  // ── Resize canvas to match viewport ────────────────────────────────────────
+  // ── Resize canvas (HiDPI-aware) ─────────────────────────────────────────────
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = window.devicePixelRatio || 1;
+      const logicalW = window.innerWidth;
+      const logicalH = window.innerHeight;
+      canvas.width  = logicalW * dpr;
+      canvas.height = logicalH * dpr;
+      canvas.style.width  = logicalW + "px";
+      canvas.style.height = logicalH + "px";
+      const ctx = canvas.getContext("2d");
+      if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const img = imagesRef.current[currentFrameRef.current];
       if (img) drawFrame(img);
     };
@@ -96,27 +108,44 @@ export default function HeroScrollCanvas() {
     return () => window.removeEventListener("resize", resize);
   }, [drawFrame]);
 
-  // ── Preload all frames ──────────────────────────────────────────────────────
+  // ── Priority-load frame 193 first, then load remaining 192 frames ──────────
+  // Frame 193 (FRAME_END_IDX) is the starting frame (normal Nate portrait).
+  // Drawing it immediately eliminates the black screen on first load.
   useEffect(() => {
-    let loaded = 0;
-    const images: HTMLImageElement[] = [];
+    const images: HTMLImageElement[] = new Array(TOTAL_FRAMES) as HTMLImageElement[];
+
+    // Priority: load the starting frame first
+    const startImg = new Image();
+    startImg.src = FRAME_PATH(FRAME_END_IDX + 1); // frame 193
+    startImg.onload = () => {
+      images[FRAME_END_IDX] = startImg;
+      imagesRef.current = images;
+      currentFrameRef.current = FRAME_END_IDX;
+      drawFrame(startImg);
+      setFirstFrameLoaded(true);
+    };
+    images[FRAME_END_IDX] = startImg;
+
+    // Load remaining 192 frames in background
     for (let i = 1; i <= TOTAL_FRAMES; i++) {
+      if (i === FRAME_END_IDX + 1) continue; // already loading
       const img = new Image();
       img.src = FRAME_PATH(i);
       img.onload = () => {
-        loaded += 1;
-        setLoadedCount(loaded);
-        if (loaded === TOTAL_FRAMES) {
-          setAllLoaded(true);
-          drawFrame(images[0]);
+        images[i - 1] = img;
+        loadedCountRef.current += 1;
+        const n = loadedCountRef.current;
+        if (n % 10 === 0 || n === TOTAL_FRAMES - 1) {
+          setLoadProgress(Math.round((n / (TOTAL_FRAMES - 1)) * 100));
         }
+        if (n === TOTAL_FRAMES - 1) setAllLoaded(true);
       };
-      images.push(img);
+      images[i - 1] = img;
     }
     imagesRef.current = images;
   }, [drawFrame]);
 
-  // ── Show/hide persistent UI based on whether hero is in viewport ───────────
+  // ── Show/hide persistent UI ─────────────────────────────────────────────────
   useEffect(() => {
     const el = document.getElementById("persistent-ui");
     el?.classList.add("hero-hidden");
@@ -128,7 +157,7 @@ export default function HeroScrollCanvas() {
     if (!allLoaded) return;
 
     gsap.registerPlugin(ScrollTrigger);
-    drawFrame(imagesRef.current[0]);
+    drawFrame(imagesRef.current[FRAME_END_IDX]);
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
@@ -139,32 +168,24 @@ export default function HeroScrollCanvas() {
         scrub: 0.3,
         onUpdate: (self) => {
           const p = self.progress;
-          const idx = Math.min(
-            Math.floor(p * (TOTAL_FRAMES - 1)),
-            TOTAL_FRAMES - 1
-          );
+          // Reversed: p=0 → frame 193 (normal Nate), p=1 → frame 6 (full glow)
+          const idx = FRAME_END_IDX - Math.floor(p * EFFECTIVE_FRAMES);
           if (idx !== currentFrameRef.current) {
             currentFrameRef.current = idx;
             drawFrame(imagesRef.current[idx]);
           }
 
-          setShowLine1(p >= T1);
-          setShowLine2(p >= T2);
-          setShowLine3(p >= T3);
-          setShowDots(p >= T4);
+          setScrollProgress(p);
 
           if (p >= T_DONE && !heroDoneRef.current) {
             heroDoneRef.current = true;
-            document
-              .getElementById("persistent-ui")
-              ?.classList.remove("hero-hidden");
+            document.getElementById("persistent-ui")?.classList.remove("hero-hidden");
           }
         },
         onLeave: () => {
           heroDoneRef.current = true;
           document.getElementById("persistent-ui")?.classList.remove("hero-hidden");
         },
-        // Re-hide when user scrolls back up into the hero
         onEnterBack: () => {
           heroDoneRef.current = false;
           document.getElementById("persistent-ui")?.classList.add("hero-hidden");
@@ -175,7 +196,8 @@ export default function HeroScrollCanvas() {
     return () => ctx.revert();
   }, [allLoaded, drawFrame]);
 
-  const loadPercent = Math.round((loadedCount / TOTAL_FRAMES) * 100);
+  // Instant transition for scroll-linked animations (no spring lag)
+  const scrollTransition = { duration: 0.05, ease: "linear" as const };
 
   return (
     <section
@@ -197,71 +219,69 @@ export default function HeroScrollCanvas() {
         }}
       />
 
-      {/* Mobile-only fade overlays — blends letterbox edges into background */}
-      {/* Bottom fade: hides the sharp shirt/image bottom edge */}
-      <div
-        aria-hidden="true"
-        className="sm:hidden absolute bottom-0 left-0 right-0 h-40 pointer-events-none z-10"
-        style={{ background: "linear-gradient(to top, #0A0E17 0%, transparent 100%)" }}
-      />
-      {/* Side fades: hides left/right letterbox seams */}
-      <div
-        aria-hidden="true"
-        className="sm:hidden absolute top-0 left-0 bottom-0 w-12 pointer-events-none z-10"
-        style={{ background: "linear-gradient(to right, #0A0E17 0%, transparent 100%)" }}
-      />
-      <div
-        aria-hidden="true"
-        className="sm:hidden absolute top-0 right-0 bottom-0 w-12 pointer-events-none z-10"
-        style={{ background: "linear-gradient(to left, #0A0E17 0%, transparent 100%)" }}
-      />
+      {/* Mobile-only fade overlays */}
+      <div aria-hidden="true" className="sm:hidden absolute bottom-0 left-0 right-0 h-40 pointer-events-none z-10" style={{ background: "linear-gradient(to top, #0A0E17 0%, transparent 100%)" }} />
+      <div aria-hidden="true" className="sm:hidden absolute top-0 left-0 bottom-0 w-12 pointer-events-none z-10" style={{ background: "linear-gradient(to right, #0A0E17 0%, transparent 100%)" }} />
+      <div aria-hidden="true" className="sm:hidden absolute top-0 right-0 bottom-0 w-12 pointer-events-none z-10" style={{ background: "linear-gradient(to left, #0A0E17 0%, transparent 100%)" }} />
 
-      {/* Loading overlay */}
-      {!allLoaded && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
-          <span className="font-mono text-xs text-cream/40 tracking-[0.25em]">
-            {loadPercent}%
-          </span>
-          <div className="mt-3 w-32 h-px bg-cream/10 overflow-hidden rounded-full">
-            <div
-              className="h-full bg-gold/60 transition-all duration-150"
-              style={{ width: `${loadPercent}%` }}
-            />
+      {/* Loading bar — slim, unobtrusive, hides once first frame is drawn */}
+      {!firstFrameLoaded && (
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none z-30">
+          <div className="w-32 h-px bg-cream/10 overflow-hidden rounded-full">
+            <div className="h-full bg-gold/50 transition-all duration-150" style={{ width: `${loadProgress}%` }} />
           </div>
         </div>
       )}
 
-      {/* ── DESKTOP text overlay — right-aligned, hidden on mobile ── */}
+      {/* Background load progress — subtle bar at bottom edge, visible after first frame */}
+      {firstFrameLoaded && !allLoaded && (
+        <div className="absolute bottom-0 left-0 right-0 h-px pointer-events-none z-30">
+          <div className="h-full bg-google-blue/30 transition-all duration-300" style={{ width: `${loadProgress}%` }} />
+        </div>
+      )}
+
+      {/* ── DESKTOP text overlay — right-aligned, visible from load, exits on scroll ── */}
       <div className="hidden sm:flex absolute right-8 md:right-14 lg:right-20 top-1/2 -translate-y-1/2 z-20 pointer-events-none flex-col items-end gap-4 md:gap-5">
         <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: showLine1 ? 1 : 0, y: showLine1 ? 0 : 18 }}
-          transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-5xl md:text-6xl text-cream leading-none text-right"
+          animate={{
+            opacity: firstFrameLoaded ? exitVal(scrollProgress, 0.05, 0.22, 1, 0) : 0,
+            y: exitVal(scrollProgress, 0.05, 0.22, 0, -30),
+            x: exitVal(scrollProgress, 0.05, 0.22, 0, 20),
+          }}
+          transition={scrollTransition}
+          className="font-display-hero text-5xl md:text-6xl text-cream leading-none text-right"
         >
           this is Nate.
         </motion.p>
         <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: showLine2 ? 1 : 0, y: showLine2 ? 0 : 14 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="text-2xl font-display text-cream/70 text-right leading-snug"
+          animate={{
+            opacity: firstFrameLoaded ? exitVal(scrollProgress, 0.12, 0.30, 1, 0) : 0,
+            y: exitVal(scrollProgress, 0.12, 0.30, 0, -24),
+            x: exitVal(scrollProgress, 0.12, 0.30, 0, -16),
+          }}
+          transition={scrollTransition}
+          className="text-2xl font-display-hero text-cream/80 text-right leading-snug"
         >
           Nate was born on Valentine&apos;s Day, 2000.
         </motion.p>
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: showLine3 ? 1 : 0, y: showLine3 ? 0 : 12 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          animate={{
+            opacity: firstFrameLoaded ? exitVal(scrollProgress, 0.20, 0.38, 1, 0) : 0,
+            y: exitVal(scrollProgress, 0.20, 0.38, 0, 20),
+            x: exitVal(scrollProgress, 0.20, 0.38, 0, 24),
+          }}
+          transition={scrollTransition}
           className="text-base font-mono text-gold/80 tracking-wide text-right max-w-sm"
         >
           The year Google became the world&apos;s most-used search engine.
         </motion.p>
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: showDots ? 1 : 0, y: showDots ? 0 : 10 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center gap-2 font-mono text-xs text-cream/25"
+          animate={{
+            opacity: firstFrameLoaded ? exitVal(scrollProgress, 0.28, 0.45, 1, 0) : 0,
+            y: exitVal(scrollProgress, 0.28, 0.45, 0, 16),
+          }}
+          transition={scrollTransition}
+          className="flex items-center gap-2 font-mono text-xs text-cream/70"
           aria-hidden="true"
         >
           <div className="flex gap-1">
@@ -271,45 +291,53 @@ export default function HeroScrollCanvas() {
             <span className="w-2 h-2 rounded-full bg-google-green opacity-60" />
           </div>
           <span>search begins here</span>
-          {showDots && <span className="cursor-blink" data-easter-egg="cursor-blink-530ms" aria-hidden="true" />}
+          <span className="cursor-blink" data-easter-egg="cursor-blink-530ms" aria-hidden="true" />
         </motion.div>
       </div>
 
-      {/* ── MOBILE top text — fills top letterbox, vertically + horizontally centered ── */}
+      {/* ── MOBILE top text ── */}
       <div className="sm:hidden absolute top-0 left-0 right-0 z-20 pointer-events-none flex flex-col items-center justify-center text-center px-8 gap-3" style={{ height: "28%" }}>
         <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: showLine1 ? 1 : 0, y: showLine1 ? 0 : 14 }}
-          transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-4xl text-cream leading-tight"
+          animate={{
+            opacity: firstFrameLoaded ? exitVal(scrollProgress, 0.05, 0.22, 1, 0) : 0,
+            y: exitVal(scrollProgress, 0.05, 0.22, 0, -20),
+          }}
+          transition={scrollTransition}
+          className="font-display-hero text-4xl text-cream leading-tight"
         >
           this is Nate.
         </motion.p>
         <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: showLine2 ? 1 : 0, y: showLine2 ? 0 : 10 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-lg text-cream/70 leading-snug"
+          animate={{
+            opacity: firstFrameLoaded ? exitVal(scrollProgress, 0.12, 0.30, 1, 0) : 0,
+            y: exitVal(scrollProgress, 0.12, 0.30, 0, -16),
+          }}
+          transition={scrollTransition}
+          className="font-display-hero text-lg text-cream/80 leading-snug"
         >
           Nate was born on Valentine&apos;s Day, 2000.
         </motion.p>
       </div>
 
-      {/* ── MOBILE bottom text — fills bottom letterbox, vertically + horizontally centered ── */}
+      {/* ── MOBILE bottom text ── */}
       <div className="sm:hidden absolute bottom-0 left-0 right-0 z-20 pointer-events-none flex flex-col items-center justify-center text-center px-8 gap-3" style={{ height: "26%", paddingBottom: "5rem" }}>
         <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: showLine3 ? 1 : 0, y: showLine3 ? 0 : 10 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          animate={{
+            opacity: firstFrameLoaded ? exitVal(scrollProgress, 0.20, 0.38, 1, 0) : 0,
+            y: exitVal(scrollProgress, 0.20, 0.38, 0, 16),
+          }}
+          transition={scrollTransition}
           className="font-mono text-sm text-gold/80 tracking-wide"
         >
           The year Google became the world&apos;s most-used search engine.
         </motion.p>
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: showDots ? 1 : 0, y: showDots ? 0 : 8 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center gap-2 font-mono text-xs text-cream/25"
+          animate={{
+            opacity: firstFrameLoaded ? exitVal(scrollProgress, 0.28, 0.45, 1, 0) : 0,
+            y: exitVal(scrollProgress, 0.28, 0.45, 0, 12),
+          }}
+          transition={scrollTransition}
+          className="flex items-center gap-2 font-mono text-xs text-cream/70"
           aria-hidden="true"
         >
           <div className="flex gap-1">
@@ -319,44 +347,49 @@ export default function HeroScrollCanvas() {
             <span className="w-2 h-2 rounded-full bg-google-green opacity-60" />
           </div>
           <span>search begins here</span>
-          {showDots && <span className="cursor-blink" data-easter-egg="cursor-blink-530ms" aria-hidden="true" />}
         </motion.div>
       </div>
 
-      {/* ── Scroll CTA — taste-skill: scroll wheel + "Scroll slowwwly" ── */}
+      {/* ── Scroll CTA — glowing blue arrow, left side, vertically centered ── */}
       <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: allLoaded && !showLine1 ? 1 : 0, y: allLoaded && !showLine1 ? 0 : 8 }}
-        transition={{ duration: 0.9, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10 pointer-events-none"
+        animate={{
+          opacity: firstFrameLoaded && scrollProgress < 0.06 ? 1 : 0,
+          y: firstFrameLoaded && scrollProgress < 0.06 ? 0 : 8,
+        }}
+        transition={{
+          duration: 0.9,
+          delay: firstFrameLoaded && scrollProgress < 0.01 ? 1.2 : 0,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+        className="absolute left-8 md:left-16 top-1/2 -translate-y-1/2 flex flex-row items-center gap-3 z-10 pointer-events-none"
         aria-hidden="true"
       >
-        {/* Scroll wheel housing */}
-        <div
-          className="relative w-8 h-[52px] rounded-full border-2 border-cream/60 flex justify-center pt-[8px] overflow-hidden"
-          style={{ boxShadow: "0 0 16px rgba(212,168,83,0.18), inset 0 0 10px rgba(212,168,83,0.08)" }}
-        >
-          {/* Bobbing dot */}
-          <motion.div
-            className="w-1 h-3 rounded-full"
-            style={{ background: "rgba(212,168,83,1)" }}
-            animate={{ y: [0, 20, 0], opacity: [1, 0.25, 1] }}
-            transition={{
-              duration: 1.9,
-              repeat: Infinity,
-              ease: [0.45, 0, 0.55, 1],
-              times: [0, 0.6, 1],
-            }}
-          />
-        </div>
-
-        {/* Label */}
         <span
-          className="font-mono text-xs font-bold tracking-[0.35em] text-cream/80 uppercase select-none"
-          style={{ letterSpacing: "0.35em", textShadow: "0 0 20px rgba(245,240,235,0.4)" }}
+          className="font-mono text-sm font-bold tracking-[0.3em] text-cream/80 uppercase select-none"
+          style={{ textShadow: "0 0 20px rgba(245,240,235,0.3)" }}
         >
-          Scroll slowwwly
+          Scroll Slowwwly
         </span>
+
+        {/* Glowing blue down arrow — bounces softly */}
+        <motion.div
+          animate={{ y: [0, 7, 0] }}
+          transition={{ duration: 1.9, repeat: Infinity, ease: [0.45, 0, 0.55, 1] }}
+        >
+          <svg width="26" height="32" viewBox="0 0 18 22" fill="none" aria-hidden="true">
+            <path
+              d="M9 2v14M2 11l7 9 7-9"
+              stroke="rgba(66,133,244,1)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{
+                filter:
+                  "drop-shadow(0 0 6px rgba(66,133,244,0.9)) drop-shadow(0 0 14px rgba(66,133,244,0.5))",
+              }}
+            />
+          </svg>
+        </motion.div>
       </motion.div>
     </section>
   );

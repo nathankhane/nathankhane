@@ -40,7 +40,12 @@ function TypingIndicator() {
   );
 }
 
-export default function ChatInterface() {
+interface ChatInterfaceProps {
+  initialQuery?: string | null;
+  onInitialQueryConsumed?: () => void;
+}
+
+export default function ChatInterface({ initialQuery, onInitialQueryConsumed }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
@@ -160,6 +165,15 @@ export default function ChatInterface() {
     }
   }, [messages, isStreaming]);
 
+  // Easter Egg #13 — auto-send query that came in via Cmd+K search overlay
+  useEffect(() => {
+    if (!initialQuery) return;
+    sendMessage(initialQuery);
+    onInitialQueryConsumed?.();
+  // sendMessage is stable via useCallback; initialQuery changing is the only trigger we want
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialQuery]);
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -180,7 +194,7 @@ export default function ChatInterface() {
         <span className="text-sm font-mono text-cream/70">Ask Nate&apos;s AI</span>
         {isUnavailable && (
           <div className="ml-auto flex items-center gap-2">
-            <span className="text-xs text-cream/30 font-mono">offline</span>
+            <span className="text-xs text-cream/60 font-mono">offline</span>
             <button
               onClick={() => { setIsUnavailable(false); inputRef.current?.focus(); }}
               className="text-xs text-gold/60 hover:text-gold font-mono transition-colors"
@@ -201,7 +215,7 @@ export default function ChatInterface() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center pt-6"
           >
-            <p className="text-cream/40 text-sm leading-relaxed">
+            <p className="text-cream/70 text-sm leading-relaxed">
               I&apos;m trained on Nate&apos;s background, projects, and creative philosophy.<br />
               Ask me anything.
             </p>
@@ -221,7 +235,7 @@ export default function ChatInterface() {
                 <button
                   key={prompt}
                   onClick={() => sendMessage(prompt)}
-                  className="text-left text-xs text-cream/50 hover:text-cream border border-white/10 hover:border-gold/40 rounded-xl px-3 py-2.5 transition-all duration-200 bg-surface-elevated/50"
+                  className="text-left text-xs text-cream/70 hover:text-cream border border-white/10 hover:border-gold/40 rounded-xl px-3 py-2.5 transition-all duration-200 bg-surface-elevated/50"
                 >
                   {prompt}
                 </button>
@@ -266,7 +280,7 @@ export default function ChatInterface() {
           <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" fillOpacity="0.7"/>
           <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" fillOpacity="0.7"/>
         </svg>
-        <span className="text-[9px] font-mono text-cream/25 tracking-widest uppercase">
+        <span className="text-[9px] font-mono text-cream/50 tracking-widest uppercase">
           Powered by Gemini 2.5
         </span>
       </div>
@@ -282,14 +296,14 @@ export default function ChatInterface() {
             placeholder="Ask anything about Nate…"
             rows={1}
             disabled={isStreaming}
-            className="flex-1 resize-none bg-transparent text-sm text-cream placeholder-cream/30 outline-none py-1.5 max-h-24 scrollbar-thin"
+            className="flex-1 resize-none bg-transparent text-sm text-cream placeholder-cream/50 outline-none py-1.5 max-h-24 scrollbar-thin"
             style={{ lineHeight: "1.5" }}
             aria-label="Chat input"
           />
           {isStreaming ? (
             <button
               onClick={handleStop}
-              className="shrink-0 w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-cream/50 hover:text-cream transition-colors"
+              className="shrink-0 w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-cream/70 hover:text-cream transition-colors"
               aria-label="Stop generation"
             >
               <span className="w-3 h-3 bg-current rounded-sm" />

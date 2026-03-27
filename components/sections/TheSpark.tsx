@@ -4,6 +4,14 @@
  * The origin story: the moment Nate realized he was a builder, not just a user.
  * Easter Egg #2: "I'm Feeling Lucky" appears on hover over a specific element.
  * CliftonStrengths DNA: Ideation, Arranger, Input, Connectedness, Belief.
+ *
+ * SP1: Removed the outer AnimatedSection wrapper around the strengths grid —
+ *      it was racing with inner whileInView, breaking the stagger. Each card
+ *      now fires independently on viewport entry with correct stagger timing.
+ *
+ * SP2: Ideation (#1) card has a shimmer scan line that plays once on entry.
+ *
+ * SP3: All cards have hover scale + border color micro-interaction.
  */
 "use client";
 
@@ -12,11 +20,11 @@ import EasterEgg from "@/components/EasterEgg";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const STRENGTHS = [
-  { name: "Ideation", desc: "Fascinated by ideas. Finds connections between phenomena." },
-  { name: "Arranger", desc: "Organizes, then reorganizes, in search of the perfect configuration." },
-  { name: "Input", desc: "Craves to know more. Collects information, ideas, artifacts." },
+  { name: "Ideation",      desc: "Fascinated by ideas. Finds connections between phenomena." },
+  { name: "Arranger",      desc: "Organizes, then reorganizes, in search of the perfect configuration." },
+  { name: "Input",         desc: "Craves to know more. Collects information, ideas, artifacts." },
   { name: "Connectedness", desc: "Believes things happen for a reason. Faith in the links." },
-  { name: "Belief", desc: "Has core values. These define a purpose. Success is living them." },
+  { name: "Belief",        desc: "Has core values. These define a purpose. Success is living them." },
 ];
 
 export default function TheSpark() {
@@ -26,12 +34,16 @@ export default function TheSpark() {
       className="relative py-24 md:py-36 overflow-hidden"
       aria-label="The Spark — Act 1"
     >
-      {/* Soft gold ambient blob behind cards */}
+      {/* Soft gold ambient blob */}
       <div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-48 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 100% at 50% 100%, rgba(212,168,83,0.05) 0%, transparent 70%)" }}
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 100% at 50% 100%, rgba(212,168,83,0.05) 0%, transparent 70%)",
+        }}
         aria-hidden="true"
       />
+
       <div className="max-w-4xl mx-auto px-6">
         {/* Eyebrow */}
         <AnimatedSection direction="fade">
@@ -58,43 +70,75 @@ export default function TheSpark() {
 
         {/* Body copy */}
         <AnimatedSection delay={0.2}>
-          <div className="mt-8 space-y-5 text-cream/60 leading-relaxed max-w-2xl">
-            <p className="text-cream/30 italic font-mono text-xs tracking-wide">
+          <div className="mt-8 space-y-5 text-cream/75 leading-relaxed max-w-2xl">
+            <p className="text-cream/60 italic font-mono text-xs tracking-wide">
               [Placeholder — Nate to rewrite]
             </p>
           </div>
         </AnimatedSection>
 
-        {/* CliftonStrengths grid */}
-        <AnimatedSection delay={0.3}>
-          <div className="mt-14">
-            <p className="text-xs font-mono text-cream/30 tracking-widest uppercase mb-6">
+        {/* CliftonStrengths grid
+            SP1: Outer AnimatedSection removed — each card fires its own
+            whileInView independently so the stagger actually works. */}
+        <div className="mt-14">
+          <AnimatedSection delay={0.25} direction="fade">
+            <p className="text-xs font-mono text-cream/60 tracking-widest uppercase mb-6">
               CliftonStrengths Top 5
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {STRENGTHS.map((s, i) => (
-                <motion.div
-                  key={s.name}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ delay: 0.35 + i * 0.07, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className={`group rounded-xl border p-4 hover:border-gold/40 transition-colors cursor-default active:scale-[0.98] ${
-                    i === 0
-                      ? "col-span-2 sm:col-span-4 border-gold/40 bg-surface-elevated shadow-gold-glow"
-                      : "border-white/10 bg-ink/60"
-                  }`}
-                >
-                  <div className={`text-xs font-mono mb-2 ${i === 0 ? "text-gold" : "text-gold/60"}`}>#{i + 1}</div>
-                  <div className={`font-display mb-1 ${i === 0 ? "text-base text-cream" : "text-sm text-cream"}`}>{s.name}</div>
-                  <div className="text-xs text-cream/40 leading-relaxed">
-                    {s.desc}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {STRENGTHS.map((s, i) => (
+              <motion.div
+                key={s.name}
+                initial={{ opacity: 0, y: 14, scale: 0.97 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{
+                  delay: 0.1 + i * 0.09,
+                  duration: 0.65,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                /* SP3: hover scale + border highlight */
+                whileHover={{
+                  scale: 1.025,
+                  transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] },
+                }}
+                whileTap={{ scale: 0.98 }}
+                className={`group relative rounded-xl border p-4 transition-colors cursor-default overflow-hidden ${
+                  i === 0
+                    ? "col-span-2 sm:col-span-4 border-gold/40 bg-surface-elevated shadow-gold-glow hover:border-gold/60"
+                    : "border-white/10 bg-ink/60 hover:border-gold/30"
+                }`}
+              >
+                {/* SP2: Ideation card shimmer scan — plays once on entry */}
+                {i === 0 && (
+                  <motion.div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, transparent 0%, rgba(212,168,83,0.18) 50%, transparent 100%)",
+                    }}
+                    initial={{ x: "-100%" }}
+                    whileInView={{ x: "200%" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  />
+                )}
+
+                <div className={`text-xs font-mono mb-2 ${i === 0 ? "text-gold" : "text-gold/60"}`}>
+                  #{i + 1}
+                </div>
+                <div className={`font-display mb-1 ${i === 0 ? "text-base text-cream" : "text-sm text-cream"}`}>
+                  {s.name}
+                </div>
+                <div className="text-xs text-cream/70 leading-relaxed">
+                  {s.desc}
+                </div>
+              </motion.div>
+            ))}
           </div>
-        </AnimatedSection>
+        </div>
       </div>
     </section>
   );

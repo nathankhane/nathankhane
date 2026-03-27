@@ -13,7 +13,7 @@ export default function NotFound() {
       <h1 className="text-4xl sm:text-5xl font-display text-cream leading-tight mb-4">
         Lost in the poetry.
       </h1>
-      <p className="text-cream/40 text-sm leading-relaxed max-w-sm mb-10">
+      <p className="text-cream/70 text-sm leading-relaxed max-w-sm mb-10">
         This page doesn&apos;t exist — but that&apos;s okay. The best ideas
         often come from wandering somewhere unexpected.
       </p>

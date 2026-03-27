@@ -255,7 +255,7 @@ export default function AudioPlayer() {
                   exit={{ height: 0, opacity: 0 }}
                   className="px-4 pt-3 overflow-hidden"
                 >
-                  <div className="flex items-center gap-3 text-xs font-mono text-cream/50">
+                  <div className="flex items-center gap-3 text-xs font-mono text-cream/70">
                     <span className="w-8 text-right">{formatTime(progress)}</span>
                     <input
                       type="range"
@@ -301,7 +301,7 @@ export default function AudioPlayer() {
                     <p className="text-sm font-display text-cream truncate leading-tight">
                       {currentTrack.title}
                     </p>
-                    <p className="text-xs text-cream/40 truncate">
+                    <p className="text-xs text-cream/70 truncate">
                       {hasError ? "Audio not yet available" : currentTrack.credits ?? currentTrack.description}
                     </p>
                   </div>
@@ -313,7 +313,7 @@ export default function AudioPlayer() {
                 {/* Prev */}
                 <button
                   onClick={handlePrev}
-                  className="p-1.5 text-cream/50 hover:text-cream transition-colors"
+                  className="p-2.5 text-cream/70 hover:text-cream transition-colors"
                   aria-label="Previous track"
                 >
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
@@ -325,7 +325,7 @@ export default function AudioPlayer() {
                 <button
                   onClick={handlePlayPause}
                   disabled={isLoading}
-                  className="w-9 h-9 rounded-full bg-transparent border-2 border-google-blue/70 flex items-center justify-center hover:border-google-blue transition-colors disabled:opacity-50 animate-blue-glow"
+                  className="w-11 h-11 rounded-full bg-transparent border-2 border-google-blue/70 flex items-center justify-center hover:border-google-blue transition-colors disabled:opacity-50 animate-blue-glow"
                   aria-label={isPlaying ? "Pause" : "Play"}
                 >
                   {isLoading ? (
@@ -345,7 +345,7 @@ export default function AudioPlayer() {
                 {/* Next */}
                 <button
                   onClick={handleNext}
-                  className="p-1.5 text-cream/50 hover:text-cream transition-colors"
+                  className="p-2.5 text-cream/70 hover:text-cream transition-colors"
                   aria-label="Next track"
                 >
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
@@ -357,7 +357,7 @@ export default function AudioPlayer() {
                 <div className="relative">
                   <button
                     onClick={() => setShowVolume((v) => !v)}
-                    className="p-1.5 text-cream/50 hover:text-cream transition-colors"
+                    className="p-2.5 text-cream/70 hover:text-cream transition-colors"
                     aria-label="Volume"
                   >
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
@@ -393,7 +393,7 @@ export default function AudioPlayer() {
                 </div>
 
                 {/* Act indicator */}
-                <span className="hidden sm:block text-xs font-mono text-cream/30 ml-1">
+                <span className="hidden sm:block text-xs font-mono text-cream/70 ml-1">
                   ACT {currentTrack.act}
                 </span>
               </div>

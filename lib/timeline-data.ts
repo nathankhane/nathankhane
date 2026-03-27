@@ -16,6 +16,8 @@ export interface TimelineEvent {
   nateDetail?: string;
   googleDetail?: string;
   highlight?: boolean;
+  /** Easter Egg #16 — SERP snippet shown when user clicks the year dot */
+  googleFact?: string;
 }
 
 export const timelineData: TimelineEvent[] = [
@@ -26,6 +28,7 @@ export const timelineData: TimelineEvent[] = [
     nateDetail: "February 14, 2000. CliftonStrength #4: Connectedness — born on the day of connection.",
     googleDetail: "AdWords launches. The dot-com bubble peaks. The internet economy ignites.",
     highlight: true,
+    googleFact: "In 2000, Google surpassed 1 billion URLs indexed and launched AdWords — the engine that funds everything you love for free.",
   },
   {
     year: 2003,
@@ -42,6 +45,7 @@ export const timelineData: TimelineEvent[] = [
     nate: "Started writing — music, poetry, screenplays",
     google: "Google Maps. YouTube is founded.",
     nateDetail: "Five years old, already making things. Words before code.",
+    googleFact: "Google Maps launched in February 2005. Three months later, YouTube went live. The world became searchable and watchable in the same year.",
   },
   {
     year: 2006,
@@ -82,6 +86,7 @@ export const timelineData: TimelineEvent[] = [
     nateDetail: "Where business systems meet technology. The education that made everything else make sense.",
     googleDetail: "The world realized AI wasn't just about efficiency. It was about relationship.",
     highlight: true,
+    googleFact: "At Google I/O 2018, Duplex called a hair salon and booked an appointment — indistinguishable from a human. The crowd went silent.",
   },
   {
     year: 2019,
@@ -115,6 +120,7 @@ export const timelineData: TimelineEvent[] = [
     nateDetail: "June 3rd — landed in San Francisco. UX consulting for Fortune 500 by day. Building Khane Creative and recording studio tracks by night. Befriended a ton of Googlers.",
     googleDetail: "Google's creative teams start speaking the language of builders.",
     highlight: true,
+    googleFact: "Google launched Bard in 2023 — later renamed Gemini — and quietly became the most aggressive AI company on the planet.",
   },
   {
     year: 2024,
@@ -131,6 +137,7 @@ export const timelineData: TimelineEvent[] = [
     nateDetail: "June 3rd, 2025 — Bridge is born. Built an AI platform from 0 to 1. The same date I moved to SF two years earlier. Patterns everywhere.",
     googleDetail: "Google asks: who belongs in our creative future?",
     highlight: true,
+    googleFact: "At Google I/O 2025, Sundar called AI 'a creative collaborator for every human.' The Fellowship was the answer to that sentence.",
   },
   {
     year: 2026,

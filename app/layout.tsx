@@ -3,31 +3,51 @@
  *
  * Architecture:
  * - Dark-only editorial design (no theme switching)
- * - Font loading via next/font/google — font-display: swap (V1 principle preserved)
- *     Instrument Serif  → --font-instrument-serif → .font-display  (display/headlines)
- *     DM Sans           → --font-dm-sans           → font-sans       (body copy)
- *     JetBrains Mono    → --font-jetbrains-mono   → .font-mono      (search bar motif)
+ * - Font loading strategy:
+ *     Google Sans Flex  → CSS API (open-sourced Nov 2025; not yet in next/font/google)
+ *     Google Sans Code  → next/font/google — monospace / search-bar motif
+ *     Instrument Serif  → next/font/google — hero "this is Nate." (poetic serif)
+ *     Fraunces          → next/font/google — TheSpark (quirky optical serif)
+ *     Space Grotesk     → next/font/google — SystemsArchitect (technical geometric)
+ *     Syne              → next/font/google — AudioEngineer (design-forward)
+ *     Cormorant Garamond → next/font/google — ParallelTimeline (luxury editorial)
+ *     DM Serif Display  → next/font/google — CuratorOfTaste (clean editorial)
+ *     Outfit            → next/font/google — SocialArchitect (contemporary)
  * - AudioPlayer persistent at viewport bottom (never autoplays)
  * - Minimal shell — no nav bar; scroll-driven sections handle their own context
- *
- * Typography reference: fontImplementationGuide.md
- *   - News Plantin (V1) preserved at /public/fonts/ and /archive/v1/
- *   - V2 editorial pairing chosen per googleCreativeFellowshipSiteBlueprint.md
  */
 import type { Metadata } from "next";
-import { Instrument_Serif, DM_Sans, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import {
+  Google_Sans_Code,
+  Instrument_Serif,
+  Fraunces,
+  Space_Grotesk,
+  Syne,
+  Cormorant_Garamond,
+  DM_Serif_Display,
+  Outfit,
+} from "next/font/google";
 import "./globals.css";
 import AudioPlayer from "@/components/AudioPlayer";
 import AgentSidebar from "@/components/AgentSidebar";
 import ScrollToTop from "@/components/ScrollToTop";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
+import SearchOverlay from "@/components/SearchOverlay";
+import PageSearch from "@/components/PageSearch";
 import { Analytics } from "@vercel/analytics/next";
+import SpaceBackground from "@/components/SpaceBackground";
 
 // ── Fonts ──────────────────────────────────────────────────────────────
-// Display: Instrument Serif — literary editorial serif.
-// Italic variant used for emphasis throughout the narrative.
-// font-display: swap — V1 principle from fontImplementationGuide.md
+const googleSansCode = Google_Sans_Code({
+  subsets: ["latin"],
+  weight: "variable",
+  variable: "--font-google-sans-code",
+  display: "swap",
+  adjustFontFallback: false, // suppress warning — font too new for Next.js metrics db
+});
+
+// Hero — poetic serif, italic variant for "this is Nate."
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: ["400"],
@@ -36,28 +56,53 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
-// Body: DM Sans — geometric, approachable, pairs well with Instrument Serif.
-const dmSans = DM_Sans({
+// TheSpark — quirky optical serif with soul
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  weight: "variable",
+  variable: "--font-fraunces",
   display: "swap",
 });
 
-// Timeline: Playfair Display — high-contrast serif for timeline entry text.
-// Tested in ParallelTimeline to improve readability against space background.
-const playfairDisplay = Playfair_Display({
+// SystemsArchitect — technical geometric sans
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-playfair",
+  weight: "variable",
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
-// Mono: JetBrains Mono — for Google search bar motif elements in
-// TitleCard, TheSpark, and WhyGoogle sections.
-const jetbrainsMono = JetBrains_Mono({
+// AudioEngineer — design-forward, expressive
+const syne = Syne({
   subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-jetbrains-mono",
+  weight: "variable",
+  variable: "--font-syne",
+  display: "swap",
+});
+
+// ParallelTimeline — luxury editorial, historical weight
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+
+// CuratorOfTaste — clean editorial authority
+const dmSerifDisplay = DM_Serif_Display({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-dm-serif-display",
+  display: "swap",
+});
+
+// SocialArchitect — contemporary, social-native
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: "variable",
+  variable: "--font-outfit",
   display: "swap",
 });
 
@@ -120,17 +165,35 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable}`}
+      className={[
+        googleSansCode.variable,
+        instrumentSerif.variable,
+        fraunces.variable,
+        spaceGrotesk.variable,
+        syne.variable,
+        cormorant.variable,
+        dmSerifDisplay.variable,
+        outfit.variable,
+      ].join(" ")}
     >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         {/* Easter Egg #10: visible in HTML source — "View Source" reward */}
         {/* If you're reading this, you're exactly who this site was built for. — Nathan Khane Morales | nathankhane.com */}
+        {/* Google Sans Flex — bookmarked, not active. Restore by adding back here + updating globals.css base fonts */}
+        {/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
+        {/* <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /> */}
+        {/* <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" /> */}
       </head>
-      <body className="bg-ink text-cream antialiased min-h-screen font-sans">
+      <body className="text-cream antialiased min-h-screen font-sans">
+        {/* Fixed parallax space background — mouse-responsive camera pan */}
+        <SpaceBackground />
         <CustomCursor />
         <ScrollProgress />
         <ScrollToTop />
+        {/* Easter Eggs #13 + #17 — global keyboard overlays */}
+        <SearchOverlay />
+        <PageSearch />
         {children}
         {/* Persistent UI — hidden by HeroScrollCanvas until hero scroll completes */}
         <div id="persistent-ui" style={{ transition: "opacity 1s ease" }}>

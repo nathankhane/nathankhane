@@ -88,7 +88,7 @@ export default function ScrollProgress() {
               className={`font-mono text-[10px] tracking-widest uppercase transition-all duration-300 ${
                 isActive
                   ? "opacity-70 text-gold translate-x-0"
-                  : "opacity-0 text-cream/50 translate-x-1 group-hover:opacity-50 group-hover:translate-x-0"
+                  : "opacity-0 text-cream/70 translate-x-1 group-hover:opacity-60 group-hover:translate-x-0"
               }`}
             >
               {label}
