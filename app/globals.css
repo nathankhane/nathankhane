@@ -26,12 +26,12 @@
   --font-mono:    var(--font-google-sans-code), "Google Sans Code", "Courier New", monospace;
 
   /* Core palette */
-  --color-ink:              #0A0E17;
+  --color-ink:              #09090F;
   --color-cream:            #F5F0EB;
   --color-gold:             #D4A853;
   --color-gold-muted:       #A07830;
-  --color-surface:          #131929;
-  --color-surface-elevated: #1C2333;
+  --color-surface:          #111215;
+  --color-surface-elevated: #18191F;
 
   /* Google DNA — WhyGoogle section ONLY */
   --color-google-blue:   #4285F4;
@@ -51,6 +51,11 @@
 /* ─────────────────────────────────────────────────────────────────────────
    Blue glow pulse — chat pill + play button
 ───────────────────────────────────────────────────────────────────────── */
+@keyframes search-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
 @keyframes blue-glow-pulse {
   0%, 100% { box-shadow: 0 0 6px rgba(66, 133, 244, 0.3), 0 0 14px rgba(66, 133, 244, 0.1); }
   50%       { box-shadow: 0 0 12px rgba(66, 133, 244, 0.5), 0 0 24px rgba(66, 133, 244, 0.18); }
@@ -76,7 +81,7 @@ blockquote.tiktok-embed > section {
    Base
 ───────────────────────────────────────────────────────────────────────── */
 html {
-  background-color: #0A0E17;
+  background-color: #09090F;
   color: #F5F0EB;
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -273,8 +278,8 @@ blockquote.tiktok-embed iframe {
    Scrollbar — editorial dark
 ───────────────────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #0A0E17; }
-::-webkit-scrollbar-thumb { background: #D4A853; border-radius: 2px; }
+::-webkit-scrollbar-track { background: #09090F; }
+::-webkit-scrollbar-thumb { background: #4285F4; border-radius: 2px; }
 
 /* ─────────────────────────────────────────────────────────────────────────
    Accessibility
@@ -287,7 +292,7 @@ blockquote.tiktok-embed iframe {
 }
 
 *:focus-visible {
-  outline: 2px solid #D4A853;
+  outline: 2px solid #4285F4;
   outline-offset: 2px;
 }
 
@@ -310,6 +315,8 @@ blockquote.tiktok-embed iframe {
 ───────────────────────────────────────────────────────────────────────── */
 @media (pointer: fine) {
   * { cursor: none !important; }
+  /* Attribute selector wins over * — shows system hand for specific elements */
+  [data-cursor-hand] { cursor: pointer !important; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────

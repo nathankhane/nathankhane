@@ -1,0 +1,457 @@
+/**
+ * ResumeContent — /resume page client component
+ *
+ * "The Record" — structured credential layer for nathankhane.com
+ * Designed for Google Creative Fellowship 2026 reviewers.
+ *
+ * Animation system: framer-motion (matching the rest of the site)
+ * Background: inherited from layout.tsx (SpaceBackground)
+ */
+"use client";
+
+import { motion } from "framer-motion";
+import AnimatedSection from "@/components/AnimatedSection";
+import Link from "next/link";
+import { type ReactNode } from "react";
+
+const editorialEase = [0.16, 1, 0.3, 1] as const;
+
+// ── Data ───────────────────────────────────────────────────────────────────
+
+const EXPERIENCE = [
+  {
+    company: "Khane Creative",
+    role: "Founder & Creative Strategist",
+    location: "Los Angeles, CA · Austin, TX · Houston, TX · San Francisco, CA",
+    dates: "Aug 2023 — Present",
+    border: "border-l-gold/50",
+    bullets: [
+      "Developed brand positioning, visual identity systems, and marketing strategies for 5 independent artists, translating each artist's story into cohesive creative direction across LA, Austin, and Houston.",
+      'Produced and directed cross-functional campaigns spanning content creation, social media, live event production, and venue partnerships — expanding collective market reach by 75%.',
+      "Designed and executed content and partnership activation strategies that grew combined social audiences from 0 to 65K through culturally resonant storytelling.",
+      "Authored reflective essays and creative nonfiction on Substack (Khane School of Thought), exploring themes of time, presence, identity, and creative process.",
+    ],
+  },
+  {
+    company: "Bridge",
+    role: "Founder & CEO",
+    location: "San Francisco, CA",
+    dates: "June 2025 — Present",
+    border: "border-l-gold/50",
+    bullets: [
+      "Founded and built a B2B marketplace platform from concept to launch, leading all aspects of brand development, product storytelling, demo narrative design, and go-to-market creative.",
+      "Conducted 300+ hours of user research and 100+ interviews, translating qualitative insights into UI flows, demo storylines, and product narratives — driving 4+ major pivots and improving user satisfaction by 85%.",
+      "Managed end-to-end production of client deliverables, stakeholder communications, and multi-channel campaigns, coordinating timelines, budgets, and cross-functional execution.",
+      "Produced investor and partnership pitch materials, professional services agreements, and brand collateral across formal and informal contexts.",
+    ],
+  },
+  {
+    company: "Capgemini",
+    role: "UX & Technology Consultant",
+    location: "San Francisco, CA",
+    dates: "June 2023 — Feb 2025",
+    border: "border-l-cream/20",
+    bullets: [
+      "Coordinated communications and production workflows for a $10B software client's hyperscaler division — managing dashboards, status tracking, stakeholder feedback, and cross-team execution.",
+      "Organized and produced 20+ professional and educational events in Capgemini's SF office, managing logistics, partner relations, content programming, and post-event follow-through at a 95% satisfaction rate.",
+    ],
+  },
+  {
+    company: "Nexus Veterinary Specialists",
+    role: "Business Development & Marketing",
+    location: "Houston, TX",
+    dates: "May 2021 — June 2022",
+    border: "border-l-cream/20",
+    bullets: [
+      "Built field marketing playbooks and launch campaigns for 3 new hospital openings, coordinating operations, vendor onboarding, and content production to support >$1M in combined launch revenue.",
+    ],
+  },
+];
+
+interface CreativeCard {
+  title: string;
+  desc: string;
+  icon: ReactNode;
+}
+
+const CREATIVE_PRACTICE: CreativeCard[] = [
+  {
+    title: "Music Production & Songwriting",
+    desc: "Writer, producer, and recording artist. Home studio: Logic Pro X, Focusrite Scarlett 2i2, Shure SM7B, Waves Ultimate. Original music blending introspective lyricism with experimental production.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.5}>
+        <path d="M9 18V5l12-2v13M9 18c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-2c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "AI-Augmented Creative Workflows",
+    desc: "Actively experimenting with AI tools (LangChain, Claude, Cursor) as creative instruments for prototyping, content generation, and narrative design. Building automated systems that blend human storytelling instinct with machine intelligence.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.5}>
+        <path d="M12 3l1.912 5.813a2 2 0 001.272 1.272L21 12l-5.816 1.916a2 2 0 00-1.272 1.272L12 21l-1.912-5.812a2 2 0 00-1.272-1.272L3 12l5.816-1.915a2 2 0 001.272-1.272L12 3z" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Content & Publishing",
+    desc: "Creator of nathankhane.com. Author of Khane School of Thought on Substack — reflective essays on creativity, time, and identity.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.5}>
+        <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Video & Visual Storytelling",
+    desc: "Concept development, production planning, and post-production for social-first video content. Proficient in Final Cut Pro with a focus on brand narrative and creator-driven formats.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.5}>
+        <rect x="2" y="6" width="15" height="12" rx="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M17 10l5-2v8l-5-2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+];
+
+const SKILLS = [
+  {
+    label: "Creative & Strategy",
+    pills: ["Brand Positioning", "Campaign Concepting", "Product Storytelling", "Social Strategy", "Content Development", "UGC"],
+    variant: "neutral" as const,
+  },
+  {
+    label: "Production",
+    pills: ["Project Management", "Event Production", "Cross-Functional Coordination", "Budgets & Timelines", "Stakeholder Management"],
+    variant: "neutral" as const,
+  },
+  {
+    label: "Music & Audio",
+    pills: ["Logic Pro X", "Songwriting", "Music Production", "Mixing (Waves)", "Shure SM7B / Focusrite 2i2"],
+    variant: "gold" as const,
+  },
+  {
+    label: "Video & Design",
+    pills: ["Final Cut Pro", "Figma", "Visual Identity", "Social Content Production"],
+    variant: "neutral" as const,
+  },
+  {
+    label: "Technology & AI",
+    pills: ["AI/LLM Prompt Engineering", "LangChain", "Python", "Cursor", "Notion", "Salesforce"],
+    variant: "neutral" as const,
+  },
+  {
+    label: "Languages",
+    pills: ["English (native)", "Spanish"],
+    variant: "neutral" as const,
+  },
+];
+
+// ── Component ──────────────────────────────────────────────────────────────
+
+export default function ResumeContent() {
+  return (
+    <main className="relative min-h-screen">
+      {/* Back navigation — top-right so it doesn't clash with MobileNav (top-left) */}
+      <Link
+        href="/"
+        className="fixed top-6 right-6 z-40 text-xs font-mono text-cream/50 hover:text-cream transition-colors"
+      >
+        ← nathankhane.com
+      </Link>
+
+      <div className="max-w-4xl mx-auto px-6 pt-24 pb-24">
+
+        {/* ── Header ──────────────────────────────────────────────────── */}
+        <header className="text-center mb-16">
+          <motion.h1
+            className="text-4xl sm:text-5xl font-display text-cream mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: editorialEase }}
+          >
+            Nathan Khane Morales
+          </motion.h1>
+
+          <motion.div
+            className="text-xs font-mono text-cream/60 space-y-1.5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: editorialEase }}
+          >
+            <p>
+              San Francisco, CA · (832) 306-6685 ·{" "}
+              <a
+                href="mailto:nathankmorales@gmail.com"
+                className="text-gold/70 hover:text-gold transition-colors"
+              >
+                nathankmorales@gmail.com
+              </a>
+            </p>
+            <p className="flex flex-wrap justify-center gap-x-3 gap-y-1">
+              <a
+                href="https://linkedin.com/in/nathan-khane-morales"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gold/70 hover:text-gold transition-colors"
+              >
+                linkedin.com/in/nathan-khane-morales
+              </a>
+              <span className="text-cream/30">·</span>
+              <a href="https://nathankhane.com" className="text-gold/70 hover:text-gold transition-colors">
+                nathankhane.com
+              </a>
+              <span className="text-cream/30">·</span>
+              <a
+                href="https://substack.com/@nathankhane"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gold/70 hover:text-gold transition-colors"
+              >
+                Khane School of Thought
+              </a>
+            </p>
+          </motion.div>
+
+          {/* Gold divider — draws left-to-right on load */}
+          <motion.div
+            className="mt-8 mx-auto h-px bg-gold/40 max-w-xs"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: editorialEase }}
+            style={{ transformOrigin: "left" }}
+          />
+        </header>
+
+        {/* ── Summary ─────────────────────────────────────────────────── */}
+        <section className="mb-16 text-center" aria-label="Summary">
+          <AnimatedSection direction="up" delay={0.05}>
+            <p className="text-lg sm:text-xl font-display text-cream/90 leading-relaxed max-w-3xl mx-auto">
+              Multidisciplinary creative and storyteller — 4+ years blending brand strategy,
+              production management, music, and emerging technology to bring bold ideas to life.
+            </p>
+          </AnimatedSection>
+          <AnimatedSection delay={0.15}>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <span className="text-xs font-mono border rounded-full px-3 py-1 text-google-blue/70 border-google-blue/20 bg-google-blue/5">
+                Producer · Brand Studio
+              </span>
+              <span className="text-xs font-mono border rounded-full px-3 py-1 text-google-red/70 border-google-red/20 bg-google-red/5">
+                Video Storyteller · YouTube Creative Studio
+              </span>
+            </div>
+          </AnimatedSection>
+        </section>
+
+        {/* ── Experience ──────────────────────────────────────────────── */}
+        <div className="mb-4">
+          <AnimatedSection direction="fade">
+            <span className="text-xs font-mono text-gold/60 tracking-[0.2em] uppercase">
+              Experience
+            </span>
+          </AnimatedSection>
+        </div>
+        <section className="mb-16 space-y-4" aria-label="Experience">
+          {EXPERIENCE.map((exp, i) => (
+            <motion.div
+              key={exp.company}
+              initial={{ opacity: 0, y: 20, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: i * 0.08, duration: 0.7, ease: editorialEase }}
+              className={`rounded-2xl border border-white/10 bg-ink/60 p-6 border-l-2 ${exp.border}`}
+            >
+              <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
+                <div className="text-base font-display text-cream">{exp.company}</div>
+                <div className="text-xs font-mono text-cream/60 shrink-0">{exp.dates}</div>
+              </div>
+              <div className="text-sm italic font-mono text-cream/70 mb-1">{exp.role}</div>
+              <div className="text-xs font-mono text-cream/50 mb-4">{exp.location}</div>
+              <ul className="space-y-2">
+                {exp.bullets.map((bullet, j) => (
+                  <li key={j} className="flex gap-2 text-sm text-cream/75 leading-relaxed">
+                    <span className="text-gold/60 mt-[5px] shrink-0">·</span>
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </section>
+
+        {/* ── Creative Practice ───────────────────────────────────────── */}
+        <div className="mb-4">
+          <AnimatedSection direction="fade">
+            <span className="text-xs font-mono text-gold/60 tracking-[0.2em] uppercase">
+              Creative Practice
+            </span>
+          </AnimatedSection>
+        </div>
+        <section className="mb-16 grid md:grid-cols-2 gap-6" aria-label="Creative Practice">
+          {CREATIVE_PRACTICE.map((item, i) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 20, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: i * 0.1, duration: 0.7, ease: editorialEase }}
+              className="rounded-2xl border border-white/10 bg-surface-elevated p-6"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="text-gold/60">{item.icon}</div>
+                <div className="text-sm font-display text-cream">{item.title}</div>
+              </div>
+              <p className="text-sm text-cream/75 leading-relaxed">{item.desc}</p>
+            </motion.div>
+          ))}
+        </section>
+
+        {/* ── Education ───────────────────────────────────────────────── */}
+        <div className="mb-4">
+          <AnimatedSection direction="fade">
+            <span className="text-xs font-mono text-gold/60 tracking-[0.2em] uppercase">
+              Education
+            </span>
+          </AnimatedSection>
+        </div>
+        <section className="mb-16" aria-label="Education">
+          <AnimatedSection delay={0.1}>
+            <div className="rounded-2xl border border-white/10 bg-ink/60 p-6">
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div className="text-base font-display text-cream">University of Houston</div>
+                <div className="text-xs font-mono text-cream/60">Dec 2022</div>
+              </div>
+              <div className="text-sm text-cream/75 mt-1">
+                Bachelor of Business Administration — Entrepreneurship &amp; Management Information Systems
+              </div>
+            </div>
+          </AnimatedSection>
+        </section>
+
+        {/* ── Leadership & Community ──────────────────────────────────── */}
+        <div className="mb-4">
+          <AnimatedSection direction="fade">
+            <span className="text-xs font-mono text-gold/60 tracking-[0.2em] uppercase">
+              Leadership &amp; Community
+            </span>
+          </AnimatedSection>
+        </div>
+        <section className="mb-16 space-y-4" aria-label="Leadership and Community">
+          {/* Wolff Center */}
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.97 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.7, ease: editorialEase }}
+            className="rounded-2xl border border-white/10 bg-ink/60 p-6 border-l-2 border-l-gold/50"
+          >
+            <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
+              <div className="text-base font-display text-cream">Wolff Center for Entrepreneurship</div>
+              <div className="text-xs font-mono text-cream/60 shrink-0">Dec 2020 — June 2022</div>
+            </div>
+            <div className="text-xs font-mono text-gold/70 italic mb-1">
+              Ranked #1 in the Nation by The Princeton Review
+            </div>
+            <div className="text-sm italic font-mono text-cream/70 mb-3">
+              Fundraising Events Lead &amp; Engagement Manager | Houston, TX
+            </div>
+            <ul className="space-y-2">
+              <li className="flex gap-2 text-sm text-cream/75 leading-relaxed">
+                <span className="text-gold/60 mt-[5px] shrink-0">·</span>
+                <span>
+                  Produced and managed 40+ live events across Houston, breaking the program&apos;s fundraising
+                  record by 35% and generating $325,000 — including a 3-day food festival for 45,000
+                  attendees and the inaugural entrepreneur&apos;s gala for 500+ guests.
+                </span>
+              </li>
+              <li className="flex gap-2 text-sm text-cream/75 leading-relaxed">
+                <span className="text-gold/60 mt-[5px] shrink-0">·</span>
+                <span>
+                  Led end-to-end event production: venue sourcing, partner relations, content programming,
+                  logistics coordination, and on-site management.
+                </span>
+              </li>
+            </ul>
+          </motion.div>
+
+          {/* Founders Basketball */}
+          <AnimatedSection delay={0.1}>
+            <div className="rounded-2xl border border-white/10 bg-ink/60 p-6">
+              <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+                <div className="text-base font-display text-cream">Founders Basketball</div>
+                <div className="text-xs font-mono text-cream/60">SF Chapter Lead | San Francisco, CA</div>
+              </div>
+              <p className="text-sm text-cream/75 leading-relaxed">
+                Organizing community events connecting founders, creatives, and operators across the Bay Area
+                startup ecosystem.
+              </p>
+            </div>
+          </AnimatedSection>
+        </section>
+
+        {/* ── Skills ──────────────────────────────────────────────────── */}
+        <div className="mb-6">
+          <AnimatedSection direction="fade">
+            <span className="text-xs font-mono text-gold/60 tracking-[0.2em] uppercase">
+              Skills
+            </span>
+          </AnimatedSection>
+        </div>
+        <section className="mb-16 space-y-5" aria-label="Skills">
+          {SKILLS.map((group, gi) => (
+            <AnimatedSection key={group.label} delay={gi * 0.05}>
+              <div>
+                <div className="text-xs font-mono text-cream/60 uppercase tracking-widest mb-2">
+                  {group.label}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {group.pills.map((pill, pi) => (
+                    <motion.span
+                      key={pill}
+                      initial={{ opacity: 0, y: 6, scale: 0.95 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        delay: pi * 0.05,
+                        duration: 0.4,
+                        ease: editorialEase,
+                      }}
+                      className={
+                        group.variant === "gold"
+                          ? "text-xs font-mono border rounded-full px-3 py-1 text-gold/80 border-gold/30 bg-gold/5"
+                          : "text-xs font-mono border rounded-full px-3 py-1 text-cream/60 border-cream/20 bg-cream/5"
+                      }
+                    >
+                      {pill}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            </AnimatedSection>
+          ))}
+        </section>
+
+        {/* ── Footer CTA ──────────────────────────────────────────────── */}
+        <AnimatedSection delay={0.1}>
+          <div className="text-center pt-10 border-t border-white/10">
+            <p className="text-sm font-mono text-cream/50 mb-3">
+              This is the structured version. The full story lives here.
+            </p>
+            <Link
+              href="/"
+              className="text-sm font-mono text-gold hover:text-gold/70 transition-colors"
+            >
+              → nathankhane.com
+            </Link>
+            <div className="mt-16 pt-8 border-t border-white/[0.06]">
+              <p className="text-xs font-mono text-cream/[0.35] tracking-widest">
+                Business Is Poetry · nathankhane.com · 2026
+              </p>
+            </div>
+          </div>
+        </AnimatedSection>
+
+      </div>
+    </main>
+  );
+}

@@ -117,6 +117,21 @@ export default function SystemsArchitect() {
               ))}
             </div>
 
+            {/* Bridge CTA */}
+            <AnimatedSection delay={0.22}>
+              <motion.a
+                href="https://bridgenow.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-google-blue/50 text-google-blue text-xs font-mono hover:bg-google-blue/10 hover:border-google-blue transition-all duration-200 mb-6"
+                style={{ boxShadow: "0 0 0px rgba(66,133,244,0)" }}
+                whileHover={{ boxShadow: "0 0 16px rgba(66,133,244,0.2)" }}
+                whileTap={{ scale: 0.97 }}
+              >
+                Visit Bridge →
+              </motion.a>
+            </AnimatedSection>
+
             <AnimatedSection delay={0.25}>
               <div>
                 <div className="text-xs font-mono text-cream/70 mb-3 tracking-widest uppercase">Stack</div>

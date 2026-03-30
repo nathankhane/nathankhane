@@ -24,8 +24,16 @@ export default function SearchOverlay() {
       }
       if (e.key === "Escape") setOpen(false);
     };
+    const openHandler = () => {
+      setOpen(true);
+      setQuery("");
+    };
     document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
+    window.addEventListener("nate:open-search", openHandler);
+    return () => {
+      document.removeEventListener("keydown", handler);
+      window.removeEventListener("nate:open-search", openHandler);
+    };
   }, []);
 
   useEffect(() => {

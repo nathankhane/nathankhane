@@ -45,9 +45,9 @@ export default function TheSpark() {
       />
 
       <div className="max-w-4xl mx-auto px-6">
-        {/* Eyebrow */}
+        {/* Eyebrow — left-aligned (alternating layout) */}
         <AnimatedSection direction="fade">
-          <span className="text-xs font-mono text-gold/60 tracking-[0.2em] uppercase">
+          <span className="text-xs font-mono text-gold/60 tracking-[0.2em] uppercase block">
             The Spark
           </span>
         </AnimatedSection>

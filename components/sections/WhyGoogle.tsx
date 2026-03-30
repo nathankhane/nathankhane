@@ -23,21 +23,37 @@ import AnimatedSection from "@/components/AnimatedSection";
 
 const ROLES = [
   {
-    title: "Writer / AI Prompt Artist",
+    title: "Video Storyteller (AI Focus)",
     org: "YouTube Creative Studio",
-    why: "[Placeholder — Nate to rewrite]",
+    why: "The site you're reading was built with AI — not as a trick, but because that's how I think. Prompt, prototype, push. I've always been a visual-narrative obsessive who refuses to let tools be the bottleneck. YouTube needs someone who treats AI as an instrument, not an assistant. That's the only way I've ever used it.",
+    // YouTube red
+    accent: {
+      line: "bg-google-red/60",
+      label: "text-google-red/70",
+      glow: "shadow-[0_0_32px_rgba(234,67,53,0.18)]",
+      bg: "bg-google-red/[0.04]",
+      border: "border-google-red/20",
+    },
   },
   {
-    title: "Social Creative / Copywriter",
+    title: "Producer",
     org: "Brand Studio",
-    why: "[Placeholder — Nate to rewrite]",
+    why: "I've held the vision steady on records, software products, and creative operations starting with no playbook, until I wrote my own. The organizational instinct isn't something I developed... it's how I'm wired. I've produced music sessions, shipped a platform, and built audiences from scratch — usually in the same season. Brand-critical work across social, film, and interactive? I've been training for this my whole career. Somewhere in there I learned that the producer is the invisible art form: the person who makes sure the idea survives contact with reality. I've been a producer longer than I've had a title for it.",
+    // Google blue
+    accent: {
+      line: "bg-google-blue/60",
+      label: "text-google-blue/70",
+      glow: "shadow-[0_0_32px_rgba(66,133,244,0.18)]",
+      bg: "bg-google-blue/[0.04]",
+      border: "border-google-blue/20",
+    },
   },
 ];
 
 const GOOGLE_CAMPAIGNS = [
-  { name: "Dear Sophie", year: "2011", desc: "Chrome ad. The one that proved technology can be tender." },
-  { name: "Year in Search", year: "2013–", desc: "Annual proof that data, told right, makes people cry." },
-  { name: "Ted (Just Ask Google)", year: "2012", desc: "Life told through queries. This site tells it through what was built." },
+  { name: "Dear Sophie", year: "2011", desc: "Chrome ad. The one that proved technology can be tender.", href: "https://www.youtube.com/watch?v=R4vkVHijdQk" },
+  { name: "Year in Search", year: "2013–", desc: "Annual proof that data, told right, makes people cry.", href: "https://trends.withgoogle.com/year-in-search/2013/" },
+  { name: "Ted (Just Ask Google)", year: "2025", desc: "My favorite Google Ad of all time... I used to watch it weekly before there was a marketing error that pulled it from Youtube.", href: null },
 ];
 
 export default function WhyGoogle() {
@@ -71,14 +87,13 @@ export default function WhyGoogle() {
 
           <AnimatedSection delay={0.1}>
             <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-display text-cream leading-tight text-balance">
-              Why Google.
+              Why Google?
             </h2>
           </AnimatedSection>
 
           <AnimatedSection delay={0.2}>
-            <p className="mt-6 text-cream/60 italic font-mono text-xs tracking-wide">
-              [Placeholder — Nate to rewrite]
-              {/* Easter Egg #6: reference to "Dear Sophie" should live here */}
+            <p className="mt-6 text-cream/70 font-display text-lg italic">
+              One could say I was born for it...
             </p>
           </AnimatedSection>
         </div>
@@ -92,15 +107,12 @@ export default function WhyGoogle() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: 0.1 + i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className={`rounded-2xl border border-white/10 bg-surface/80 backdrop-blur-sm p-6 overflow-hidden relative ${
-                i === 0 ? "shadow-gold-glow" : ""
-              }`}
+              whileHover={{ y: -2, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+              className={`rounded-2xl border backdrop-blur-sm p-6 overflow-hidden relative ${role.accent.bg} ${role.accent.border} ${role.accent.glow}`}
             >
               {/* WG2 — top accent line draws left→right */}
               <motion.div
-                className={`absolute top-0 left-0 right-0 h-px ${
-                  i === 0 ? "bg-google-blue/50" : "bg-google-green/50"
-                }`}
+                className={`absolute top-0 left-0 right-0 h-[2px] ${role.accent.line}`}
                 aria-hidden="true"
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
@@ -108,7 +120,7 @@ export default function WhyGoogle() {
                 transition={{ delay: 0.3 + i * 0.12, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 style={{ transformOrigin: "left" }}
               />
-              <div className={`text-xs font-mono mb-1 ${i === 0 ? "text-google-blue/60" : "text-google-green/60"}`}>
+              <div className={`text-xs font-mono mb-1 ${role.accent.label}`}>
                 {role.org}
               </div>
               <div className="text-lg font-display text-cream mb-4">{role.title}</div>
@@ -116,6 +128,22 @@ export default function WhyGoogle() {
             </motion.div>
           ))}
         </div>
+
+        {/* Resume link — subtle bridge between roles and credentials */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center -mt-10 mb-16"
+        >
+          <a
+            href="/resume"
+            className="text-xs font-mono text-gold/60 hover:text-gold transition-colors border-b border-gold/30 hover:border-gold pb-0.5"
+          >
+            View structured resume →
+          </a>
+        </motion.div>
 
         {/* WG3 — campaigns stagger in from left */}
         <div className="mb-16">
@@ -139,7 +167,21 @@ export default function WhyGoogle() {
                 className="flex items-start justify-between py-4 border-b border-white/5"
               >
                 <div>
-                  <div className="text-sm font-display text-cream/80">{c.name}</div>
+                  {c.href ? (
+                    <a
+                      href={c.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-display text-cream/80 hover:text-google-blue transition-colors inline-flex items-center gap-1.5 group"
+                    >
+                      {c.name}
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true" className="opacity-0 group-hover:opacity-60 transition-opacity shrink-0">
+                        <path d="M2 10L10 2M10 2H5M10 2v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </a>
+                  ) : (
+                    <div className="text-sm font-display text-cream/80">{c.name}</div>
+                  )}
                   <div className="text-xs text-cream/70 mt-1">{c.desc}</div>
                 </div>
                 <div className="text-xs font-mono text-cream/70 shrink-0 ml-4">{c.year}</div>
@@ -154,15 +196,30 @@ export default function WhyGoogle() {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-14 max-w-2xl"
+          className="mt-14 max-w-2xl mx-auto text-center"
         >
           <p className="text-2xl md:text-3xl font-display text-cream/80 leading-relaxed italic text-balance">
             <span className="text-gold not-italic">&ldquo;</span>The site you&apos;re reading right now is the portfolio piece.
-            I didn&apos;t submit a PDF. I built my case for a position in the Google Creative Fellowship from the ground up, since I was a curious infant.&rdquo;
+            I didn&apos;t submit a PDF. I&apos;ve been building my case for a position in the Google Creative Fellowship from the ground up, since I was a curious infant.&rdquo;
           </p>
           <p className="mt-4 text-sm font-mono text-cream/70">
-            — Nathan Khane Morales, March 2026
+            — Nathan Khane Morales
           </p>
+          {/* Fellowship interest CTA */}
+          <motion.button
+            onClick={() => {
+              document.getElementById("persistent-ui")?.classList.remove("hero-hidden");
+              window.dispatchEvent(
+                new CustomEvent("nate:search", {
+                  detail: { query: "Make the case for why Nate belongs at Google Creative. Why is he applying for the fellowship?" },
+                })
+              );
+            }}
+            className="mt-8 text-xs font-mono text-google-blue/60 hover:text-google-blue transition-colors duration-200 border-b border-google-blue/20 hover:border-google-blue/50 pb-0.5 block"
+            whileTap={{ scale: 0.97 }}
+          >
+            Ask me about it →
+          </motion.button>
         </motion.div>
 
         {/* Site footer */}

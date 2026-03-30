@@ -13,9 +13,10 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import HeroHotspotLayer from "./HeroHotspotLayer";
 
 const TOTAL_FRAMES = 383;
 const FRAME_PATH = (n: number) =>
@@ -28,7 +29,9 @@ const FRAME_END_IDX   = 382; // 0-indexed = frame 383 = normal Nate (start of sc
 const FRAME_START_IDX = 11;  // 0-indexed = frame 12 = first fully-glowing frame (end of scroll)
 const EFFECTIVE_FRAMES = FRAME_END_IDX - FRAME_START_IDX; // 371
 
-const T_DONE = 0.995; // unlock persistent UI
+const T_DONE = 0.995;    // unlock persistent UI (AudioPlayer, AgentSidebar)
+const T_HOTSPOT_SHOW = 0.62; // items emerge from brain — show hotspot layer
+const T_HOTSPOT_HIDE = 0.52; // hysteresis: hide hotspots only when scrolled well back
 
 // Linear interpolation for scroll-exit animations
 // Returns `from` when p <= start, `to` when p >= end, linear in between
@@ -41,6 +44,8 @@ export default function HeroScrollCanvas() {
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const currentFrameRef = useRef<number>(FRAME_END_IDX);
   const heroDoneRef = useRef(false);
+  const [heroDone, setHeroDone] = useState(false); // mirrors heroDoneRef for React render
+  const [heartVisible, setHeartVisible] = useState(false);
 
   const loadedCountRef = useRef(0);
   const [loadProgress, setLoadProgress] = useState(0);
@@ -177,17 +182,30 @@ export default function HeroScrollCanvas() {
 
           setScrollProgress(p);
 
-          if (p >= T_DONE && !heroDoneRef.current) {
+          // Show hotspot layer when items emerge from brain
+          if (p >= T_HOTSPOT_SHOW && !heroDoneRef.current) {
             heroDoneRef.current = true;
+            setHeroDone(true);
+          }
+          // Hide hotspot layer only when scrolled well back past emergence point
+          if (p < T_HOTSPOT_HIDE && heroDoneRef.current) {
+            heroDoneRef.current = false;
+            setHeroDone(false);
+          }
+
+          // Persistent UI (AudioPlayer, AgentSidebar) unlocks at near-end
+          if (p >= T_DONE) {
             document.getElementById("persistent-ui")?.classList.remove("hero-hidden");
           }
         },
         onLeave: () => {
           heroDoneRef.current = true;
+          setHeroDone(true);
           document.getElementById("persistent-ui")?.classList.remove("hero-hidden");
         },
         onEnterBack: () => {
-          heroDoneRef.current = false;
+          // Re-hide persistent UI as user scrolls back through hero
+          // Hotspot visibility is handled by onUpdate thresholds above
           document.getElementById("persistent-ui")?.classList.add("hero-hidden");
         },
       });
@@ -206,11 +224,11 @@ export default function HeroScrollCanvas() {
       className="relative w-full min-h-[100dvh] overflow-hidden"
       aria-label="Hero — Scroll to reveal"
     >
-      {/* Canvas — frame renderer */}
+      {/* Canvas — frame renderer. pointer-events-none so hotspot layer above receives clicks. */}
       <canvas
         ref={canvasRef}
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 w-full h-full pointer-events-none"
         style={{
           maskImage:
             "radial-gradient(ellipse 85% 80% at 50% 50%, black 35%, transparent 100%)",
@@ -253,17 +271,37 @@ export default function HeroScrollCanvas() {
         >
           this is Nate.
         </motion.p>
-        <motion.p
-          animate={{
-            opacity: firstFrameLoaded ? exitVal(scrollProgress, 0.12, 0.30, 1, 0) : 0,
-            y: exitVal(scrollProgress, 0.12, 0.30, 0, -24),
-            x: exitVal(scrollProgress, 0.12, 0.30, 0, -16),
-          }}
-          transition={scrollTransition}
-          className="text-2xl font-display-hero text-cream/80 text-right leading-snug"
+        <div
+          className="relative pointer-events-auto"
+          onMouseEnter={() => setHeartVisible(true)}
+          onMouseLeave={() => setHeartVisible(false)}
         >
-          Nate was born on Valentine&apos;s Day, 2000.
-        </motion.p>
+          <motion.p
+            animate={{
+              opacity: firstFrameLoaded ? exitVal(scrollProgress, 0.12, 0.30, 1, 0) : 0,
+              y: exitVal(scrollProgress, 0.12, 0.30, 0, -24),
+              x: exitVal(scrollProgress, 0.12, 0.30, 0, -16),
+            }}
+            transition={scrollTransition}
+            className="text-2xl font-display-hero text-cream/80 text-right leading-snug"
+          >
+            Nate was born on Valentine&apos;s Day, 2000.
+          </motion.p>
+          <AnimatePresence>
+            {heartVisible && (
+              <motion.span
+                initial={{ opacity: 0, y: 0 }}
+                animate={{ opacity: [0, 1, 1, 0], y: -28 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute -top-2 right-0 pointer-events-none select-none text-lg"
+                aria-hidden="true"
+              >
+                ❤
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </div>
         <motion.p
           animate={{
             opacity: firstFrameLoaded ? exitVal(scrollProgress, 0.20, 0.38, 1, 0) : 0,
@@ -281,8 +319,12 @@ export default function HeroScrollCanvas() {
             y: exitVal(scrollProgress, 0.28, 0.45, 0, 16),
           }}
           transition={scrollTransition}
-          className="flex items-center gap-2 font-mono text-xs text-cream/70"
-          aria-hidden="true"
+          className="flex items-center gap-2 font-mono text-xs text-cream/70 pointer-events-auto cursor-pointer hover:text-cream/90 transition-colors"
+          onClick={() => window.dispatchEvent(new CustomEvent("nate:open-search"))}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === "Enter" && window.dispatchEvent(new CustomEvent("nate:open-search"))}
+          aria-label="Open search"
         >
           <div className="flex gap-1">
             <span className="w-2 h-2 rounded-full bg-google-blue opacity-60" />
@@ -337,8 +379,12 @@ export default function HeroScrollCanvas() {
             y: exitVal(scrollProgress, 0.28, 0.45, 0, 12),
           }}
           transition={scrollTransition}
-          className="flex items-center gap-2 font-mono text-xs text-cream/70"
-          aria-hidden="true"
+          className="flex items-center gap-2 font-mono text-xs text-cream/70 pointer-events-auto cursor-pointer hover:text-cream/90 transition-colors"
+          onClick={() => window.dispatchEvent(new CustomEvent("nate:open-search"))}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === "Enter" && window.dispatchEvent(new CustomEvent("nate:open-search"))}
+          aria-label="Open search"
         >
           <div className="flex gap-1">
             <span className="w-2 h-2 rounded-full bg-google-blue opacity-60" />
@@ -391,6 +437,9 @@ export default function HeroScrollCanvas() {
           </svg>
         </motion.div>
       </motion.div>
+
+      {/* ── Interactive hotspot layer — appears after hero animation completes ── */}
+      {heroDone && <HeroHotspotLayer />}
     </section>
   );
 }

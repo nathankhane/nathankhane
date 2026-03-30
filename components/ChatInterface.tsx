@@ -30,7 +30,7 @@ function TypingIndicator() {
       {[0, 0.15, 0.3].map((delay) => (
         <span
           key={delay}
-          className="w-1.5 h-1.5 rounded-full bg-gold/60"
+          className="w-1.5 h-1.5 rounded-full bg-google-blue/60"
           style={{
             animation: `typing-dot 1.2s ease-in-out ${delay}s infinite`,
           }}
@@ -51,9 +51,40 @@ export default function ChatInterface({ initialQuery, onInitialQueryConsumed }: 
   const [isStreaming, setIsStreaming] = useState(false);
   const [isUnavailable, setIsUnavailable] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
+  const [isListening, setIsListening] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const lastSentQueryRef = useRef<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const recognitionRef = useRef<{ stop: () => void } | null>(null);
+
+  const startListening = useCallback(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const SpeechRecognitionAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognitionAPI) return;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const recognition = new SpeechRecognitionAPI() as any;
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = "en-US";
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    recognition.onresult = (event: any) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const transcript = Array.from(event.results as any[]).map((r: any) => r[0].transcript).join("");
+      setInput(transcript);
+    };
+    recognition.onend = () => setIsListening(false);
+    recognition.onerror = () => setIsListening(false);
+    recognitionRef.current = recognition;
+    recognition.start();
+    setIsListening(true);
+  }, []);
+
+  const stopListening = useCallback(() => {
+    recognitionRef.current?.stop();
+    setIsListening(false);
+  }, []);
 
   const scrollToBottom = useCallback(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -167,7 +198,8 @@ export default function ChatInterface({ initialQuery, onInitialQueryConsumed }: 
 
   // Easter Egg #13 — auto-send query that came in via Cmd+K search overlay
   useEffect(() => {
-    if (!initialQuery) return;
+    if (!initialQuery || lastSentQueryRef.current === initialQuery) return;
+    lastSentQueryRef.current = initialQuery;
     sendMessage(initialQuery);
     onInitialQueryConsumed?.();
   // sendMessage is stable via useCallback; initialQuery changing is the only trigger we want
@@ -190,14 +222,14 @@ export default function ChatInterface({ initialQuery, onInitialQueryConsumed }: 
     <div className="flex flex-col h-[480px] max-h-[55vh] sm:max-h-[60vh] rounded-2xl border border-white/[0.08] bg-white/[0.03] overflow-hidden">
       {/* Header */}
       <div className="flex items-center gap-3 px-5 py-4 border-b border-white/10 shrink-0">
-        <div className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+        <div className="w-2 h-2 rounded-full bg-google-blue animate-pulse" />
         <span className="text-sm font-mono text-cream/70">Ask Nate&apos;s AI</span>
         {isUnavailable && (
           <div className="ml-auto flex items-center gap-2">
             <span className="text-xs text-cream/60 font-mono">offline</span>
             <button
               onClick={() => { setIsUnavailable(false); inputRef.current?.focus(); }}
-              className="text-xs text-gold/60 hover:text-gold font-mono transition-colors"
+              className="text-xs text-google-blue/60 hover:text-google-blue font-mono transition-colors"
               aria-label="Retry connection"
             >
               retry
@@ -235,7 +267,7 @@ export default function ChatInterface({ initialQuery, onInitialQueryConsumed }: 
                 <button
                   key={prompt}
                   onClick={() => sendMessage(prompt)}
-                  className="text-left text-xs text-cream/70 hover:text-cream border border-white/10 hover:border-gold/40 rounded-xl px-3 py-2.5 transition-all duration-200 bg-surface-elevated/50"
+                  className="text-left text-xs text-cream/70 hover:text-cream border border-white/10 hover:border-google-blue/40 rounded-xl px-3 py-2.5 transition-all duration-200 bg-surface-elevated/50"
                 >
                   {prompt}
                 </button>
@@ -256,7 +288,7 @@ export default function ChatInterface({ initialQuery, onInitialQueryConsumed }: 
             <div
               className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                 msg.role === "user"
-                  ? "bg-gold/20 text-cream border border-gold/20 rounded-br-sm"
+                  ? "bg-google-blue/15 text-cream border border-google-blue/25 rounded-br-sm"
                   : "bg-surface-elevated text-cream/90 border border-white/10 rounded-bl-sm"
               }`}
             >
@@ -300,6 +332,37 @@ export default function ChatInterface({ initialQuery, onInitialQueryConsumed }: 
             style={{ lineHeight: "1.5" }}
             aria-label="Chat input"
           />
+          {/* Mic button */}
+          <button
+            onClick={isListening ? stopListening : startListening}
+            disabled={isStreaming}
+            className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 disabled:opacity-30 ${
+              isListening
+                ? "bg-pink-500/20 border border-pink-500/60 text-pink-400"
+                : "border border-white/20 text-cream/50 hover:text-cream/80 hover:border-white/40"
+            }`}
+            aria-label={isListening ? "Stop listening" : "Voice input"}
+            style={isListening ? { boxShadow: "0 0 10px rgba(236,72,153,0.4), 0 0 20px rgba(236,72,153,0.2)" } : {}}
+          >
+            {isListening ? (
+              <span className="flex gap-[2px] items-end h-4">
+                {[0, 0.1, 0.2].map((d) => (
+                  <span
+                    key={d}
+                    className="w-[2px] rounded-full bg-pink-400"
+                    style={{ animation: `typing-dot 0.8s ease-in-out ${d}s infinite`, height: "10px" }}
+                  />
+                ))}
+              </span>
+            ) : (
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="9" y="2" width="6" height="11" rx="3" stroke="currentColor" strokeWidth="2"/>
+                <path d="M5 10a7 7 0 0 0 14 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <line x1="12" y1="19" x2="12" y2="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <line x1="8" y1="22" x2="16" y2="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            )}
+          </button>
           {isStreaming ? (
             <button
               onClick={handleStop}
@@ -312,7 +375,7 @@ export default function ChatInterface({ initialQuery, onInitialQueryConsumed }: 
             <button
               onClick={() => sendMessage(input)}
               disabled={!input.trim()}
-              className="shrink-0 w-8 h-8 rounded-full bg-gold flex items-center justify-center disabled:opacity-30 hover:bg-gold/80 transition-colors"
+              className="shrink-0 w-8 h-8 rounded-full bg-google-blue flex items-center justify-center disabled:opacity-30 hover:bg-google-blue/80 transition-colors"
               aria-label="Send message"
             >
               <svg width="12" height="12" viewBox="0 0 12 12" fill="#0A0E17">

@@ -19,11 +19,12 @@ const mobileNavSocialLinks = MOBILE_NAV_SOCIAL_LABELS.map((label) =>
 ).filter((link): link is (typeof SOCIAL_LINKS)[number] => Boolean(link));
 
 const NAV_LINKS = [
-  { href: "#origin",    label: "Origin" },
-  { href: "#maker",     label: "The Maker" },
-  { href: "#curator",   label: "Taste" },
-  { href: "#google",    label: "Why Google" },
-  { href: "#agent",     label: "Just Ask" },
+  { href: "/#origin",       label: "Origin" },
+  { href: "/#maker",        label: "The Maker" },
+  { href: "/#curator",      label: "Taste" },
+  { href: "/inspirations",  label: "Inspirations" },
+  { href: "/#google",       label: "Why Google" },
+  { href: "/#agent",        label: "Just Ask" },
 ];
 
 function MenuIcon({ open }: { open: boolean }) {
@@ -67,11 +68,11 @@ function MobileNavPortal({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
 
           {/* Drawer */}
           <motion.nav
-            initial={{ x: "100%" }}
+            initial={{ x: "-100%" }}
             animate={{ x: 0 }}
-            exit={{ x: "100%" }}
+            exit={{ x: "-100%" }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-0 right-0 bottom-0 w-72 bg-surface border-l border-white/10 flex flex-col pt-20 pb-8 px-8"
+            className="fixed top-0 left-0 bottom-0 w-72 bg-surface border-r border-white/10 flex flex-col pt-20 pb-8 px-8"
             style={{ zIndex: 999999 }}
             role="navigation"
             aria-label="Mobile navigation"
@@ -87,7 +88,7 @@ function MobileNavPortal({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                   <Link
                     href={href}
                     onClick={onClose}
-                    className="block py-3 text-xl font-display text-cream/70 hover:text-cream transition-colors border-b border-white/5"
+                    className="block py-3 text-xl font-display text-cream/70 hover:text-google-blue/80 transition-colors border-b border-white/5"
                   >
                     {label}
                   </Link>
@@ -106,16 +107,20 @@ function MobileNavPortal({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                 Business Is Poetry
               </p>
               <div className="flex gap-4">
-                {mobileNavSocialLinks.map(({ href, label }) => (
-                  <a
+                {mobileNavSocialLinks.map(({ href, label }, idx) => (
+                  <motion.a
                     key={label}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-cream/40 hover:text-gold transition-colors"
+                    className="text-xs text-cream/40 hover:text-google-blue transition-colors"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.45 + idx * 0.06 }}
+                    whileHover={{ x: 3 }}
                   >
                     {label}
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             </motion.div>
@@ -151,6 +156,7 @@ export default function MobileNav() {
     <>
       <button
         onClick={() => setIsOpen((v) => !v)}
+        data-cursor-hand
         className="relative z-50 p-2 rounded-md hover:bg-white/5 transition-colors"
         aria-label={isOpen ? "Close menu" : "Open menu"}
         aria-expanded={isOpen}

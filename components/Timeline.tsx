@@ -75,9 +75,23 @@ export default function Timeline({ items, side = "left", className }: TimelinePr
             viewport={{ once: true, margin: "-40px" }}
             transition={{ delay: i * 0.04 }}
             className={cn(
-              "relative",
-              side === "left" ? "pr-8 text-right" : "pl-8 text-left"
+              "relative group",
+              side === "left" ? "pr-8 text-right" : "pl-8 text-left",
+              item.googleFact ? "cursor-pointer" : "cursor-default"
             )}
+            onClick={() =>
+              item.googleFact &&
+              setActiveYear(activeYear === item.year ? null : item.year)
+            }
+            role={item.googleFact ? "button" : undefined}
+            tabIndex={item.googleFact ? 0 : undefined}
+            onKeyDown={(e) => {
+              if (item.googleFact && (e.key === "Enter" || e.key === " ")) {
+                e.preventDefault();
+                setActiveYear(activeYear === item.year ? null : item.year);
+              }
+            }}
+            aria-label={item.googleFact ? `${item.year}: ${item.text} — click for Google fact` : undefined}
           >
             {/* Dot on the timeline */}
             <motion.div
@@ -85,7 +99,7 @@ export default function Timeline({ items, side = "left", className }: TimelinePr
                 "absolute top-1.5 rounded-full transition-all duration-300",
                 item.highlight
                   ? "bg-gold w-3 h-3 top-1"
-                  : "bg-cream/30 w-2 h-2",
+                  : "bg-cream/30 w-2 h-2 group-hover:bg-google-blue/70",
                 side === "left" ? "-right-1.5" : "-left-1.5"
               )}
               style={
@@ -115,39 +129,39 @@ export default function Timeline({ items, side = "left", className }: TimelinePr
               }
             />
 
-            {/* Year — clickable if googleFact exists */}
+            {/* Year */}
             <p
               className={cn(
-                "font-mono text-xs mb-1 transition-colors duration-300",
-                item.highlight ? "text-gold" : "text-cream/60",
-                item.googleFact && "cursor-pointer hover:text-google-blue/80"
+                "font-mono text-xs mb-1 transition-colors duration-200",
+                item.highlight ? "text-gold" : "text-cream/60 group-hover:text-google-blue/80"
               )}
-              onClick={() =>
-                item.googleFact &&
-                setActiveYear(activeYear === item.year ? null : item.year)
-              }
-              title={item.googleFact ? "Click for a Google fact" : undefined}
             >
               {item.year}
               {item.googleFact && (
-                <span className="ml-1 text-google-blue/40 text-[9px]">●</span>
+                <span className="ml-1 text-google-blue/40 text-[9px] group-hover:text-google-blue/70 transition-colors duration-200">●</span>
               )}
             </p>
 
             {/* Main text */}
             <p
               className={cn(
-                "text-sm leading-snug",
+                "text-sm leading-snug transition-colors duration-200",
                 "font-sans",
-                item.highlight ? "text-cream font-semibold" : "text-cream/80"
+                item.highlight
+                  ? "text-cream font-semibold"
+                  : "text-cream/80 group-hover:text-cream"
               )}
             >
               {item.text}
             </p>
 
-            {/* Detail */}
+            {/* Detail — always visible on md+, brightens on group hover */}
             {item.detail && (
-              <p className="text-xs text-cream/70 mt-1 leading-relaxed hidden md:block group-hover:block">
+              <p className={cn(
+                "text-xs text-cream/70 mt-1 leading-relaxed transition-all duration-300",
+                "hidden md:block",
+                "group-hover:text-cream/90"
+              )}>
                 {item.detail}
               </p>
             )}

@@ -113,6 +113,34 @@ export default function AgentCTA() {
           </p>
         </AnimatedSection>
 
+        {/* Suggested starter questions */}
+        <AnimatedSection delay={0.12}>
+          <div className="flex flex-wrap gap-2 mb-6">
+            {[
+              "What makes Nate different?",
+              "What would Nate build at Google?",
+              "Tell me about Bridge AI",
+            ].map((q, i) => (
+              <motion.button
+                key={q}
+                onClick={() => {
+                  document.getElementById("persistent-ui")?.classList.remove("hero-hidden");
+                  window.dispatchEvent(
+                    new CustomEvent("nate:search", { detail: { query: q } })
+                  );
+                }}
+                className="px-3 py-1.5 rounded-full border border-google-blue/30 text-cream/60 text-xs font-mono hover:border-google-blue hover:text-cream hover:bg-google-blue/5 transition-all duration-200"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                whileTap={{ scale: 0.96 }}
+              >
+                {q}
+              </motion.button>
+            ))}
+          </div>
+        </AnimatedSection>
+
         {/* AI Chat Interface */}
         <AnimatedSection delay={0.15}>
           <ChatInterface />
@@ -141,11 +169,10 @@ export default function AgentCTA() {
             {/* Resume + email */}
             <div className="flex justify-center gap-6 mt-6">
               <a
-                href="/resume.pdf"
-                download
+                href="/resume"
                 className="text-xs font-mono text-cream/70 hover:text-cream transition-colors border-b border-white/10 hover:border-white/30 pb-0.5"
               >
-                Resume PDF ↓
+                Resume ↓
               </a>
               <a
                 href="mailto:nathan@nathankhane.com"

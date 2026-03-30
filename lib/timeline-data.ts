@@ -55,29 +55,9 @@ export const timelineData: TimelineEvent[] = [
     googleDetail: "Culture becomes searchable. Video becomes the internet's native language.",
   },
   {
-    year: 2008,
-    google: "Chrome launches",
-  },
-  {
-    year: 2010,
-    google: "Android reaches 100,000 activations per day",
-  },
-  {
-    year: 2012,
-    google: "Knowledge Graph: search understands meaning, not just keywords",
-  },
-  {
     year: 2013,
     nate: "Built my first PC by hand",
     nateDetail: "Sourced every part. Assembled it alone. The moment I stopped being a user and became a builder.",
-  },
-  {
-    year: 2015,
-    google: "Alphabet restructuring. Google Photos. AMP.",
-  },
-  {
-    year: 2017,
-    google: "Google Home. Waymo spins out.",
   },
   {
     year: 2018,
@@ -141,7 +121,7 @@ export const timelineData: TimelineEvent[] = [
   },
   {
     year: 2026,
-    nate: "Founders Basketball SF Chapter Lead. Building toward NYC. This site is the proof.",
+    nate: "The next chapter in my creative story.",
     google: "Google Creative Fellowship 2026 applications open. The door is here.",
     nateDetail: "Every project, every session, every build has been parallel. Now it converges.",
     googleDetail: "The fellowship asks for makers. Here's one.",

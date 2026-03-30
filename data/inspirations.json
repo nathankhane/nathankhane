@@ -1,0 +1,254 @@
+[
+  {
+    "id": "insp_001",
+    "type": "instagram_caption",
+    "content": {
+      "text": "Uncertainty is the birthplace of possibility.",
+      "attribution": "",
+      "context": "Written at 3am during a Bridge pivot. The not-knowing felt like a full stop — until I realized it was just the line break before the next stanza.",
+      "url": "",
+      "date": "2024-08-12"
+    },
+    "display": {
+      "size": "medium",
+      "position": { "x": -280, "y": -200 },
+      "rotation": -1.5
+    },
+    "meta": {
+      "tags": ["creativity", "philosophy"],
+      "addedAt": "2026-03-29",
+      "featured": true
+    }
+  },
+  {
+    "id": "insp_002",
+    "type": "instagram_caption",
+    "content": {
+      "text": "Everything you are is built from everything you're not.",
+      "attribution": "",
+      "context": "A caption I've returned to more times than I've posted. Identity as negative space — the shape defined by what doesn't fit.",
+      "url": "",
+      "date": "2024-03-04"
+    },
+    "display": {
+      "size": "medium",
+      "position": { "x": 60, "y": -220 },
+      "rotation": 1.2
+    },
+    "meta": {
+      "tags": ["identity", "philosophy"],
+      "addedAt": "2026-03-29",
+      "featured": true
+    }
+  },
+  {
+    "id": "insp_003",
+    "type": "instagram_caption",
+    "content": {
+      "text": "Every venture is a verse — the pitch a volta, the pivot iambic.",
+      "attribution": "",
+      "context": "The thesis behind Business Is Poetry. Not a metaphor. A methodology. When you treat a startup like a poem — with meter, tension, and resolution — you stop guessing and start composing.",
+      "url": "",
+      "date": "2025-01-18"
+    },
+    "display": {
+      "size": "large",
+      "position": { "x": -170, "y": 80 },
+      "rotation": 0.8
+    },
+    "meta": {
+      "tags": ["business", "poetry", "creativity"],
+      "addedAt": "2026-03-29",
+      "featured": true
+    }
+  },
+  {
+    "id": "insp_004",
+    "type": "quote",
+    "content": {
+      "text": "You have power over your mind — not outside events. Realize this, and you will find strength.",
+      "attribution": "Marcus Aurelius, Meditations",
+      "context": "The compass I return to when systems break or plans collapse. The only variable I actually control is my response.",
+      "url": "",
+      "date": "2024-01-01"
+    },
+    "display": {
+      "size": "medium",
+      "position": { "x": 220, "y": 60 },
+      "rotation": -0.9
+    },
+    "meta": {
+      "tags": ["stoicism", "philosophy"],
+      "addedAt": "2026-03-29",
+      "featured": true
+    }
+  },
+  {
+    "id": "insp_005",
+    "type": "stoic",
+    "content": {
+      "text": "Make the best use of what is in your power, and take the rest as it happens.",
+      "attribution": "Epictetus, Enchiridion",
+      "context": "The Stoic frame for building startups: control your inputs obsessively, hold your outcomes lightly.",
+      "url": "",
+      "date": "2024-01-01"
+    },
+    "display": {
+      "size": "small",
+      "position": { "x": -410, "y": -40 },
+      "rotation": 1.8
+    },
+    "meta": {
+      "tags": ["stoicism"],
+      "addedAt": "2026-03-29",
+      "featured": true
+    }
+  },
+  {
+    "id": "insp_006",
+    "type": "quote",
+    "content": {
+      "text": "Out beyond ideas of wrongdoing and rightdoing, there is a field. I'll meet you there.",
+      "attribution": "Rumi",
+      "context": "The creative space I try to operate from — before judgment, before categories. Where the real conversations happen.",
+      "url": "",
+      "date": "2024-02-20"
+    },
+    "display": {
+      "size": "medium",
+      "position": { "x": 480, "y": -340 },
+      "rotation": -2.1
+    },
+    "meta": {
+      "tags": ["philosophy", "creativity"],
+      "addedAt": "2026-03-29",
+      "featured": false
+    }
+  },
+  {
+    "id": "insp_007",
+    "type": "poetry",
+    "content": {
+      "text": "Do not go gentle into that good night,\nOld age should burn and rave at close of day;\nRage, rage against the dying of the light.",
+      "attribution": "Dylan Thomas",
+      "context": "The most useful poem I know. Not about death — about intensity. About not sleepwalking through your one window of influence.",
+      "url": "",
+      "date": "2024-05-01"
+    },
+    "display": {
+      "size": "medium",
+      "position": { "x": -670, "y": 180 },
+      "rotation": -1.4
+    },
+    "meta": {
+      "tags": ["poetry", "intensity"],
+      "addedAt": "2026-03-29",
+      "featured": false
+    }
+  },
+  {
+    "id": "insp_008",
+    "type": "poetry",
+    "content": {
+      "text": "I'm Nobody! Who are you?\nAre you — Nobody — too?",
+      "attribution": "Emily Dickinson",
+      "context": "The anti-personal-brand manifesto. Two lines that do more than any LinkedIn bio.",
+      "url": "",
+      "date": "2024-09-15"
+    },
+    "display": {
+      "size": "small",
+      "position": { "x": 420, "y": 300 },
+      "rotation": 2.3
+    },
+    "meta": {
+      "tags": ["poetry", "identity"],
+      "addedAt": "2026-03-29",
+      "featured": false
+    }
+  },
+  {
+    "id": "insp_009",
+    "type": "stoic",
+    "content": {
+      "text": "It's not what happens to you, but how you react to it that matters.",
+      "attribution": "Epictetus",
+      "context": "Posted this the morning after our first major Bridge rejection. Still holds.",
+      "url": "",
+      "date": "2024-07-03"
+    },
+    "display": {
+      "size": "small",
+      "position": { "x": -520, "y": -440 },
+      "rotation": -1.9
+    },
+    "meta": {
+      "tags": ["stoicism", "resilience"],
+      "addedAt": "2026-03-29",
+      "featured": false
+    }
+  },
+  {
+    "id": "insp_010",
+    "type": "writing_short",
+    "content": {
+      "text": "The best pitches aren't persuasion — they're permission. You're giving someone language to believe something they already feel.",
+      "attribution": "",
+      "context": "A note I wrote after watching three different founders pitch the same product. The winner didn't have better features. He had better permission-giving.",
+      "url": "",
+      "date": "2025-02-14"
+    },
+    "display": {
+      "size": "medium",
+      "position": { "x": 560, "y": 130 },
+      "rotation": 1.0
+    },
+    "meta": {
+      "tags": ["business", "storytelling"],
+      "addedAt": "2026-03-29",
+      "featured": false
+    }
+  },
+  {
+    "id": "insp_011",
+    "type": "writing_short",
+    "content": {
+      "text": "Clarity is a product of elimination, not addition.",
+      "attribution": "",
+      "context": "About writing, about design, about building. The same principle across all three: you reach clarity by cutting, not accumulating.",
+      "url": "",
+      "date": "2024-11-30"
+    },
+    "display": {
+      "size": "small",
+      "position": { "x": -380, "y": 380 },
+      "rotation": -2.4
+    },
+    "meta": {
+      "tags": ["creativity", "writing"],
+      "addedAt": "2026-03-29",
+      "featured": false
+    }
+  },
+  {
+    "id": "insp_012",
+    "type": "writing_long",
+    "content": {
+      "text": "What happens when you treat a venture not as a machine to optimize, but as a poem to compose — with volta, meter, and deliberate silence?",
+      "attribution": "Nathan Khane Morales",
+      "context": "Business Is Poetry: On Building Like a Poet — the essay that started everything on this site.",
+      "url": "https://nathankhane.substack.com",
+      "date": "2025-03-01"
+    },
+    "display": {
+      "size": "large",
+      "position": { "x": -750, "y": -270 },
+      "rotation": 0.6
+    },
+    "meta": {
+      "tags": ["business", "poetry", "writing"],
+      "addedAt": "2026-03-29",
+      "featured": false
+    }
+  }
+]

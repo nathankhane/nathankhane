@@ -40,10 +40,12 @@ export default function SocialArchitect() {
     }
   }, [inView]);
 
-  /* Load TikTok embed script after mount */
+  /* Load TikTok embed script after mount — always remove + re-add so it
+     re-scans the DOM for blockquote.tiktok-embed elements after hydration. */
   useEffect(() => {
     const SCRIPT_SRC = "https://www.tiktok.com/embed.js";
-    if (document.querySelector(`script[src="${SCRIPT_SRC}"]`)) return;
+    const existing = document.querySelector(`script[src="${SCRIPT_SRC}"]`);
+    if (existing) existing.remove();
     const s = document.createElement("script");
     s.src = SCRIPT_SRC;
     s.async = true;
@@ -102,8 +104,8 @@ export default function SocialArchitect() {
       </AnimatePresence>
 
       <div className="max-w-6xl mx-auto px-6">
-        {/* Header */}
-        <div className="mb-14 max-w-2xl">
+        {/* Header — right-aligned (alternating layout) */}
+        <div className="mb-14 max-w-2xl ml-auto text-right">
           <AnimatedSection direction="fade">
             <span className="text-xs font-mono text-gold/60 tracking-[0.2em] uppercase">
               Social Architect
@@ -128,8 +130,8 @@ export default function SocialArchitect() {
             </h2>
           </AnimatedSection>
           <AnimatedSection delay={0.2}>
-            <p className="mt-4 text-cream/60 italic font-mono text-xs tracking-wide">
-              [Placeholder — Nate to rewrite]
+            <p className="mt-4 text-cream/60 italic font-mono text-xs tracking-wide text-right">
+              Storytelling is the main ingredient to my madness
             </p>
           </AnimatedSection>
         </div>

@@ -35,6 +35,8 @@ export default function AgentSidebar() {
   useEffect(() => {
     const handler = (e: Event) => {
       const { query } = (e as CustomEvent<{ query: string }>).detail;
+      // Ensure the sidebar is visible even if the hero animation hasn't completed
+      document.getElementById("persistent-ui")?.classList.remove("hero-hidden");
       setSearchQuery(query);
       setOpen(true);
     };
@@ -69,15 +71,13 @@ export default function AgentSidebar() {
         animate={pulseDone ? {} : { scale: [1, 1.06, 1] }}
         transition={pulseDone ? {} : { duration: 1.2, ease: "easeInOut", times: [0, 0.5, 1] }}
       >
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0 text-google-blue/80">
-          <path
-            d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <span
+          className="text-sm leading-none select-none shrink-0"
+          style={{ filter: "drop-shadow(0 0 4px rgba(236,72,153,0.9)) drop-shadow(0 0 10px rgba(236,72,153,0.5))" }}
+          aria-hidden="true"
+        >
+          🧠
+        </span>
         <span className="font-mono text-[11px] tracking-wide whitespace-nowrap">
           Ask AI Nate something...
         </span>
@@ -131,8 +131,8 @@ export default function AgentSidebar() {
               {/* Header */}
               <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.07] shrink-0">
                 <div>
-                  <p className="text-xs font-mono text-gold/60 tracking-[0.15em] uppercase">Just Ask</p>
-                  <p className="text-sm font-display text-cream mt-0.5">Nate&apos;s AI agent</p>
+                  <p className="text-xs font-mono text-google-blue/60 tracking-[0.15em] uppercase">Just Ask</p>
+                  <p className="text-sm font-display text-cream mt-0.5">Nate&apos;s AI Brain</p>
                 </div>
                 <button
                   onClick={() => setOpen(false)}
@@ -155,36 +155,52 @@ export default function AgentSidebar() {
                 </div>
               </div>
 
+              {/* Brain icon — dead space between chat and footer */}
+              <div className="shrink-0 flex items-center justify-center py-3 border-t border-white/[0.04]">
+                <span
+                  className="text-2xl select-none leading-none"
+                  style={{ filter: "drop-shadow(0 0 6px rgba(236,72,153,0.9)) drop-shadow(0 0 16px rgba(236,72,153,0.5))" }}
+                  aria-hidden="true"
+                >
+                  🧠
+                </span>
+              </div>
+
               {/* Footer links */}
               <div className="px-5 py-4 border-t border-white/[0.07] shrink-0">
                 <p className="text-[10px] font-mono text-cream/70 tracking-widest uppercase mb-3 text-center">
                   Find Nate
                 </p>
                 <div className="flex flex-wrap justify-center gap-x-5 gap-y-1.5">
-                  {sidebarLinks.map(({ label, href }) => (
-                    <a
+                  {sidebarLinks.map(({ label, href }, idx) => (
+                    <motion.a
                       key={label}
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-mono text-cream/60 hover:text-gold transition-colors"
+                      className="text-xs font-mono text-cream/60 hover:text-google-blue transition-colors"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: idx * 0.04 }}
+                      whileHover={{ x: 2 }}
                     >
                       {label}
-                    </a>
+                    </motion.a>
                   ))}
-                  <a
-                    href="/resume.pdf"
-                    download
-                    className="text-xs font-mono text-cream/60 hover:text-gold transition-colors"
+                  <motion.a
+                    href="/resume"
+                    className="text-xs font-mono text-cream/60 hover:text-google-blue transition-colors"
+                    whileHover={{ x: 2 }}
                   >
                     Resume ↓
-                  </a>
-                  <a
+                  </motion.a>
+                  <motion.a
                     href="mailto:nathan@nathankhane.com"
-                    className="text-xs font-mono text-cream/60 hover:text-gold transition-colors"
+                    className="text-xs font-mono text-cream/60 hover:text-google-blue transition-colors"
+                    whileHover={{ x: 2 }}
                   >
                     Email
-                  </a>
+                  </motion.a>
                 </div>
               </div>
             </motion.div>

@@ -24,6 +24,7 @@ export default function Home() {
       {/* ── Act 1: Origin ───────────────────────────────────────────────── */}
       <HeroScrollCanvas />
       <ParallelTimeline />
+      <SocialArchitect />
       <TheSpark />
 
       {/* ── Act Break: I → II ───────────────────────────────────────────── */}
@@ -31,7 +32,6 @@ export default function Home() {
 
       {/* ── Act 2: The Maker ────────────────────────────────────────────── */}
       <AudioEngineer />
-      <SocialArchitect />
       <SystemsArchitect />
       <CuratorOfTaste />
 

@@ -11,7 +11,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const LINES = [
   "This is Nate.",
@@ -28,6 +28,7 @@ const GOOGLE_DOTS = [
 
 export default function TitleCard() {
   const [visibleLines, setVisibleLines] = useState<number>(0);
+  const [heartVisible, setHeartVisible] = useState(false);
 
   useEffect(() => {
     if (visibleLines >= LINES.length) return;
@@ -67,43 +68,64 @@ export default function TitleCard() {
 
       <div className="relative z-10 max-w-2xl px-8 md:px-16 lg:px-24">
         {LINES.map((line, i) => (
-          <motion.p
-            key={i}
-            initial={{ opacity: 0, y: 12 }}
-            animate={visibleLines > i ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className={`leading-tight text-balance ${
-              i === 0
-                ? "text-4xl sm:text-5xl md:text-6xl font-display text-cream mb-6"
-                : i === 1
-                ? "text-xl sm:text-2xl font-display text-cream/70 mb-4"
-                : "text-base sm:text-lg font-mono text-gold/80 tracking-wide"
-            }`}
-          >
-            {line}
-            {i === visibleLines - 1 && visibleLines <= LINES.length && (
-              <span
-                className="inline-block w-0.5 h-[1em] bg-gold ml-1 align-middle cursor-blink"
-                aria-hidden="true"
-                data-easter-egg="cursor-blink-530ms"
-              />
+          <div key={i} className={i === 1 ? "relative inline-block" : ""}>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={visibleLines > i ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className={`leading-tight text-balance ${
+                i === 0
+                  ? "text-4xl sm:text-5xl md:text-6xl font-display text-cream mb-6"
+                  : i === 1
+                  ? "text-xl sm:text-2xl font-display text-cream/70 mb-4 cursor-default"
+                  : "text-base sm:text-lg font-mono text-gold/80 tracking-wide"
+              }`}
+              onMouseEnter={i === 1 ? () => setHeartVisible(true) : undefined}
+              onMouseLeave={i === 1 ? () => setHeartVisible(false) : undefined}
+            >
+              {line}
+              {i === visibleLines - 1 && visibleLines <= LINES.length && (
+                <span
+                  className="inline-block w-0.5 h-[1em] bg-gold ml-1 align-middle cursor-blink"
+                  aria-hidden="true"
+                  data-easter-egg="cursor-blink-530ms"
+                />
+              )}
+            </motion.p>
+            {/* Easter Egg #17 — Valentine's Day heart float */}
+            {i === 1 && (
+              <AnimatePresence>
+                {heartVisible && (
+                  <motion.span
+                    initial={{ opacity: 0, y: 0 }}
+                    animate={{ opacity: [0, 1, 1, 0], y: -28 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute -top-2 left-1/2 -translate-x-1/2 text-lg pointer-events-none select-none"
+                    aria-hidden="true"
+                  >
+                    ❤
+                  </motion.span>
+                )}
+              </AnimatePresence>
             )}
-          </motion.p>
+          </div>
         ))}
 
-        {/* T2 — Google-color dots stagger-pop in B→R→Y→G order */}
-        <motion.div
+        {/* T2 — Google-color dots + clickable search CTA */}
+        <motion.button
           initial={{ opacity: 0, y: 20 }}
           animate={allLinesVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-12 flex items-center gap-2 font-mono text-xs text-cream/25"
-          aria-hidden="true"
+          onClick={() => window.dispatchEvent(new CustomEvent("nate:open-search"))}
+          className="mt-12 flex items-center gap-2 font-mono text-xs cursor-pointer group focus-visible:outline-none"
+          aria-label="Open search"
         >
           <div className="flex gap-1">
             {GOOGLE_DOTS.map(({ color, label }, i) => (
               <motion.span
                 key={label}
-                className={`w-2 h-2 rounded-full ${color}`}
+                className={`w-2 h-2 rounded-full ${color} transition-opacity duration-300 group-hover:opacity-90`}
                 initial={{ scale: 0.2, opacity: 0 }}
                 animate={
                   allLinesVisible
@@ -118,9 +140,30 @@ export default function TitleCard() {
               />
             ))}
           </div>
-          <span>search begins here</span>
+          {/* Shimmer text */}
+          <span
+            className="text-cream/30 group-hover:text-cream/60 transition-colors duration-300"
+            style={{
+              backgroundImage: "linear-gradient(90deg, transparent 0%, rgba(245,240,235,0.5) 50%, transparent 100%)",
+              backgroundSize: "200% 100%",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              animation: "search-shimmer 3s ease-in-out 2s infinite",
+            }}
+          >
+            search begins here
+          </span>
           <span className="w-px h-3 bg-cream/30 cursor-blink" aria-hidden="true" />
-        </motion.div>
+          {/* ⌘K hint — pulses softly to invite click */}
+          <motion.span
+            animate={{ opacity: [0.25, 0.55, 0.25] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+            className="ml-1 text-[9px] tracking-widest text-cream/20 group-hover:text-cream/50 transition-colors duration-300 hidden sm:inline"
+            aria-hidden="true"
+          >
+            ⌘K
+          </motion.span>
+        </motion.button>
       </div>
 
       {/* Scroll cue — animated line crawl */}

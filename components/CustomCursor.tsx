@@ -77,7 +77,7 @@ export default function CustomCursor() {
           scale: isClicked ? 0.5 : 1,
         }}
         transition={{ opacity: { duration: 0.15 }, scale: { duration: 0.1 } }}
-        className="fixed top-0 left-0 z-[9999] w-2 h-2 rounded-full bg-cream/80 pointer-events-none"
+        className="fixed top-0 left-0 z-[1000001] w-2 h-2 rounded-full bg-cream/80 pointer-events-none"
       />
 
       {/* Ring — appears on interactive hover */}
@@ -100,7 +100,7 @@ export default function CustomCursor() {
           height: { duration: 0.2, ease: [0.16, 1, 0.3, 1] },
           borderColor: { duration: 0.2 },
         }}
-        className="fixed top-0 left-0 z-[9998] rounded-full border pointer-events-none"
+        className="fixed top-0 left-0 z-[1000000] rounded-full border pointer-events-none"
       />
     </>
   );

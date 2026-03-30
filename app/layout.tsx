@@ -37,6 +37,7 @@ import SearchOverlay from "@/components/SearchOverlay";
 import PageSearch from "@/components/PageSearch";
 import { Analytics } from "@vercel/analytics/next";
 import SpaceBackground from "@/components/SpaceBackground";
+import MobileNav from "@/components/MobileNav";
 
 // ── Fonts ──────────────────────────────────────────────────────────────
 const googleSansCode = Google_Sans_Code({
@@ -190,6 +191,11 @@ export default function RootLayout({
         <SpaceBackground />
         <CustomCursor />
         <ScrollProgress />
+        {/* Navigation — fixed top-right, outside #persistent-ui so it's
+            unaffected by the hero canvas opacity animation */}
+        <div className="fixed top-4 left-4 z-[100]">
+          <MobileNav />
+        </div>
         <ScrollToTop />
         {/* Easter Eggs #13 + #17 — global keyboard overlays */}
         <SearchOverlay />

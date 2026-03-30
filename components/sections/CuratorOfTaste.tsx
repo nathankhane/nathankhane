@@ -14,20 +14,10 @@
  */
 "use client";
 
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
 import EasterEgg from "@/components/EasterEgg";
 
-const POETRY_SAMPLE = `Every venture is a verse —
-the pitch a volta, the pivot
-iambic. Founders speak in metaphor
-whether they know it or not.
-
-I know it.`;
-
-/* CU1 — split into individual lines for staggered reveal */
-const POETRY_LINES = POETRY_SAMPLE.split("\n");
 
 const ACTIVITIES = [
   {
@@ -43,19 +33,6 @@ const ACTIVITIES = [
 ];
 
 export default function CuratorOfTaste() {
-  // Dynamically load Substack embed.js after React mount so both embed divs
-  // are guaranteed to be in the DOM when the script processes them.
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://substack.com/embedjs/embed.js";
-    script.async = true;
-    script.charset = "utf-8";
-    document.body.appendChild(script);
-    return () => {
-      if (document.body.contains(script)) document.body.removeChild(script);
-    };
-  }, []);
-
   return (
     <section
       id="curator"
@@ -70,15 +47,15 @@ export default function CuratorOfTaste() {
       />
 
       <div className="max-w-6xl mx-auto px-6">
-        {/* Header */}
-        <div className="mb-16">
+        {/* Header — right-aligned (alternating layout) */}
+        <div className="mb-16 text-right">
           <AnimatedSection direction="fade">
             <span className="text-xs font-mono text-gold/60 tracking-[0.2em] uppercase">
               Curator of Taste
             </span>
           </AnimatedSection>
           <AnimatedSection delay={0.1}>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-display text-cream leading-tight max-w-2xl text-balance">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-display text-cream leading-tight max-w-2xl ml-auto text-balance">
               The connective tissue between everything.
             </h2>
           </AnimatedSection>
@@ -105,79 +82,55 @@ export default function CuratorOfTaste() {
                   </a>
                 </div>
 
-                {/* Embedded Substack articles */}
+                {/* Substack post cards */}
                 <div className="space-y-4">
                   {[
                     {
-                      title: "Uncertainty is the birthplace of possibility by nathan khane",
+                      title: "Uncertainty is the birthplace of possibility",
                       excerpt: "We\u2019re only limited in this life by two things: our worry, and our regret.",
                       href: "https://nathankhane.substack.com/p/uncertainty-is-the-birthplace-of",
+                      date: "Apr 14, 2025",
                     },
                     {
-                      title: "The Identity Paradox by nathan khane",
+                      title: "The Identity Paradox",
                       excerpt: "Everything you are is built from everything you\u2019re not.",
                       href: "https://nathankhane.substack.com/p/the-identity-paradox",
+                      date: "Mar 2025",
                     },
                   ].map((post) => (
-                    <div
+                    <a
                       key={post.href}
-                      className="rounded-xl overflow-hidden ring-1 ring-white/10 shadow-lg"
+                      href={post.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block rounded-xl bg-white hover:bg-white/95 transition-colors shadow-lg overflow-hidden group"
                     >
-                      <div className="substack-post-embed">
-                        <p lang="en">{post.title}</p>
-                        <p>{post.excerpt}</p>
-                        <a data-post-link="" href={post.href}>Read on Substack</a>
+                      <div className="p-5">
+                        <p className="font-bold text-[#1a1a1a] text-base leading-snug mb-2 group-hover:text-[#333] transition-colors">
+                          {post.title}
+                        </p>
+                        <p className="text-[#666] text-sm leading-relaxed mb-4">{post.excerpt}</p>
+                        <div className="flex items-center gap-2 mb-4">
+                          <img
+                            src="https://substackcdn.com/image/fetch/w_64,h_64,c_fill,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F53b0a5e4-d0be-4802-9b2c-a97e8cff2e0b_1080x1080.jpeg"
+                            alt="nathan khane"
+                            className="w-7 h-7 rounded-full object-cover"
+                          />
+                          <div>
+                            <span className="text-xs font-semibold text-[#1a1a1a]">nathan khane</span>
+                            <span className="text-xs text-[#888] ml-1">· Khane School of Thought</span>
+                          </div>
+                        </div>
+                        <div className="w-full bg-[#FF6719] text-white text-sm font-semibold text-center py-2.5 rounded-lg">
+                          Read on Substack
+                        </div>
                       </div>
-                    </div>
+                    </a>
                   ))}
                 </div>
               </div>
             </AnimatedSection>
 
-            {/* Poetry sample */}
-            <AnimatedSection delay={0.2}>
-              <div>
-                <div className="text-xs font-mono text-cream/60 tracking-widest uppercase mb-4">Poetry</div>
-
-                {/* CU2: Animated left border + CU1: line-by-line reveal */}
-                <blockquote className="relative pl-5">
-                  {/* CU2 — border draws downward before lines appear */}
-                  <motion.div
-                    className="absolute left-0 top-0 bottom-0 w-0.5 bg-gold/40"
-                    initial={{ scaleY: 0 }}
-                    whileInView={{ scaleY: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                    style={{ transformOrigin: "top" }}
-                    aria-hidden="true"
-                  />
-
-                  <p className="font-display text-cream/70 text-sm leading-relaxed italic">
-                    {/* CU1 — each line staggers in after the border draws */}
-                    {POETRY_LINES.map((line, i) => (
-                      <motion.span
-                        key={i}
-                        className="block"
-                        initial={{ opacity: 0, x: -8 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          delay: 0.4 + i * 0.13,
-                          duration: 0.5,
-                          ease: [0.16, 1, 0.3, 1],
-                        }}
-                      >
-                        {/* Preserve blank lines in the poem */}
-                        {line || "\u00A0"}
-                      </motion.span>
-                    ))}
-                  </p>
-                  <footer className="mt-3 text-xs font-mono text-cream/70">
-                    — Nathan Khane Morales
-                  </footer>
-                </blockquote>
-              </div>
-            </AnimatedSection>
           </div>
 
           {/* Right column — CU4: directional entrance from right */}

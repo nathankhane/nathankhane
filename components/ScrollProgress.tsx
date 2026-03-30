@@ -87,7 +87,7 @@ export default function ScrollProgress() {
             <span
               className={`font-mono text-[10px] tracking-widest uppercase transition-all duration-300 ${
                 isActive
-                  ? "opacity-70 text-gold translate-x-0"
+                  ? "opacity-70 text-google-blue translate-x-0"
                   : "opacity-0 text-cream/70 translate-x-1 group-hover:opacity-60 group-hover:translate-x-0"
               }`}
             >
@@ -98,9 +98,10 @@ export default function ScrollProgress() {
             <span
               className={`block rounded-full transition-all duration-300 ${
                 isActive
-                  ? "w-2 h-2 bg-gold"
-                  : "w-1.5 h-1.5 bg-cream/25 group-hover:bg-cream/50"
+                  ? "w-2.5 h-2.5 bg-google-blue"
+                  : "w-1.5 h-1.5 bg-cream/25 group-hover:bg-google-blue/40"
               }`}
+              style={isActive ? { boxShadow: "0 0 8px rgba(66,133,244,0.6)" } : undefined}
             />
           </button>
         );
