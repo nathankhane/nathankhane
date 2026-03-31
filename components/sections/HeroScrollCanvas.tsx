@@ -131,22 +131,33 @@ export default function HeroScrollCanvas() {
     };
     images[FRAME_END_IDX] = startImg;
 
-    // Load remaining 192 frames in background
-    for (let i = 1; i <= TOTAL_FRAMES; i++) {
-      if (i === FRAME_END_IDX + 1) continue; // already loading
-      const img = new Image();
-      img.src = FRAME_PATH(i);
-      img.onload = () => {
-        images[i - 1] = img;
-        loadedCountRef.current += 1;
-        const n = loadedCountRef.current;
-        if (n % 10 === 0 || n === TOTAL_FRAMES - 1) {
-          setLoadProgress(Math.round((n / (TOTAL_FRAMES - 1)) * 100));
-        }
-        if (n === TOTAL_FRAMES - 1) setAllLoaded(true);
-      };
-      images[i - 1] = img;
+    // Load remaining frames in batches of 20 to avoid saturating the connection pool
+    const BATCH_SIZE = 20;
+    const remaining = Array.from({ length: TOTAL_FRAMES }, (_, k) => k + 1)
+      .filter(i => i !== FRAME_END_IDX + 1);
+    let queueIdx = 0;
+
+    function loadNextBatch() {
+      const batch = remaining.slice(queueIdx, queueIdx + BATCH_SIZE);
+      queueIdx += BATCH_SIZE;
+      let batchDone = 0;
+      batch.forEach((frameNum) => {
+        const img = new Image();
+        img.src = FRAME_PATH(frameNum);
+        img.onload = () => {
+          images[frameNum - 1] = img;
+          loadedCountRef.current += 1;
+          const n = loadedCountRef.current;
+          if (n % 10 === 0 || n === TOTAL_FRAMES - 1) {
+            setLoadProgress(Math.round((n / (TOTAL_FRAMES - 1)) * 100));
+          }
+          if (n === TOTAL_FRAMES - 1) setAllLoaded(true);
+          if (++batchDone === batch.length && queueIdx < remaining.length) loadNextBatch();
+        };
+        images[frameNum - 1] = img;
+      });
     }
+    loadNextBatch();
     imagesRef.current = images;
   }, [drawFrame]);
 

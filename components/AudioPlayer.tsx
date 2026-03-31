@@ -57,7 +57,7 @@ export default function AudioPlayer() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const howlRef = useRef<HowlInstance | null>(null);
-  const progressRafRef = useRef<number>(0);
+  const progressRafRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const HowlRef = useRef<HowlConstructor | null>(null);
 
   const currentTrack: MusicTrack = tracks[currentTrackIdx];
@@ -76,22 +76,21 @@ export default function AudioPlayer() {
   }, []);
 
   const stopProgressLoop = useCallback(() => {
-    if (progressRafRef.current) {
-      cancelAnimationFrame(progressRafRef.current);
-      progressRafRef.current = 0;
+    if (progressRafRef.current !== null) {
+      clearInterval(progressRafRef.current);
+      progressRafRef.current = null;
     }
   }, []);
 
   const startProgressLoop = useCallback(() => {
-    const tick = () => {
+    stopProgressLoop();
+    progressRafRef.current = setInterval(() => {
       if (howlRef.current?.playing()) {
         const seek = howlRef.current.seek();
         setProgress(typeof seek === "number" ? seek : 0);
-        progressRafRef.current = requestAnimationFrame(tick);
       }
-    };
-    progressRafRef.current = requestAnimationFrame(tick);
-  }, []);
+    }, 100);
+  }, [stopProgressLoop]);
 
   const loadTrack = useCallback((track: MusicTrack) => {
     if (!HowlRef.current) return;

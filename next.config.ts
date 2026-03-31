@@ -7,13 +7,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   experimental: {
     // Only bundle named exports that are actually imported — critical for GSAP (2.4MB) and framer-motion
-    optimizePackageImports: ["framer-motion", "gsap", "howler"],
+    optimizePackageImports: ["framer-motion", "gsap", "howler", "@google/generative-ai"],
   },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "**.tiktok.com" },
       { protocol: "https", hostname: "**.ytimg.com" },
       { protocol: "https", hostname: "substack-post-media.s3.amazonaws.com" },
+      { protocol: "https", hostname: "substackcdn.com" },
     ],
   },
   async headers() {

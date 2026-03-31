@@ -179,9 +179,10 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         {/* Easter Egg #10: visible in HTML source — "View Source" reward */}
         {/* If you're reading this, you're exactly who this site was built for. — Nathan Khane Morales | nathankhane.com */}
+        {/* Preconnect to font CDN — used by all 8 next/font/google fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Google Sans Flex — bookmarked, not active. Restore by adding back here + updating globals.css base fonts */}
-        {/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
-        {/* <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /> */}
         {/* <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" /> */}
       </head>
       <body className="text-cream antialiased min-h-screen font-sans">

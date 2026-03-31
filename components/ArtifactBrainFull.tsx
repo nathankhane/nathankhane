@@ -163,7 +163,18 @@ export default function ArtifactBrainFull() {
           </span>
           <h2 className="text-xl font-display text-cream font-semibold">Nate&apos;s AI Brain</h2>
         </div>
-        <p className="text-xs font-mono text-cream/40 mt-1">Powered by Gemini 2.5 · Trained on Nathan&apos;s voice</p>
+        <p className="text-xs font-mono text-cream/40 mt-1 flex items-center gap-1.5">
+          <svg width="10" height="10" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <path d="M14 0C14 7.732 7.732 14 0 14C7.732 14 14 20.268 14 28C14 20.268 20.268 14 28 14C20.268 14 14 7.732 14 0Z" fill="url(#gemini-grad)" />
+            <defs>
+              <linearGradient id="gemini-grad" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="#4285F4" />
+                <stop offset="100%" stopColor="#8AB4F8" />
+              </linearGradient>
+            </defs>
+          </svg>
+          Powered by Gemini 2.5 · Trained on Nathan&apos;s voice
+        </p>
       </div>
 
       {/* Chat box */}

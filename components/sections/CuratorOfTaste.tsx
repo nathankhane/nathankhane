@@ -111,11 +111,6 @@ export default function CuratorOfTaste() {
                         </p>
                         <p className="text-[#666] text-sm leading-relaxed mb-4">{post.excerpt}</p>
                         <div className="flex items-center gap-2 mb-4">
-                          <img
-                            src="https://substackcdn.com/image/fetch/w_64,h_64,c_fill,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F53b0a5e4-d0be-4802-9b2c-a97e8cff2e0b_1080x1080.jpeg"
-                            alt="nathan khane"
-                            className="w-7 h-7 rounded-full object-cover"
-                          />
                           <div>
                             <span className="text-xs font-semibold text-[#1a1a1a]">nathan khane</span>
                             <span className="text-xs text-[#888] ml-1">· Khane School of Thought</span>
