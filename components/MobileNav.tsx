@@ -24,7 +24,6 @@ const NAV_LINKS = [
   { href: "/#curator",                   label: "Taste" },
   { href: "/inspirations",               label: "Inspirations" },
   { href: "/#google",                    label: "Why Google" },
-  { href: "/#agent",                     label: "Just Ask" },
   { href: "https://artifacts.nathankhane.com", label: "Artifacts", isExternal: true },
 ];
 
