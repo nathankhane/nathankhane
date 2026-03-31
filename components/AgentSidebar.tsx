@@ -44,6 +44,16 @@ export default function AgentSidebar() {
     return () => window.removeEventListener("nate:search", handler);
   }, []);
 
+  // Hero CTA — "click me to speak to Nate!"
+  useEffect(() => {
+    const handler = () => {
+      document.getElementById("persistent-ui")?.classList.remove("hero-hidden");
+      setOpen(true);
+    };
+    window.addEventListener("nate:open-agent", handler);
+    return () => window.removeEventListener("nate:open-agent", handler);
+  }, []);
+
   // Close on Escape
   useEffect(() => {
     if (!open) return;

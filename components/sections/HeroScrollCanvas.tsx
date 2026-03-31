@@ -335,6 +335,18 @@ export default function HeroScrollCanvas() {
           <span>search begins here</span>
           <span className="cursor-blink" data-easter-egg="cursor-blink-530ms" aria-hidden="true" />
         </motion.div>
+        <motion.button
+          animate={{
+            opacity: firstFrameLoaded ? exitVal(scrollProgress, 0.32, 0.48, 1, 0) : 0,
+            y: exitVal(scrollProgress, 0.32, 0.48, 0, 12),
+          }}
+          transition={scrollTransition}
+          className="font-mono text-xs text-cream/40 hover:text-gold/70 transition-colors text-right tracking-wide cursor-pointer"
+          onClick={() => window.dispatchEvent(new CustomEvent("nate:open-agent"))}
+          aria-label="Open chat with Nate"
+        >
+          ↗ click me to speak to Nate!
+        </motion.button>
       </div>
 
       {/* ── MOBILE top text ── */}
@@ -394,6 +406,18 @@ export default function HeroScrollCanvas() {
           </div>
           <span>search begins here</span>
         </motion.div>
+        <motion.button
+          animate={{
+            opacity: firstFrameLoaded ? exitVal(scrollProgress, 0.32, 0.48, 1, 0) : 0,
+            y: exitVal(scrollProgress, 0.32, 0.48, 0, 8),
+          }}
+          transition={scrollTransition}
+          className="font-mono text-xs text-cream/40 hover:text-gold/70 transition-colors tracking-wide cursor-pointer"
+          onClick={() => window.dispatchEvent(new CustomEvent("nate:open-agent"))}
+          aria-label="Open chat with Nate"
+        >
+          ↗ click me to speak to Nate!
+        </motion.button>
       </div>
 
       {/* ── Scroll CTA — glowing blue arrow, left side, vertically centered ── */}
