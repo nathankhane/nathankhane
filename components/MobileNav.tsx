@@ -19,12 +19,13 @@ const mobileNavSocialLinks = MOBILE_NAV_SOCIAL_LABELS.map((label) =>
 ).filter((link): link is (typeof SOCIAL_LINKS)[number] => Boolean(link));
 
 const NAV_LINKS = [
-  { href: "/#origin",       label: "Origin" },
-  { href: "/#maker",        label: "The Maker" },
-  { href: "/#curator",      label: "Taste" },
-  { href: "/inspirations",  label: "Inspirations" },
-  { href: "/#google",       label: "Why Google" },
-  { href: "/#agent",        label: "Just Ask" },
+  { href: "/#origin",                    label: "Origin" },
+  { href: "/#maker",                     label: "The Maker" },
+  { href: "/#curator",                   label: "Taste" },
+  { href: "/inspirations",               label: "Inspirations" },
+  { href: "/#google",                    label: "Why Google" },
+  { href: "/#agent",                     label: "Just Ask" },
+  { href: "https://artifacts.nathankhane.com", label: "Artifacts", isExternal: true },
 ];
 
 function MenuIcon({ open }: { open: boolean }) {
@@ -78,20 +79,33 @@ function MobileNavPortal({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
             aria-label="Mobile navigation"
           >
             <ul className="space-y-2 flex-1">
-              {NAV_LINKS.map(({ href, label }, i) => (
+              {NAV_LINKS.map(({ href, label, isExternal }, i) => (
                 <motion.li
                   key={href}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 + i * 0.06, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <Link
-                    href={href}
-                    onClick={onClose}
-                    className="block py-3 text-xl font-display text-cream/70 hover:text-google-blue/80 transition-colors border-b border-white/5"
-                  >
-                    {label}
-                  </Link>
+                  {isExternal ? (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={onClose}
+                      className="flex items-center gap-2 py-3 text-xl font-display text-cream/70 hover:text-google-blue/80 transition-colors border-b border-white/5"
+                    >
+                      {label}
+                      <span className="text-sm text-cream/30" aria-hidden="true">↗</span>
+                    </a>
+                  ) : (
+                    <Link
+                      href={href}
+                      onClick={onClose}
+                      className="block py-3 text-xl font-display text-cream/70 hover:text-google-blue/80 transition-colors border-b border-white/5"
+                    >
+                      {label}
+                    </Link>
+                  )}
                 </motion.li>
               ))}
             </ul>

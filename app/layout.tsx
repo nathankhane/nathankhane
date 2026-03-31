@@ -28,8 +28,7 @@ import {
   Outfit,
 } from "next/font/google";
 import "./globals.css";
-import AudioPlayer from "@/components/AudioPlayer";
-import AgentSidebar from "@/components/AgentSidebar";
+import PersistentUI from "@/components/PersistentUI";
 import ScrollToTop from "@/components/ScrollToTop";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -201,13 +200,8 @@ export default function RootLayout({
         <SearchOverlay />
         <PageSearch />
         {children}
-        {/* Persistent UI — hidden by HeroScrollCanvas until hero scroll completes */}
-        <div id="persistent-ui" style={{ transition: "opacity 1s ease" }}>
-          {/* Persistent audio mini-player — NEVER autoplays */}
-          <AudioPlayer />
-          {/* Floating AI agent sidebar — bottom-right FAB */}
-          <AgentSidebar />
-        </div>
+        {/* Persistent UI — hidden on /artifacts, hidden by hero canvas elsewhere */}
+        <PersistentUI />
         <Analytics />
       </body>
     </html>
