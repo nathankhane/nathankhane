@@ -71,8 +71,14 @@ export default function TheSpark() {
         {/* Body copy */}
         <AnimatedSection delay={0.2}>
           <div className="mt-8 space-y-5 text-cream/75 leading-relaxed max-w-2xl">
-            <p className="text-cream/60 italic font-mono text-xs tracking-wide">
-              [Placeholder — Nate to rewrite]
+            <p>
+              At 5 years old, I was in my bedroom writing scripts, poetry, and love songs. Not because anyone told me to — because I had observations I needed to get out of my head. I&apos;ve been a meticulous observer of people, places, and things since the day I was born.
+            </p>
+            <p>
+              This obsession has swung me from honors band saxophone, to managing a boy band in LA, to building AI companies in San Francisco. The throughline was never the medium. It was always the need to find new ways to unleash what&apos;s inside. Finding new ways to create may be a stronger drug than love, for me at least.
+            </p>
+            <p className="text-cream/50 italic">
+              I produce madness.
             </p>
           </div>
         </AnimatedSection>

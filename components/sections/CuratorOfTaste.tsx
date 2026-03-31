@@ -23,12 +23,12 @@ const ACTIVITIES = [
   {
     title: "Founders Basketball",
     subtitle: "SF Chapter Lead",
-    desc: "[Placeholder — Nate to rewrite]",
+    desc: "Built the bridge between competitive pickup and founder culture in San Francisco. The court is where relationships stop being transactional.",
   },
   {
     title: "DJ",
     subtitle: "DDJ-400 + Rekordbox",
-    desc: "[Placeholder — Nate to rewrite]",
+    desc: "I curate the room before I walk in. Every set is an edit — you're making decisions about energy, arc, and release the whole time.",
   },
 ];
 
@@ -166,8 +166,8 @@ export default function CuratorOfTaste() {
                 <div className="text-sm font-display text-cream">UX Consulting</div>
                 <div className="text-xs font-mono text-cream/70">Capgemini</div>
               </div>
-              <p className="text-xs text-cream/60 italic font-mono tracking-wide">
-                [Placeholder — Nate to rewrite]
+              <p className="text-xs text-cream/60 leading-relaxed">
+                Translated complexity into clarity for Fortune 500 clients. Learned that the best design is invisible, and the worst never lets you forget it&apos;s there.
               </p>
             </motion.div>
           </div>

@@ -108,7 +108,7 @@ export default function AgentCTA() {
           </h2>
           <p className="text-cream/75 text-sm leading-relaxed mb-10">
             {/* Easter Egg #8: "Just Ask" reference */}
-            I trained an AI on my background, work, and creative philosophy.{" "}
+            A conversational digital twin trained on countless hours of philosophical and existential banter — plus behavioral data, creative work, and a decade of building. It demonstrates the ability to craft technical AI solutions that serve human resonance.{" "}
             <span data-easter-egg="just-ask">Just ask.</span>
           </p>
         </AnimatedSection>

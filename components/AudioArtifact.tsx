@@ -187,6 +187,9 @@ export default function AudioArtifact() {
         <p className="text-xs font-mono text-cream/40 mt-1">
           The Business Is Poetry Thesis · NotebookLM
         </p>
+        <p className="text-xs text-cream/50 leading-relaxed mt-3 max-w-sm">
+          NotebookLM synthesized 10+ years of personal and creative development into a sophisticated audio overview. A deep-dive analysis of the &ldquo;Business Is Poetry&rdquo; thesis — and the specific paradoxes that drive the creative output.
+        </p>
       </div>
 
       {/* Visualizer canvas */}
