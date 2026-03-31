@@ -31,7 +31,6 @@ import "./globals.css";
 import PersistentUI from "@/components/PersistentUI";
 import ScrollToTop from "@/components/ScrollToTop";
 import CustomCursor from "@/components/CustomCursor";
-import ScrollProgress from "@/components/ScrollProgress";
 import SearchOverlay from "@/components/SearchOverlay";
 import PageSearch from "@/components/PageSearch";
 import { Analytics } from "@vercel/analytics/next";
@@ -189,7 +188,6 @@ export default function RootLayout({
         {/* Fixed parallax space background — mouse-responsive camera pan */}
         <SpaceBackground />
         <CustomCursor />
-        <ScrollProgress />
         {/* Navigation — fixed top-right, outside #persistent-ui so it's
             unaffected by the hero canvas opacity animation */}
         <div className="fixed top-4 left-4 z-[100]">
