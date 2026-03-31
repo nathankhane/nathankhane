@@ -74,25 +74,19 @@ export default function ArtifactsPage() {
           className="flex flex-col flex-1 min-h-screen"
         >
           {/* Top bar */}
-          <header className="shrink-0 px-6 py-4 border-b border-white/[0.06] flex items-center justify-between">
+          <header className="shrink-0 px-6 py-4 border-b border-white/[0.06] flex items-center justify-center relative">
             <div className="flex items-center gap-3">
-              <span
-                className="text-base leading-none select-none"
-                style={{ filter: "drop-shadow(0 0 5px rgba(236,72,153,0.8)) drop-shadow(0 0 12px rgba(236,72,153,0.4))" }}
-                aria-hidden="true"
-              >
-                🧠
-              </span>
+              <span className="text-base leading-none select-none" aria-hidden="true">🔮</span>
               <span className="text-[10px] font-mono text-[#F5F0EB]/40 tracking-[0.25em] uppercase">
                 Artifacts · Nathan Khane Morales
               </span>
+              <a
+                href="https://nathankhane.com"
+                className="text-[10px] font-mono text-[#F5F0EB]/30 hover:text-[#4285F4] transition-colors tracking-wide"
+              >
+                nathankhane.com ↗
+              </a>
             </div>
-            <a
-              href="https://nathankhane.com"
-              className="text-[10px] font-mono text-[#F5F0EB]/30 hover:text-[#4285F4] transition-colors tracking-wide"
-            >
-              nathankhane.com ↗
-            </a>
           </header>
 
           {/* Main split layout */}
