@@ -52,7 +52,7 @@ export default function TitleCard() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 70% 60% at 25% 55%, rgba(212,168,83,0.10) 0%, transparent 65%)",
+            "radial-gradient(ellipse 70% 60% at 25% 55%, rgba(66,133,244,0.08) 0%, transparent 65%)",
         }}
         animate={{
           scale:   [1, 1.07, 1],
@@ -78,7 +78,7 @@ export default function TitleCard() {
                   ? "text-4xl sm:text-5xl md:text-6xl font-display text-cream mb-6"
                   : i === 1
                   ? "text-xl sm:text-2xl font-display text-cream/70 mb-4 cursor-default"
-                  : "text-base sm:text-lg font-mono text-gold/80 tracking-wide"
+                  : "text-base sm:text-lg font-mono text-google-blue/80 tracking-wide"
               }`}
               onMouseEnter={i === 1 ? () => setHeartVisible(true) : undefined}
               onMouseLeave={i === 1 ? () => setHeartVisible(false) : undefined}
@@ -86,7 +86,7 @@ export default function TitleCard() {
               {line}
               {i === visibleLines - 1 && visibleLines <= LINES.length && (
                 <span
-                  className="inline-block w-0.5 h-[1em] bg-gold ml-1 align-middle cursor-blink"
+                  className="inline-block w-0.5 h-[1em] bg-google-blue ml-1 align-middle cursor-blink"
                   aria-hidden="true"
                   data-easter-egg="cursor-blink-530ms"
                 />

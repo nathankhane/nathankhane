@@ -190,7 +190,7 @@ export default function RootLayout({
         <CustomCursor />
         {/* Navigation — fixed top-right, outside #persistent-ui so it's
             unaffected by the hero canvas opacity animation */}
-        <div className="fixed top-4 left-4 z-[100]">
+        <div className="fixed top-3 left-4 z-[100]">
           <MobileNav />
         </div>
         <ScrollToTop />

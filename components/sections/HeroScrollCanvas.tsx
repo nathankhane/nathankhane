@@ -309,7 +309,8 @@ export default function HeroScrollCanvas() {
             x: exitVal(scrollProgress, 0.20, 0.38, 0, 24),
           }}
           transition={scrollTransition}
-          className="text-base font-mono text-gold/80 tracking-wide text-right max-w-sm"
+          className="text-base font-mono tracking-wide text-right max-w-sm"
+          style={{ color: "rgba(155,89,208,0.9)", textShadow: "0 0 8px rgba(155,89,208,0.8), 0 0 20px rgba(155,89,208,0.5), 0 0 40px rgba(155,89,208,0.25)" }}
         >
           The year Google became the world&apos;s most-used search engine.
         </motion.p>
@@ -381,7 +382,8 @@ export default function HeroScrollCanvas() {
             y: exitVal(scrollProgress, 0.20, 0.38, 0, 16),
           }}
           transition={scrollTransition}
-          className="font-mono text-sm text-gold/80 tracking-wide"
+          className="font-mono text-sm tracking-wide"
+          style={{ color: "rgba(155,89,208,0.9)", textShadow: "0 0 8px rgba(155,89,208,0.8), 0 0 20px rgba(155,89,208,0.5), 0 0 40px rgba(155,89,208,0.25)" }}
         >
           The year Google became the world&apos;s most-used search engine.
         </motion.p>
