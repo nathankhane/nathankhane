@@ -52,6 +52,8 @@ export default function HeroScrollCanvas() {
   const [firstFrameLoaded, setFirstFrameLoaded] = useState(false); // hides black screen
   const [allLoaded, setAllLoaded] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0); // 0–1, drives text exit
+  const [scrollLocked, setScrollLocked] = useState(true);
+  const failsafeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // ── Draw a single frame to canvas ──────────────────────────────────────────
   const drawFrame = useCallback((img: HTMLImageElement) => {
@@ -161,6 +163,29 @@ export default function HeroScrollCanvas() {
     imagesRef.current = images;
   }, [drawFrame]);
 
+  // ── Scroll lock — prevent scrolling until all frames are loaded ────────────
+  // Failsafe at 15s ensures the user is never permanently trapped.
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    failsafeRef.current = setTimeout(() => {
+      document.body.style.overflow = "";
+      setScrollLocked(false);
+    }, 15000);
+
+    return () => {
+      document.body.style.overflow = "";
+      if (failsafeRef.current) clearTimeout(failsafeRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!allLoaded) return;
+    if (failsafeRef.current) clearTimeout(failsafeRef.current);
+    document.body.style.overflow = "";
+    setScrollLocked(false);
+  }, [allLoaded]);
+
   // ── Show/hide persistent UI ─────────────────────────────────────────────────
   useEffect(() => {
     const el = document.getElementById("persistent-ui");
@@ -253,20 +278,34 @@ export default function HeroScrollCanvas() {
       <div aria-hidden="true" className="sm:hidden absolute top-0 left-0 bottom-0 w-12 pointer-events-none z-10" style={{ background: "linear-gradient(to right, #0A0E17 0%, transparent 100%)" }} />
       <div aria-hidden="true" className="sm:hidden absolute top-0 right-0 bottom-0 w-12 pointer-events-none z-10" style={{ background: "linear-gradient(to left, #0A0E17 0%, transparent 100%)" }} />
 
-      {/* Loading bar — slim, unobtrusive, hides once first frame is drawn */}
+      {/* Loading bar — before first frame draws */}
       {!firstFrameLoaded && (
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none z-30">
           <div className="w-32 h-px bg-cream/10 overflow-hidden rounded-full">
-            <div className="h-full bg-gold/50 transition-all duration-150" style={{ width: `${loadProgress}%` }} />
+            <div className="h-full bg-google-blue/40 transition-all duration-150" style={{ width: `${loadProgress}%` }} />
           </div>
         </div>
       )}
 
-      {/* Background load progress — subtle bar at bottom edge, visible after first frame */}
-      {firstFrameLoaded && !allLoaded && (
-        <div className="absolute bottom-0 left-0 right-0 h-px pointer-events-none z-30">
-          <div className="h-full bg-google-blue/30 transition-all duration-300" style={{ width: `${loadProgress}%` }} />
-        </div>
+      {/* Loading indicator — visible once face draws, until all frames loaded */}
+      {scrollLocked && firstFrameLoaded && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none z-30"
+        >
+          <div className="w-40 h-px bg-cream/10 overflow-hidden rounded-full">
+            <div
+              className="h-full bg-google-blue/60 rounded-full transition-all duration-300"
+              style={{ width: `${loadProgress}%` }}
+            />
+          </div>
+          <p className="font-mono text-[9px] text-cream/30 tracking-[0.25em] uppercase">
+            Loading experience — {loadProgress}%
+          </p>
+        </motion.div>
       )}
 
       {/* ── DESKTOP text overlay — right-aligned, visible from load, exits on scroll ── */}
@@ -436,12 +475,12 @@ export default function HeroScrollCanvas() {
       {/* ── Scroll CTA — glowing blue arrow, left side, vertically centered ── */}
       <motion.div
         animate={{
-          opacity: firstFrameLoaded && scrollProgress < 0.06 ? 1 : 0,
-          y: firstFrameLoaded && scrollProgress < 0.06 ? 0 : 8,
+          opacity: firstFrameLoaded && !scrollLocked && scrollProgress < 0.06 ? 1 : 0,
+          y: firstFrameLoaded && !scrollLocked && scrollProgress < 0.06 ? 0 : 8,
         }}
         transition={{
           duration: 0.9,
-          delay: firstFrameLoaded && scrollProgress < 0.01 ? 1.2 : 0,
+          delay: firstFrameLoaded && !scrollLocked && scrollProgress < 0.01 ? 1.2 : 0,
           ease: [0.16, 1, 0.3, 1],
         }}
         className="absolute left-8 md:left-16 top-1/2 -translate-y-1/2 flex flex-row items-center gap-3 z-10 pointer-events-none"
