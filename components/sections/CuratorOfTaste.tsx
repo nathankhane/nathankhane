@@ -103,17 +103,17 @@ export default function CuratorOfTaste() {
                       href={post.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block rounded-xl bg-white hover:bg-white/95 transition-colors shadow-lg overflow-hidden group"
+                      className="block rounded-xl bg-surface border border-white/10 hover:border-white/20 transition-colors overflow-hidden group"
                     >
                       <div className="p-5">
-                        <p className="font-bold text-[#1a1a1a] text-base leading-snug mb-2 group-hover:text-[#333] transition-colors">
+                        <p className="font-bold text-cream text-base leading-snug mb-2 group-hover:text-white transition-colors">
                           {post.title}
                         </p>
-                        <p className="text-[#666] text-sm leading-relaxed mb-4">{post.excerpt}</p>
+                        <p className="text-cream/50 text-sm leading-relaxed mb-4">{post.excerpt}</p>
                         <div className="flex items-center gap-2 mb-4">
                           <div>
-                            <span className="text-xs font-semibold text-[#1a1a1a]">nathan khane</span>
-                            <span className="text-xs text-[#888] ml-1">· Khane School of Thought</span>
+                            <span className="text-xs font-semibold text-cream/80">nathan khane</span>
+                            <span className="text-xs text-cream/40 ml-1">· Khane School of Thought</span>
                           </div>
                         </div>
                         <div className="w-full bg-[#FF6719] text-white text-sm font-semibold text-center py-2.5 rounded-lg">
