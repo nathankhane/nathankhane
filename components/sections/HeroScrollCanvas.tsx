@@ -164,26 +164,38 @@ export default function HeroScrollCanvas() {
   }, [drawFrame]);
 
   // ── Scroll lock — prevent scrolling until all frames are loaded ────────────
+  // Must lock both <html> and <body> — Next.js scrolls on the html root.
   // Failsafe at 15s ensures the user is never permanently trapped.
-  useEffect(() => {
+  const lockScroll = () => {
+    document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
+  };
+  const unlockScroll = () => {
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+  };
+
+  useEffect(() => {
+    lockScroll();
 
     failsafeRef.current = setTimeout(() => {
-      document.body.style.overflow = "";
+      unlockScroll();
       setScrollLocked(false);
     }, 15000);
 
     return () => {
-      document.body.style.overflow = "";
+      unlockScroll();
       if (failsafeRef.current) clearTimeout(failsafeRef.current);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (!allLoaded) return;
     if (failsafeRef.current) clearTimeout(failsafeRef.current);
-    document.body.style.overflow = "";
+    unlockScroll();
     setScrollLocked(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allLoaded]);
 
   // ── Show/hide persistent UI ─────────────────────────────────────────────────
