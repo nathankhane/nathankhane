@@ -196,26 +196,26 @@ function HotspotItem({
   if (spot.kind === "agent") {
     return (
       <motion.div style={style} {...sharedMotion}>
-        {/* Tooltip above */}
+        {/* Tooltip below (microphone is near top of viewport) */}
         <AnimatePresence>
           {hovered && (
             <motion.div
-              initial={{ opacity: 0, y: 6 }}
+              initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 6 }}
+              exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
-              className="absolute bottom-[105%] left-1/2 -translate-x-1/2 pointer-events-none z-30 whitespace-nowrap"
+              className="absolute top-[105%] left-1/2 -translate-x-1/2 pointer-events-none z-30 whitespace-nowrap"
             >
+              {/* Small upward triangle */}
+              <div
+                className="w-2 h-2 bg-surface-elevated border-l border-t border-google-blue/30 rotate-45 mx-auto"
+                style={{ marginBottom: "-5px" }}
+              />
               <div className="bg-surface-elevated border border-google-blue/30 rounded-full px-4 py-2 shadow-navy-md">
                 <p className="font-mono text-[11px] text-cream/80 tracking-wide">
                   {spot.tooltip}
                 </p>
               </div>
-              {/* Small downward triangle */}
-              <div
-                className="w-2 h-2 bg-surface-elevated border-r border-b border-google-blue/30 rotate-45 mx-auto -mt-1"
-                style={{ marginTop: "-5px" }}
-              />
             </motion.div>
           )}
         </AnimatePresence>
