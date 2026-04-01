@@ -30,15 +30,6 @@ export const tracks: MusicTrack[] = [
     startAt: 35,
   },
   {
-    id: "track-01",
-    title: "Cruise Freestyle",
-    description: "Performed and Co-produced by Nathan Khane Morales",
-    src: "/audio/Booze Cruise Freestyle.mp3",
-    duration: 180,
-    act: 1,
-    credits: "Performed and Co-produced by Nathan Khane Morales",
-  },
-  {
     id: "track-02",
     title: "wastin' time with u",
     description: "Written, Recorded, and Engineered by Nathan Khane Morales",
@@ -46,6 +37,15 @@ export const tracks: MusicTrack[] = [
     duration: 210,
     act: 2,
     credits: "Written, Recorded, and Engineered by Nathan Khane Morales",
+  },
+  {
+    id: "track-01",
+    title: "Cruise Freestyle",
+    description: "Performed and Co-produced by Nathan Khane Morales",
+    src: "/audio/Booze Cruise Freestyle.mp3",
+    duration: 180,
+    act: 1,
+    credits: "Performed and Co-produced by Nathan Khane Morales",
   },
 ];
 

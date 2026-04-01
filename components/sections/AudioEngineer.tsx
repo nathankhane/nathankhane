@@ -31,6 +31,61 @@ interface Track {
 const TRACKS: Track[] = [
   {
     index: 0,
+    title: "Love Songs 4 U",
+    credits: "Written, Performed, and co-composed by Nathan Khane Morales",
+    duration: "4:00",
+    lyrics: `Take you on a trip
+Ship to different ship (Ship, ship, ship)
+Lil bahama shawty, you know imma get you split
+Vietnamese lil baby, you don't even speak english
+(Oh no no, no, oh, ohhh)
+
+Rollin' marijuana, you know I be getting commas
+You know I be hitting drama on the low (low)
+
+Don't take me for granted
+I just do this sh*t for granny
+And I'm really ballin' like I'm twenty fo' (Kob)
+
+Don't sit there and lie to me
+You know that ima try to be
+Everything to you and some mo'
+
+Never gonna rush you
+Take yo' time
+But just know you fallin' in line
+(Lii-iii-ine)`,
+  },
+  {
+    index: 1,
+    title: "wastin' time with u",
+    credits: "Written, Recorded, and Engineered by Nathan Khane Morales",
+    duration: "3:30",
+    lyrics: `(Pacific)
+
+C'mon!
+
+California sunrise baby, I'm still layin' in bed with your dog
+Can't seem to wake up on time lately
+Maybe it's the weed cause my brain-fog
+
+Again, I'm here with you, again
+Time spent don't pay rent (Time Spent)
+But you keep me around
+
+And when I'm next to you
+I feel like I'm on cloud nine now
+And when I'm next to you (next to you)
+I could give a damn bout the crowd
+
+I just can stop wastin', wastin'
+I just can't stop wastin' time with u
+
+I just can stop wastin', wastin'
+I just can't stop wastin' time with u`,
+  },
+  {
+    index: 2,
     title: "Cruise Freestyle",
     credits: "Performed and Co-produced by Nathan Khane Morales",
     duration: "3:00",
@@ -66,61 +121,6 @@ Won't you find some time, to link with me
 I'm on a booze cruise, she's feeling me
 I'm on a booze cruise, she's feeling me (Yeah)
 (Feeling me, yeah)`,
-  },
-  {
-    index: 1,
-    title: "wastin' time with u",
-    credits: "Written, Recorded, and Engineered by Nathan Khane Morales",
-    duration: "3:30",
-    lyrics: `(Pacific)
-
-C'mon!
-
-California sunrise baby, I'm still layin' in bed with your dog
-Can't seem to wake up on time lately
-Maybe it's the weed cause my brain-fog
-
-Again, I'm here with you, again
-Time spent don't pay rent (Time Spent)
-But you keep me around
-
-And when I'm next to you
-I feel like I'm on cloud nine now
-And when I'm next to you (next to you)
-I could give a damn bout the crowd
-
-I just can stop wastin', wastin'
-I just can't stop wastin' time with u
-
-I just can stop wastin', wastin'
-I just can't stop wastin' time with u`,
-  },
-  {
-    index: 2,
-    title: "Love Songs 4 U",
-    credits: "Written, Performed, and co-composed by Nathan Khane Morales",
-    duration: "4:00",
-    lyrics: `Take you on a trip
-Ship to different ship (Ship, ship, ship)
-Lil bahama shawty, you know imma get you split
-Vietnamese lil baby, you don't even speak english
-(Oh no no, no, oh, ohhh)
-
-Rollin' marijuana, you know I be getting commas
-You know I be hitting drama on the low (low)
-
-Don't take me for granted
-I just do this sh*t for granny
-And I'm really ballin' like I'm twenty fo' (Kob)
-
-Don't sit there and lie to me
-You know that ima try to be
-Everything to you and some mo'
-
-Never gonna rush you
-Take yo' time
-But just know you fallin' in line
-(Lii-iii-ine)`,
   },
 ];
 
