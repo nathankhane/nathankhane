@@ -16,5 +16,6 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|api/).*)"],
+  // Exclude static assets, API routes, and public files (audio, images, hero frames)
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|api/|audio/|hero-frames/|images/).*)"],
 };
