@@ -61,7 +61,7 @@ export default function CuratorOfTaste() {
           </AnimatedSection>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-20">
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 md:items-start">
           {/* Left column */}
           <div className="space-y-20">
             {/* Substack */}
@@ -129,7 +129,16 @@ export default function CuratorOfTaste() {
           </div>
 
           {/* Right column — CU4: directional entrance from right */}
-          <div className="space-y-6">
+          <div>
+            {/* Header row matching left column structure */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <div className="text-xs font-mono text-cream/60 tracking-widest uppercase mb-1">Activities</div>
+                <div className="text-sm font-display text-cream">Beyond the screen</div>
+              </div>
+            </div>
+
+            <div className="space-y-6">
             {ACTIVITIES.map((a, i) => (
               <motion.div
                 key={a.title}
@@ -165,6 +174,7 @@ export default function CuratorOfTaste() {
                 Translated complexity into clarity for Fortune 500 clients. Learned that the best design is invisible, and the worst never lets you forget it&apos;s there.
               </p>
             </motion.div>
+            </div>
           </div>
         </div>
       </div>
