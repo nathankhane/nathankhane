@@ -25,7 +25,7 @@ const ROLES = [
   {
     title: "Video Storyteller (AI Focus)",
     org: "YouTube Creative Studio",
-    why: "The site you're reading was built with AI — not as a trick, but because that's how I think. Prompt, prototype, push. I've always been a visual-narrative obsessive who refuses to let tools be the bottleneck. YouTube needs someone who treats AI as an instrument, not an assistant. That's the only way I've ever used it.",
+    why: "Age 5. Bedroom. Writing scripts, poetry, love songs, even though nobody asked me to. I just had too much to say. That instinct never went away, it just got faster tools. AI didn't change how I tell stories. It gave me a way to tell them at the speed I actually think. I built this whole application that way: in public, live, iterating. YouTube is where story moves at scale and where that speed is the whole point. That's been my room since before I knew it existed.",
     // YouTube red
     accent: {
       line: "bg-google-red/60",
@@ -38,7 +38,7 @@ const ROLES = [
   {
     title: "Producer",
     org: "Brand Studio",
-    why: "I've held the vision steady on records, software products, and creative operations starting with no playbook, until I wrote my own. The organizational instinct isn't something I developed... it's how I'm wired. I've produced music sessions, shipped a platform, and built audiences from scratch — usually in the same season. Brand-critical work across social, film, and interactive? I've been training for this my whole career. Somewhere in there I learned that the producer is the invisible art form: the person who makes sure the idea survives contact with reality. I've been a producer longer than I've had a title for it.",
+    why: "Records. Software. Brand campaigns. All produced. The through-line isn't the medium — it's the instinct to hold the vision steady while everything around it is on fire. I didn't develop that skill. I was born with it and the last 25 years just gave me more rooms to use it in. Brand-critical work across social, film, and interactive? I've been training for this my whole life. I've been a producer longer than I've had a title for it.",
     // Google blue
     accent: {
       line: "bg-google-blue/60",
