@@ -78,12 +78,12 @@ export default function SystemsArchitect() {
           <div>
             <AnimatedSection delay={0.1}>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center shadow-gold-glow-md ring-1 ring-gold/20">
-                  <span className="text-gold font-mono text-xs font-bold">B</span>
+                <div className="w-8 h-8 rounded-lg overflow-hidden bg-gold/10 border border-gold/20 shadow-gold-glow-md ring-1 ring-gold/20 flex items-center justify-center">
+                  <Image src="/images/bridgette-nobg.png" alt="Bridgette" width={32} height={32} className="object-contain w-full h-full" />
                 </div>
                 <div>
                   <div className="text-sm font-display text-cream">Bridge</div>
-                  <div className="text-xs font-mono text-cream/70">bridgenow.ai · Founded 2023</div>
+                  <div className="text-xs font-mono text-cream/70">bridgenow.ai · Founded 2025</div>
                 </div>
               </div>
             </AnimatedSection>
@@ -100,20 +100,23 @@ export default function SystemsArchitect() {
             {/* SYS3 — Bridge product rows sequential reveal */}
             <div className="space-y-0 mb-8">
               {BRIDGE_PRODUCTS.map((p, i) => (
-                <motion.div
+                <motion.a
                   key={p.url}
+                  href={`https://${p.url}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   initial={{ opacity: 0, x: -12 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ delay: 0.15 + i * 0.12, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex items-center justify-between py-3 border-b border-white/5"
+                  className="flex items-center justify-between py-3 border-b border-white/5 hover:border-gold/20 hover:bg-gold/[0.03] transition-colors duration-200 cursor-pointer rounded-sm px-1 -mx-1"
                 >
                   <div>
-                    <div className="text-xs font-mono text-cream/70">{p.url}</div>
+                    <div className="text-xs font-mono text-cream/70 group-hover:text-cream transition-colors">{p.url}</div>
                     <div className="text-xs text-cream/70 mt-0.5">{p.desc}</div>
                   </div>
                   <div className="text-xs font-mono text-gold/70">{p.label}</div>
-                </motion.div>
+                </motion.a>
               ))}
             </div>
 
@@ -178,66 +181,110 @@ export default function SystemsArchitect() {
                   app.bridgenow.ai
                 </div>
               </div>
-              {/* Screenshot */}
-              <div className="aspect-video bg-ink relative overflow-hidden">
+              {/* Screenshot — clickable */}
+              <a
+                href="https://bridgenow.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block aspect-video bg-ink relative overflow-hidden group"
+              >
                 <Image
                   src="/images/bridge-screenshot.png"
                   alt="Bridge platform screenshot — app.bridgenow.ai"
                   fill
-                  className="object-cover object-top"
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-              </div>
+                <div className="absolute inset-0 bg-google-blue/0 group-hover:bg-google-blue/5 transition-colors duration-300" />
+              </a>
             </div>
           </AnimatedSection>
         </div>
 
-        {/* SYS5 — Morális card scales in with gold flash */}
-        <motion.div
-          initial={{ opacity: 0, y: 24, scale: 0.97 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-2xl border border-white/10 bg-surface-elevated p-8 grid md:grid-cols-2 gap-8 items-center relative overflow-hidden"
-        >
-          {/* Gold ambient flash on arrival */}
+        {/* SYS5 — Morális Studio card, matches Bridge 2-col format */}
+        <div className="grid md:grid-cols-2 gap-16 items-start">
+          {/* Left — copy */}
           <motion.div
-            className="absolute inset-0 pointer-events-none rounded-2xl"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: [0, 0.12, 0] }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.6, duration: 0.9, ease: "easeOut" }}
-            style={{ background: "rgba(212,168,83,0.18)" }}
-            aria-hidden="true"
-          />
-
-          <div>
-            <div className="flex items-center gap-3 mb-4">
+            initial={{ opacity: 0, y: 24, scale: 0.97 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-8 rounded-lg bg-cream/5 border border-white/10 flex items-center justify-center">
                 <span className="text-cream/60 font-mono text-xs font-bold">M</span>
               </div>
               <div>
-                <div className="text-sm font-display text-cream">Morális</div>
+                <div className="text-sm font-display text-cream">Morális Studio</div>
                 <div className="text-xs font-mono text-cream/60">moralis.studio · Founded 2024</div>
               </div>
             </div>
-            <p className="text-cream/70 text-sm leading-relaxed">
+            <p className="text-cream/75 leading-relaxed text-sm mb-8">
               AI automation for brick-and-mortar businesses. Where Bridge is intelligence,
               Morális is execution: automating the operational layer so small business owners
               can focus on what makes them irreplaceable.
             </p>
-          </div>
-          <div className="flex flex-wrap gap-2 md:justify-end">
-            {["AI Automation", "Small Business", "Operations", "Applied AI"].map((tag) => (
-              <span
-                key={tag}
-                className="text-xs font-mono text-cream/60 border border-white/10 rounded-full px-3 py-1"
+            <div className="flex flex-wrap gap-2">
+              {["AI Automation", "Small Business", "Operations", "Applied AI"].map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs font-mono text-cream/60 border border-white/10 rounded-full px-3 py-1"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Right — screenshot (placeholder until moralis-screenshot.png is added) */}
+          <AnimatedSection direction="left" delay={0.1}>
+            <div
+              className="rounded-2xl border border-white/10 bg-surface overflow-hidden shadow-navy-lg"
+              style={{ boxShadow: "0 8px 32px rgba(10,14,23,0.6), inset 0 1px 0 rgba(255,255,255,0.05)" }}
+            >
+              {/* Browser chrome */}
+              <div className="flex items-center gap-2 px-4 py-3.5 border-b border-white/10 bg-surface-elevated">
+                <div className="flex gap-1.5">
+                  {CHROME_DOTS.map(({ color, delay }, i) => (
+                    <motion.div
+                      key={i}
+                      className="w-2.5 h-2.5 rounded-full"
+                      initial={{ backgroundColor: "rgba(255,255,255,0.1)", scale: 0.7 }}
+                      whileInView={{ backgroundColor: color, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: delay + 0.2, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    />
+                  ))}
+                </div>
+                <div className="flex-1 mx-3 bg-ink rounded-md px-3 py-1 text-xs font-mono text-cream/60">
+                  moralis.studio
+                </div>
+              </div>
+              {/* Screenshot — drop public/images/moralis-screenshot.png to activate */}
+              <a
+                href="https://moralis.studio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block aspect-video bg-ink relative overflow-hidden group"
               >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </motion.div>
+                {/* Placeholder behind image — shows until screenshot file is dropped in */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-surface-elevated">
+                  <span className="text-2xl font-display text-cream/40">Morális Studio</span>
+                  <span className="text-xs font-mono text-cream/30">moralis.studio</span>
+                </div>
+                {/* Image on top — covers placeholder once loaded */}
+                <Image
+                  src="/images/moralis-screenshot.png"
+                  alt="Morális Studio landing page — moralis.studio"
+                  fill
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-cream/0 group-hover:bg-cream/[0.02] transition-colors duration-300" />
+              </a>
+            </div>
+          </AnimatedSection>
+        </div>
       </div>
     </section>
   );

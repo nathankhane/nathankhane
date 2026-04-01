@@ -13,9 +13,9 @@ import { useEffect, useState } from "react";
 const SECTIONS = [
   { id: "hero",     label: "Intro" },
   { id: "parallel", label: "Timeline" },
+  { id: "social",   label: "Social" },
   { id: "spark",    label: "The Spark" },
   { id: "maker",    label: "Audio" },
-  { id: "social",   label: "Social" },
   { id: "systems",  label: "Systems" },
   { id: "curator",  label: "Taste" },
   { id: "google",   label: "Why Google" },
@@ -43,23 +43,22 @@ export default function ScrollProgress() {
   }, []);
 
   useEffect(() => {
-    const sectionEls = SECTIONS.map(({ id }) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const getActive = () => {
+      const scrollMid = window.scrollY + window.innerHeight / 2;
+      const sectionEls = SECTIONS.map(({ id }) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        // Pick the section most in view
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible.length > 0) {
-          setActive(visible[0].target.id);
+      let activeId = SECTIONS[0].id;
+      for (const el of sectionEls) {
+        if (el.offsetTop <= scrollMid) {
+          activeId = el.id;
         }
-      },
-      { threshold: [0.2, 0.5], rootMargin: "-10% 0px -10% 0px" }
-    );
+      }
+      setActive(activeId);
+    };
 
-    sectionEls.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    window.addEventListener("scroll", getActive, { passive: true });
+    getActive();
+    return () => window.removeEventListener("scroll", getActive);
   }, []);
 
   const scrollTo = (id: string) => {

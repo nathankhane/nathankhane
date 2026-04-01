@@ -44,3 +44,6 @@ next-env.d.ts
 archive/v1/Fonts/
 archive/v1/public/fonts/
 archive/v1/.playwright-mcp/
+
+# Agent sync bulletin board — local only, not committed
+/sync/

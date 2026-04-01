@@ -10,7 +10,6 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import { SOCIAL_LINKS } from "@/lib/social-links";
 
 const MOBILE_NAV_SOCIAL_LABELS = ["TikTok", "LinkedIn", "YouTube"] as const;
@@ -18,13 +17,15 @@ const mobileNavSocialLinks = MOBILE_NAV_SOCIAL_LABELS.map((label) =>
   SOCIAL_LINKS.find((l) => l.label === label)
 ).filter((link): link is (typeof SOCIAL_LINKS)[number] => Boolean(link));
 
+const MAIN_SITE = "https://nathankhane.com";
+
 const NAV_LINKS = [
-  { href: "/#origin",                    label: "Origin" },
-  { href: "/#maker",                     label: "The Maker" },
-  { href: "/#curator",                   label: "Taste" },
-  { href: "/inspirations",               label: "Inspirations" },
-  { href: "/#google",                    label: "Why Google" },
-  { href: "https://artifacts.nathankhane.com", label: "Artifacts", isExternal: true },
+  { href: `${MAIN_SITE}/#origin`,        label: "Origin",       isExternal: true, newTab: false },
+  { href: `${MAIN_SITE}/#maker`,         label: "The Maker",    isExternal: true, newTab: false },
+  { href: `${MAIN_SITE}/#curator`,       label: "Taste",        isExternal: true, newTab: false },
+  { href: `${MAIN_SITE}/inspirations`,   label: "Inspirations", isExternal: true, newTab: false },
+  { href: `${MAIN_SITE}/#google`,        label: "Why Google",   isExternal: true, newTab: false },
+  { href: "https://artifacts.nathankhane.com", label: "Artifacts", isExternal: true, newTab: true },
 ];
 
 function MenuIcon({ open }: { open: boolean }) {
@@ -78,33 +79,23 @@ function MobileNavPortal({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
             aria-label="Mobile navigation"
           >
             <ul className="space-y-2 flex-1">
-              {NAV_LINKS.map(({ href, label, isExternal }, i) => (
+              {NAV_LINKS.map(({ href, label, newTab }, i) => (
                 <motion.li
                   key={href}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 + i * 0.06, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {isExternal ? (
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={onClose}
-                      className="flex items-center gap-2 py-3 text-xl font-display text-cream/70 hover:text-google-blue/80 transition-colors border-b border-white/5"
-                    >
-                      {label}
-                      <span className="text-sm text-cream/30" aria-hidden="true">↗</span>
-                    </a>
-                  ) : (
-                    <Link
-                      href={href}
-                      onClick={onClose}
-                      className="block py-3 text-xl font-display text-cream/70 hover:text-google-blue/80 transition-colors border-b border-white/5"
-                    >
-                      {label}
-                    </Link>
-                  )}
+                  <a
+                    href={href}
+                    target={newTab ? "_blank" : "_self"}
+                    rel="noopener noreferrer"
+                    onClick={onClose}
+                    className="flex items-center gap-2 py-3 text-xl font-display text-cream/70 hover:text-google-blue/80 transition-colors border-b border-white/5"
+                  >
+                    {label}
+                    {newTab && <span className="text-sm text-cream/30" aria-hidden="true">↗</span>}
+                  </a>
                 </motion.li>
               ))}
             </ul>
