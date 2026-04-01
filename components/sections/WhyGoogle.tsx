@@ -38,7 +38,7 @@ const ROLES = [
   {
     title: "Producer",
     org: "Brand Studio",
-    why: "Records. Software. Brand campaigns. All produced. The through-line isn't the medium — it's the instinct to hold the vision steady while everything around it is on fire. I didn't develop that skill. I was born with it and the last 25 years just gave me more rooms to use it in. Brand-critical work across social, film, and interactive? I've been training for this my whole life. I've been a producer longer than I've had a title for it.",
+    why: "Records. Software. Brand campaigns. All produced. The room changes. What I'm holding onto stays the same. I didn't develop that skill. I was born with it and the last 25 years just gave me more rooms to use it in. Brand-critical work across social, film, and interactive? I've been training for this my whole life. I've been a producer longer than I've had a title for it.",
     // Google blue
     accent: {
       line: "bg-google-blue/60",
