@@ -345,10 +345,10 @@ export default function ResumeContent() {
           </AnimatedSection>
           <AnimatedSection delay={0.15}>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <span className="text-xs font-mono border rounded-full px-3 py-1 text-google-green/70 border-google-green/20 bg-google-green/5">
+              <span className="text-xs font-mono border rounded-full px-3 py-1 text-google-blue/70 border-google-blue/20 bg-google-blue/5">
                 Producer · Brand Studio
               </span>
-              <span className="text-xs font-mono border rounded-full px-3 py-1 text-google-blue/70 border-google-blue/20 bg-google-blue/5">
+              <span className="text-xs font-mono border rounded-full px-3 py-1 text-google-red/70 border-google-red/20 bg-google-red/5">
                 Video Storyteller · YouTube Creative Studio
               </span>
             </div>
