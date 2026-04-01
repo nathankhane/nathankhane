@@ -41,7 +41,8 @@ export default function PageSearch() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).find(term, false, backwards, true, false, true, false);
     // window.find() moves browser focus to the matched text — steal it back
-    inputRef.current?.focus();
+    // setTimeout defers until after window.find()'s native focus event fires
+    setTimeout(() => inputRef.current?.focus(), 0);
   }, []);
 
   useEffect(() => {
