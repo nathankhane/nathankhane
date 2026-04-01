@@ -1,5 +1,7 @@
 # Session 01 — Font Stack, Hero Animation Upscale, Responsive Pass, Parallax Tuning
 
+_Last updated: April 1, 2026_
+
 ## What Was Built
 
 - **Sitewide font stack replacement**: Instrument Serif + DM Sans → Outfit (base/display), Instrument Serif (hero italic only), Google Sans Code (mono)

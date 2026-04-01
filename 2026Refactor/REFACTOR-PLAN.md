@@ -1,4 +1,7 @@
 # REFACTOR PLAN: nathankhane.com → "Business Is Poetry"
+
+_Last updated: April 1, 2026_
+
 **For:** Google Creative Fellowship Application (Deadline: March 23, 2026 5PM PST)
 **Strategy:** Full site replacement. The fellowship narrative experience IS nathankhane.com.
 **Source docs:** `2026Refactor/googleCreativeFellowshipSiteBlueprint.md`, `2026Refactor/CODEBASE-AUDIT.md`, `fontImplementationGuide.md`

@@ -1,4 +1,7 @@
 # V2 Changelog — Business Is Poetry
+
+_Last updated: April 1, 2026_
+
 **Refactor:** nathankhane.com → Google Creative Fellowship Application Site
 **Date:** March 11, 2026
 **Deadline:** March 23, 2026 5PM PST

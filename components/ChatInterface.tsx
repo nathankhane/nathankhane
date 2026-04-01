@@ -20,7 +20,7 @@ interface Message {
 const SUGGESTED_PROMPTS = [
   "What's your creative philosophy?",
   "Tell me about Bridge",
-  "Why the Writer/AI Prompt Artist role?",
+  "Why the Video Storyteller role?",
   "What kind of music do you make?",
 ];
 

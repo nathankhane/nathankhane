@@ -1,5 +1,7 @@
 # Design System Reference — nathankhane.com
 
+_Last updated: April 1, 2026_
+
 > Extracted from live site audit (March 2026). Use this as the authoritative source for all styling decisions when building new pages/components.
 
 ---

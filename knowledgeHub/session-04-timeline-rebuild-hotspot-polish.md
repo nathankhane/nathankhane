@@ -1,5 +1,7 @@
 # Session 04 — Timeline Rebuild, Hotspot Fix, Visual Polish, Copy Updates
 
+_Last updated: April 1, 2026_
+
 **Date:** March 31, 2026
 **Branch:** main (changes swept into commit `901b682` by parallel agent + uncommitted: MobileNav, ScrollProgress)
 

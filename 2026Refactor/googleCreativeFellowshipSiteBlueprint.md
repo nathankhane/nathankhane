@@ -2,6 +2,8 @@
 ## "Business Is Poetry" — Google Creative Fellowship Application
 ### Nathan Khane Morales | Deadline: March 23, 2026 5PM PST
 
+_Last updated: April 1, 2026_
+
 ---
 
 ## THE CONCEPT
