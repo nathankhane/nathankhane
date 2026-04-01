@@ -15,6 +15,7 @@ const TheSpark          = dynamic(() => import("@/components/sections/TheSpark")
 const AudioEngineer     = dynamic(() => import("@/components/sections/AudioEngineer"));
 const SocialArchitect   = dynamic(() => import("@/components/sections/SocialArchitect"));
 const SystemsArchitect  = dynamic(() => import("@/components/sections/SystemsArchitect"));
+const TalentDNA         = dynamic(() => import("@/components/sections/TalentDNA"));
 const CuratorOfTaste    = dynamic(() => import("@/components/sections/CuratorOfTaste"));
 const WhyGoogle         = dynamic(() => import("@/components/sections/WhyGoogle"));
 
@@ -33,6 +34,7 @@ export default function Home() {
       {/* ── Act 2: The Maker ────────────────────────────────────────────── */}
       <AudioEngineer />
       <SystemsArchitect />
+      <TalentDNA />
       <CuratorOfTaste />
 
       {/* ── Act Break: II → III ─────────────────────────────────────────── */}
