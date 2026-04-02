@@ -91,7 +91,8 @@ CliftonStrengths: **Ideation · Arranger · Input · Connectedness · Belief**
 | 📸 Instagram | [@nathankmorales](https://instagram.com/nathankmorales) |
 | 📺 YouTube | [@nathankhane](https://youtube.com/@nathankhane) |
 | 🎵 TikTok | [@nathankmorales](https://tiktok.com/@nathankmorales) |
-| 📬 Email me | Creative / Personal: nathankmorales@gmail.com | Business: nate@bridgenow.ai
+| 📬 Email me | Creative / Personal: nathankmorales@gmail.com | 
+| Business: nate@bridgenow.ai |
 
 ---
 
