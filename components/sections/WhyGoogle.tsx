@@ -25,7 +25,7 @@ const ROLES = [
   {
     title: "Video Storyteller (AI Focus)",
     org: "YouTube Creative Studio",
-    why: "Age 5. Bedroom. Writing scripts, poetry, love songs, even though nobody asked me to. I just had too much to say. That instinct never went away, it just got faster tools. AI didn't change how I tell stories. It gave me a way to tell them at the speed I actually think. I built this whole application that way: in public, live, iterating. YouTube is where story moves at scale and where that speed is the whole point. That's been my room since before I knew it existed.",
+    why: "Age 5. Bedroom. Writing scripts, poetry, love songs, even though nobody asked me to. I just had too much to say. That instinct never went away, it just got faster tools. AI didn't change how I tell stories. It gave me a way to tell them at the speed I actually think. I built this whole application that way: in public, live, iterating. YouTube is where story moves at scale and where that speed is the whole point. That's been my cup of tea since before I started drinking caffeine.",
     // YouTube red
     accent: {
       line: "bg-google-red/60",
@@ -38,7 +38,7 @@ const ROLES = [
   {
     title: "Producer",
     org: "Brand Studio",
-    why: "Records. Software. Brand campaigns. All produced. The room changes. What I'm holding onto stays the same. I didn't develop that skill. I was born with it and the last 25 years just gave me more rooms to use it in. Brand-critical work across social, film, and interactive? I've been training for this my whole life. I've been a producer longer than I've had a title for it.",
+    why: "Records. Software. Brand campaigns. All produced. The room changes, what I'm holding onto stays the same. I didn't develop that skill, I was born with it — the last 25 years just gave me more opportunities to use it. Brand-critical work across social, film, and interactive? I've been training for this my whole life. I've been a producer longer than I've had a title for it.",
     // Google blue
     accent: {
       line: "bg-google-blue/60",
