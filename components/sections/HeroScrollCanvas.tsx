@@ -33,6 +33,10 @@ const T_DONE = 0.995;    // unlock persistent UI (AudioPlayer, AgentSidebar)
 const T_HOTSPOT_SHOW = 0.62; // items emerge from brain — show hotspot layer
 const T_HOTSPOT_HIDE = 0.52; // hysteresis: hide hotspots only when scrolled well back
 
+// Scroll unlocks once the first ~100 frames (covering ~27% of scroll) are ready.
+// Remaining frames continue loading in the background — no hard block.
+const CRITICAL_FRAME_COUNT = 100;
+
 // Linear interpolation for scroll-exit animations
 // Returns `from` when p <= start, `to` when p >= end, linear in between
 const exitVal = (p: number, start: number, end: number, from: number, to: number) =>
@@ -50,6 +54,7 @@ export default function HeroScrollCanvas() {
   const loadedCountRef = useRef(0);
   const [loadProgress, setLoadProgress] = useState(0);
   const [firstFrameLoaded, setFirstFrameLoaded] = useState(false); // hides black screen
+  const [criticalLoaded, setCriticalLoaded] = useState(false); // early unlock trigger
   const [allLoaded, setAllLoaded] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0); // 0–1, drives text exit
   const [scrollLocked, setScrollLocked] = useState(true);
@@ -115,15 +120,16 @@ export default function HeroScrollCanvas() {
     return () => window.removeEventListener("resize", resize);
   }, [drawFrame]);
 
-  // ── Priority-load frame 193 first, then load remaining 192 frames ──────────
-  // Frame 193 (FRAME_END_IDX) is the starting frame (normal Nate portrait).
-  // Drawing it immediately eliminates the black screen on first load.
+  // ── Priority-load frame 383 first, then load remaining frames in reverse scroll order ──
+  // Reversed load order (383 → 12) means the frames visible during early scroll
+  // are ready first. Scroll unlocks after CRITICAL_FRAME_COUNT frames (covering ~27%
+  // of the scroll range). Remaining frames load silently in the background.
   useEffect(() => {
     const images: HTMLImageElement[] = new Array(TOTAL_FRAMES) as HTMLImageElement[];
 
-    // Priority: load the starting frame first
+    // Priority: load the starting frame first (frame 383 = normal Nate portrait)
     const startImg = new Image();
-    startImg.src = FRAME_PATH(FRAME_END_IDX + 1); // frame 193
+    startImg.src = FRAME_PATH(FRAME_END_IDX + 1); // frame-383.webp
     startImg.onload = () => {
       images[FRAME_END_IDX] = startImg;
       imagesRef.current = images;
@@ -133,14 +139,20 @@ export default function HeroScrollCanvas() {
     };
     images[FRAME_END_IDX] = startImg;
 
-    // Load remaining frames in batches of 20 to avoid saturating the connection pool
-    const BATCH_SIZE = 20;
-    const remaining = Array.from({ length: TOTAL_FRAMES }, (_, k) => k + 1)
-      .filter(i => i !== FRAME_END_IDX + 1);
+    // Load order: reverse scroll direction (frame 382 → frame 1), skipping frame 383 (priority-loaded above).
+    // FRAME_END_IDX = 382 (0-indexed array slot) = file frame-382.webp as the first in this sequence.
+    // Frame 383 (the starting portrait) is already loaded. Remaining 382 frames load high-to-low.
+    const loadOrder: number[] = [];
+    for (let i = FRAME_END_IDX; i >= 1; i--) {
+      loadOrder.push(i); // i used as 1-indexed file number: FRAME_PATH(382) → frame-382.webp
+    }
+
+    const BATCH_SIZE = 50; // HTTP/2 handles 50 parallel requests fine
     let queueIdx = 0;
+    let criticalUnlocked = false;
 
     function loadNextBatch() {
-      const batch = remaining.slice(queueIdx, queueIdx + BATCH_SIZE);
+      const batch = loadOrder.slice(queueIdx, queueIdx + BATCH_SIZE);
       queueIdx += BATCH_SIZE;
       let batchDone = 0;
       batch.forEach((frameNum) => {
@@ -153,8 +165,13 @@ export default function HeroScrollCanvas() {
           if (n % 10 === 0 || n === TOTAL_FRAMES - 1) {
             setLoadProgress(Math.round((n / (TOTAL_FRAMES - 1)) * 100));
           }
+          // Early unlock: enough frames to cover the first ~27% of scroll
+          if (!criticalUnlocked && n >= CRITICAL_FRAME_COUNT) {
+            criticalUnlocked = true;
+            setCriticalLoaded(true);
+          }
           if (n === TOTAL_FRAMES - 1) setAllLoaded(true);
-          if (++batchDone === batch.length && queueIdx < remaining.length) loadNextBatch();
+          if (++batchDone === batch.length && queueIdx < loadOrder.length) loadNextBatch();
         };
         images[frameNum - 1] = img;
       });
@@ -178,10 +195,12 @@ export default function HeroScrollCanvas() {
   useEffect(() => {
     lockScroll();
 
+    // Failsafe reduced to 8s — critical frames load in ~2–3s on broadband,
+    // so 8s is still generous for slower connections
     failsafeRef.current = setTimeout(() => {
       unlockScroll();
       setScrollLocked(false);
-    }, 15000);
+    }, 8000);
 
     return () => {
       unlockScroll();
@@ -190,13 +209,15 @@ export default function HeroScrollCanvas() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Early unlock: scroll enabled once critical frames (first ~27% of scroll) are ready.
+  // Remaining frames continue loading silently — no hard block.
   useEffect(() => {
-    if (!allLoaded) return;
+    if (!criticalLoaded) return;
     if (failsafeRef.current) clearTimeout(failsafeRef.current);
     unlockScroll();
     setScrollLocked(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allLoaded]);
+  }, [criticalLoaded]);
 
   // ── Show/hide persistent UI ─────────────────────────────────────────────────
   useEffect(() => {
@@ -206,11 +227,14 @@ export default function HeroScrollCanvas() {
   }, []);
 
   // ── GSAP ScrollTrigger ──────────────────────────────────────────────────────
+  // Initializes on criticalLoaded (early unlock) rather than allLoaded.
+  // drawFrame checks img.complete so frames still downloading are skipped gracefully.
   useEffect(() => {
-    if (!allLoaded) return;
+    if (!criticalLoaded) return;
 
     gsap.registerPlugin(ScrollTrigger);
-    drawFrame(imagesRef.current[FRAME_END_IDX]);
+    const initImg = imagesRef.current[FRAME_END_IDX];
+    if (initImg) drawFrame(initImg);
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
@@ -225,7 +249,8 @@ export default function HeroScrollCanvas() {
           const idx = FRAME_END_IDX - Math.floor(p * EFFECTIVE_FRAMES);
           if (idx !== currentFrameRef.current) {
             currentFrameRef.current = idx;
-            drawFrame(imagesRef.current[idx]);
+            const img = imagesRef.current[idx];
+            if (img) drawFrame(img);
           }
 
           setScrollProgress(p);
@@ -260,7 +285,7 @@ export default function HeroScrollCanvas() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [allLoaded, drawFrame]);
+  }, [criticalLoaded, drawFrame]);
 
   // Instant transition for scroll-linked animations (no spring lag)
   const scrollTransition = { duration: 0.05, ease: "linear" as const };
@@ -299,7 +324,7 @@ export default function HeroScrollCanvas() {
         </div>
       )}
 
-      {/* Loading indicator — visible once face draws, until all frames loaded */}
+      {/* Loading indicator — visible once face draws, until scroll unlocks */}
       {scrollLocked && firstFrameLoaded && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -315,7 +340,9 @@ export default function HeroScrollCanvas() {
             />
           </div>
           <p className="font-mono text-[9px] text-cream/30 tracking-[0.25em] uppercase">
-            Loading experience — {loadProgress}%
+            {loadProgress < Math.round((CRITICAL_FRAME_COUNT / (TOTAL_FRAMES - 1)) * 100)
+              ? `preparing — ${loadProgress}%`
+              : `loading — ${loadProgress}%`}
           </p>
         </motion.div>
       )}
@@ -372,7 +399,7 @@ export default function HeroScrollCanvas() {
           }}
           transition={scrollTransition}
           className="text-base font-mono tracking-wide text-right max-w-sm"
-          style={{ color: "rgba(155,89,208,0.9)", textShadow: "0 0 8px rgba(155,89,208,0.8), 0 0 20px rgba(155,89,208,0.5), 0 0 40px rgba(155,89,208,0.25)" }}
+          style={{ color: "var(--color-purple-glow)", textShadow: "0 0 8px rgba(155,89,208,0.8), 0 0 20px rgba(155,89,208,0.5), 0 0 40px rgba(155,89,208,0.25)" }}
         >
           The year Google became the world&apos;s most-used search engine.
         </motion.p>
@@ -445,7 +472,7 @@ export default function HeroScrollCanvas() {
           }}
           transition={scrollTransition}
           className="font-mono text-sm tracking-wide"
-          style={{ color: "rgba(155,89,208,0.9)", textShadow: "0 0 8px rgba(155,89,208,0.8), 0 0 20px rgba(155,89,208,0.5), 0 0 40px rgba(155,89,208,0.25)" }}
+          style={{ color: "var(--color-purple-glow)", textShadow: "0 0 8px rgba(155,89,208,0.8), 0 0 20px rgba(155,89,208,0.5), 0 0 40px rgba(155,89,208,0.25)" }}
         >
           The year Google became the world&apos;s most-used search engine.
         </motion.p>

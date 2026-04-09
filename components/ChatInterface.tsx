@@ -40,6 +40,37 @@ function TypingIndicator() {
   );
 }
 
+// Browser SpeechRecognition API — not in TypeScript's lib.dom.d.ts by default
+interface SpeechRecognitionEvent extends Event {
+  results: SpeechRecognitionResultList;
+}
+interface SpeechRecognitionResultList {
+  readonly length: number;
+  [index: number]: SpeechRecognitionResult;
+}
+interface SpeechRecognitionResult {
+  readonly length: number;
+  [index: number]: SpeechRecognitionAlternative;
+  readonly isFinal: boolean;
+}
+interface SpeechRecognitionAlternative {
+  readonly transcript: string;
+  readonly confidence: number;
+}
+interface SpeechRecognitionInstance extends EventTarget {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  start(): void;
+  stop(): void;
+  onresult: ((event: SpeechRecognitionEvent) => void) | null;
+  onend: (() => void) | null;
+  onerror: (() => void) | null;
+}
+interface SpeechRecognitionConstructor {
+  new (): SpeechRecognitionInstance;
+}
+
 interface ChatInterfaceProps {
   initialQuery?: string | null;
   onInitialQueryConsumed?: () => void;
@@ -56,22 +87,19 @@ export default function ChatInterface({ initialQuery, onInitialQueryConsumed }: 
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
   const lastSentQueryRef = useRef<string | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const recognitionRef = useRef<{ stop: () => void } | null>(null);
+  const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
 
   const startListening = useCallback(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const SpeechRecognitionAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SpeechRecognitionAPI: SpeechRecognitionConstructor | undefined =
+      (window as Window & { SpeechRecognition?: SpeechRecognitionConstructor; webkitSpeechRecognition?: SpeechRecognitionConstructor }).SpeechRecognition ||
+      (window as Window & { SpeechRecognition?: SpeechRecognitionConstructor; webkitSpeechRecognition?: SpeechRecognitionConstructor }).webkitSpeechRecognition;
     if (!SpeechRecognitionAPI) return;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const recognition = new SpeechRecognitionAPI() as any;
+    const recognition = new SpeechRecognitionAPI();
     recognition.continuous = false;
     recognition.interimResults = true;
     recognition.lang = "en-US";
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    recognition.onresult = (event: any) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const transcript = Array.from(event.results as any[]).map((r: any) => r[0].transcript).join("");
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
+      const transcript = Array.from({ length: event.results.length }, (_, i) => event.results[i][0].transcript).join("");
       setInput(transcript);
     };
     recognition.onend = () => setIsListening(false);
@@ -342,7 +370,7 @@ export default function ChatInterface({ initialQuery, onInitialQueryConsumed }: 
                 : "border border-white/20 text-cream/50 hover:text-cream/80 hover:border-white/40"
             }`}
             aria-label={isListening ? "Stop listening" : "Voice input"}
-            style={isListening ? { boxShadow: "0 0 10px rgba(236,72,153,0.4), 0 0 20px rgba(236,72,153,0.2)" } : {}}
+            style={isListening ? { boxShadow: "0 0 10px color-mix(in srgb, #ec4899 40%, transparent), 0 0 20px color-mix(in srgb, #ec4899 20%, transparent)" } : {}}
           >
             {isListening ? (
               <span className="flex gap-[2px] items-end h-4">

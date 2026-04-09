@@ -37,7 +37,9 @@ export default function SearchOverlay() {
   }, []);
 
   useEffect(() => {
-    if (open) setTimeout(() => inputRef.current?.focus(), 60);
+    if (!open) return;
+    const id = requestAnimationFrame(() => inputRef.current?.focus());
+    return () => cancelAnimationFrame(id);
   }, [open]);
 
   const submit = (e: React.FormEvent) => {
@@ -68,7 +70,7 @@ export default function SearchOverlay() {
             className="w-full max-w-xl mx-6"
           >
             <form onSubmit={submit}>
-              <div className="flex items-center gap-4 bg-white rounded-3xl px-5 py-4 shadow-2xl">
+              <div className="flex items-center gap-4 bg-surface-elevated rounded-2xl px-5 py-4 shadow-navy-lg border border-white/[0.08]">
                 {/* Google color dots — mini G logo */}
                 <div className="flex items-center gap-[2px] shrink-0">
                   <span className="w-2 h-2 rounded-full bg-google-blue" />
@@ -81,7 +83,7 @@ export default function SearchOverlay() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search Nate's Brain…"
-                  className="flex-1 text-[#1a1a1a] text-base placeholder-[#9aa0a6] outline-none bg-transparent font-sans"
+                  className="flex-1 text-cream text-base placeholder-cream/30 outline-none bg-transparent font-sans"
                 />
                 {query && (
                   <button
