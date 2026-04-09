@@ -10,7 +10,7 @@ export const SOCIAL_LINKS = [
   { label: "Instagram", href: "https://www.instagram.com/nathankmorales/" },
   { label: "Substack", href: "https://nathankhane.substack.com/?utm_campaign=profile_chips" },
   { label: "YouTube", href: "https://www.youtube.com/@nathankhane" },
-  { label: "Spotify", href: "https://open.spotify.com/artist/nathankhane" },
+  { label: "Spotify", href: "https://open.spotify.com/user/mastanathan?si=fac979b133e642c5" },
 ] as const;
 
 /** TikTok profile URL for CTAs (e.g. SocialArchitect). Derive handle from href if needed. */
