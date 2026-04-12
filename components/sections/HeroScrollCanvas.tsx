@@ -193,7 +193,9 @@ export default function HeroScrollCanvas() {
   };
 
   // ── Scroll position persistence (back-button restore) ──────────────────────
-  // Save position on pagehide so returning via back-button skips hero lock.
+  // savedScrollRef holds a position to restore after ScrollTrigger pins are built.
+  const savedScrollRef = useRef(0);
+
   useEffect(() => {
     const onPageHide = () => {
       sessionStorage.setItem("bip_scroll", String(window.scrollY));
@@ -206,15 +208,13 @@ export default function HeroScrollCanvas() {
     const saved = sessionStorage.getItem("bip_scroll");
     const savedY = saved ? parseInt(saved, 10) : 0;
 
-    // If returning mid-page (past the hero section), skip lock and restore position.
+    // If returning mid-page (past the hero section), skip scroll lock.
+    // Scroll restore happens after ScrollTrigger inits (see GSAP effect below).
     if (savedY > window.innerHeight * 0.5) {
       sessionStorage.removeItem("bip_scroll");
+      savedScrollRef.current = savedY;
       unlockScroll();
       setScrollLocked(false);
-      // rAF ensures layout is painted before scroll restore
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => window.scrollTo(0, savedY));
-      });
       return;
     }
 
@@ -309,6 +309,17 @@ export default function HeroScrollCanvas() {
         },
       });
     }, sectionRef);
+
+    // Restore scroll after ScrollTrigger has built pin spacers — must happen
+    // here, not on mount, because pinning shifts the DOM layout.
+    if (savedScrollRef.current > 0) {
+      const target = savedScrollRef.current;
+      savedScrollRef.current = 0;
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+        requestAnimationFrame(() => window.scrollTo({ top: target, behavior: "instant" }));
+      });
+    }
 
     return () => ctx.revert();
   }, [criticalLoaded, drawFrame]);
