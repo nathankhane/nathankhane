@@ -326,14 +326,6 @@ blockquote.tiktok-embed iframe {
   .safe-area-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Custom cursor — hide system cursor on mouse devices
-───────────────────────────────────────────────────────────────────────── */
-@media (pointer: fine) {
-  * { cursor: none !important; }
-  /* Attribute selector wins over * — shows system hand for specific elements */
-  [data-cursor-hand] { cursor: pointer !important; }
-}
 
 /* ─────────────────────────────────────────────────────────────────────────
    Act transition label background punch-through
@@ -361,4 +353,13 @@ blockquote.tiktok-embed iframe {
 @keyframes waveform-ambient {
   0%, 100% { transform: scaleY(0.2); }
   50%       { transform: scaleY(1.0); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Cursor trail particles (CursorTrail.tsx)
+───────────────────────────────────────────────────────────────────────── */
+@keyframes cursorTrail {
+  0%   { opacity: 1;    transform: translate(-50%, -50%) translateX(0) translateY(0) rotate(0deg) scale(1); }
+  60%  { opacity: 0.85; }
+  100% { opacity: 0;    transform: translate(-50%, -50%) translateX(var(--dx)) translateY(var(--dy)) rotate(var(--rot)) scale(0.45); }
 }

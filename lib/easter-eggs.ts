@@ -110,13 +110,3 @@ export const easterEggs: EasterEgg[] = [
     googleReference: "Google's own tradition of hiding messages in source code",
   },
 ];
-
-/** Quick lookup by ID */
-export function getEasterEgg(id: number): EasterEgg | undefined {
-  return easterEggs.find((e) => e.id === id);
-}
-
-/** Get all implemented eggs */
-export function getImplementedEggs(): EasterEgg[] {
-  return easterEggs.filter((e) => e.implemented);
-}
