@@ -3,18 +3,24 @@
 import { useEffect } from "react";
 
 /**
- * ScrollToTop — forces the page to load at the top every time.
+ * ScrollToTop — forces the page to load at the top on fresh loads only.
  *
- * Browser scroll restoration can land the user mid-page on reload/back-nav.
- * Setting history.scrollRestoration = "manual" disables that, and the
- * window.scrollTo(0, 0) on mount guarantees we always start at TitleCard.
+ * scrollRestoration is left as "auto" so the browser's bfcache can restore
+ * scroll position when the user switches tabs or uses the back button.
+ * window.scrollTo(0, 0) only fires on genuine fresh loads (pageshow persisted=false).
  */
 export default function ScrollToTop() {
   useEffect(() => {
-    if ("scrollRestoration" in history) {
-      history.scrollRestoration = "manual";
-    }
-    window.scrollTo(0, 0);
+    const onPageShow = (e: PageTransitionEvent) => {
+      // persisted=true means restored from bfcache (tab switch / back button)
+      // — let the browser keep the scroll position intact.
+      // persisted=false means a real navigation/fresh load — reset to top.
+      if (!e.persisted) {
+        window.scrollTo(0, 0);
+      }
+    };
+    window.addEventListener("pageshow", onPageShow);
+    return () => window.removeEventListener("pageshow", onPageShow);
   }, []);
 
   return null;
