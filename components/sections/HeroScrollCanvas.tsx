@@ -192,32 +192,7 @@ export default function HeroScrollCanvas() {
     document.body.style.overflow = "";
   };
 
-  // ── Scroll position persistence (back-button restore) ──────────────────────
-  // savedScrollRef holds a position to restore after ScrollTrigger pins are built.
-  const savedScrollRef = useRef(0);
-
   useEffect(() => {
-    const onPageHide = () => {
-      sessionStorage.setItem("bip_scroll", String(window.scrollY));
-    };
-    window.addEventListener("pagehide", onPageHide);
-    return () => window.removeEventListener("pagehide", onPageHide);
-  }, []);
-
-  useEffect(() => {
-    const saved = sessionStorage.getItem("bip_scroll");
-    const savedY = saved ? parseInt(saved, 10) : 0;
-
-    // If returning mid-page (past the hero section), skip scroll lock.
-    // Scroll restore happens after ScrollTrigger inits (see GSAP effect below).
-    if (savedY > window.innerHeight * 0.5) {
-      sessionStorage.removeItem("bip_scroll");
-      savedScrollRef.current = savedY;
-      unlockScroll();
-      setScrollLocked(false);
-      return;
-    }
-
     // Normal first-load path: lock scroll until critical frames are ready.
     lockScroll();
 
@@ -259,6 +234,10 @@ export default function HeroScrollCanvas() {
     if (!criticalLoaded) return;
 
     gsap.registerPlugin(ScrollTrigger);
+    // Remove visibilitychange from GSAP's auto-refresh events — by default GSAP
+    // calls refresh() when the tab regains focus, which resets the pinned scroll
+    // position to 0. We handle visibility manually below with update() instead.
+    ScrollTrigger.config({ autoRefreshEvents: "DOMContentLoaded,load,resize" });
     const initImg = imagesRef.current[FRAME_END_IDX];
     if (initImg) drawFrame(initImg);
 
@@ -310,18 +289,17 @@ export default function HeroScrollCanvas() {
       });
     }, sectionRef);
 
-    // Restore scroll after ScrollTrigger has built pin spacers — must happen
-    // here, not on mount, because pinning shifts the DOM layout.
-    if (savedScrollRef.current > 0) {
-      const target = savedScrollRef.current;
-      savedScrollRef.current = 0;
-      requestAnimationFrame(() => {
-        ScrollTrigger.refresh();
-        requestAnimationFrame(() => window.scrollTo({ top: target, behavior: "instant" }));
-      });
-    }
+    // Re-sync scrub progress when tab becomes visible without moving scroll.
+    // update() reads current scrollY and recalculates progress — no position reset.
+    const onVisible = () => {
+      if (!document.hidden) ScrollTrigger.update();
+    };
+    document.addEventListener("visibilitychange", onVisible);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      document.removeEventListener("visibilitychange", onVisible);
+    };
   }, [criticalLoaded, drawFrame]);
 
   // Instant transition for scroll-linked animations (no spring lag)
