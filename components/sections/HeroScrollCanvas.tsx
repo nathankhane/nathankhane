@@ -192,7 +192,33 @@ export default function HeroScrollCanvas() {
     document.body.style.overflow = "";
   };
 
+  // ── Scroll position persistence (back-button restore) ──────────────────────
+  // Save position on pagehide so returning via back-button skips hero lock.
   useEffect(() => {
+    const onPageHide = () => {
+      sessionStorage.setItem("bip_scroll", String(window.scrollY));
+    };
+    window.addEventListener("pagehide", onPageHide);
+    return () => window.removeEventListener("pagehide", onPageHide);
+  }, []);
+
+  useEffect(() => {
+    const saved = sessionStorage.getItem("bip_scroll");
+    const savedY = saved ? parseInt(saved, 10) : 0;
+
+    // If returning mid-page (past the hero section), skip lock and restore position.
+    if (savedY > window.innerHeight * 0.5) {
+      sessionStorage.removeItem("bip_scroll");
+      unlockScroll();
+      setScrollLocked(false);
+      // rAF ensures layout is painted before scroll restore
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => window.scrollTo(0, savedY));
+      });
+      return;
+    }
+
+    // Normal first-load path: lock scroll until critical frames are ready.
     lockScroll();
 
     // Failsafe reduced to 8s — critical frames load in ~2–3s on broadband,
