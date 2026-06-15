@@ -17,6 +17,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "substackcdn.com" },
     ],
   },
+  async rewrites() {
+    return [{ source: "/signature", destination: "/signature.html" }];
+  },
   async headers() {
     return [
       {
