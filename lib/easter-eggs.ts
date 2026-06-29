@@ -67,7 +67,7 @@ export const easterEggs: EasterEgg[] = [
   {
     id: 6,
     name: "Dear Sophie",
-    location: "AgentCTA.tsx",
+    location: "WhyGoogle.tsx",
     description: "A subtle reference to the iconic 'Dear Sophie' Google Chrome ad — an AI agent preserving human memory.",
     type: "text",
     implemented: true,
@@ -85,7 +85,7 @@ export const easterEggs: EasterEgg[] = [
   {
     id: 8,
     name: "Just Ask",
-    location: "AgentCTA.tsx",
+    location: "AgentSidebar.tsx",
     description: "The agent CTA uses 'Just Ask' — a direct callback to Google's 'Just Ask Google' Ted ad campaign that inspired the parallel narrative structure.",
     type: "text",
     implemented: true,

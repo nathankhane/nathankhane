@@ -40,7 +40,7 @@ const STACK: { name: string; category: "language" | "framework" | "infra" | "ai"
   { name: "Tailwind",   category: "framework" },
   { name: "Supabase",   category: "infra" },
   { name: "Vercel",     category: "infra" },
-  { name: "Anthropic API", category: "ai" },
+  { name: "Gemini API", category: "ai" },
 ];
 
 const STACK_STYLES: Record<string, string> = {

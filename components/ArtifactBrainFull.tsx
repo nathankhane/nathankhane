@@ -30,6 +30,36 @@ function TypingIndicator() {
   );
 }
 
+interface SpeechRecognitionEvent extends Event {
+  results: SpeechRecognitionResultList;
+}
+interface SpeechRecognitionResultList {
+  readonly length: number;
+  [index: number]: SpeechRecognitionResult;
+}
+interface SpeechRecognitionResult {
+  readonly length: number;
+  [index: number]: SpeechRecognitionAlternative;
+  readonly isFinal: boolean;
+}
+interface SpeechRecognitionAlternative {
+  readonly transcript: string;
+  readonly confidence: number;
+}
+interface SpeechRecognitionInstance extends EventTarget {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  start(): void;
+  stop(): void;
+  onresult: ((event: SpeechRecognitionEvent) => void) | null;
+  onend: (() => void) | null;
+  onerror: (() => void) | null;
+}
+interface SpeechRecognitionConstructor {
+  new (): SpeechRecognitionInstance;
+}
+
 export default function ArtifactBrainFull() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -39,8 +69,7 @@ export default function ArtifactBrainFull() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const recognitionRef = useRef<{ stop: () => void } | null>(null);
+  const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -116,18 +145,17 @@ export default function ArtifactBrainFull() {
   }, [messages, isStreaming]);
 
   const startListening = useCallback(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const API = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const API: SpeechRecognitionConstructor | undefined =
+      (window as Window & { SpeechRecognition?: SpeechRecognitionConstructor; webkitSpeechRecognition?: SpeechRecognitionConstructor }).SpeechRecognition ||
+      (window as Window & { SpeechRecognition?: SpeechRecognitionConstructor; webkitSpeechRecognition?: SpeechRecognitionConstructor }).webkitSpeechRecognition;
     if (!API) return;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const recognition = new API() as any;
+    const recognition = new API();
     recognition.continuous = false;
     recognition.interimResults = true;
     recognition.lang = "en-US";
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    recognition.onresult = (e: any) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      setInput(Array.from(e.results as any[]).map((r: any) => r[0].transcript).join(""));
+    recognition.onresult = (e: SpeechRecognitionEvent) => {
+      const transcript = Array.from({ length: e.results.length }, (_, i) => e.results[i][0].transcript).join("");
+      setInput(transcript);
     };
     recognition.onend = () => setIsListening(false);
     recognition.onerror = () => setIsListening(false);

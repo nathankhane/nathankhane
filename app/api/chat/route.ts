@@ -1,7 +1,7 @@
 /**
  * app/api/chat/route.ts — Google Gemini streaming endpoint
  *
- * Streams Gemini responses for the AI agent in AgentCTA section.
+ * Streams Gemini responses for the AI agent in AgentSidebar and artifacts.
  * Using Google's own model is intentional — the fellowship application
  * is itself built on Google's AI stack.
  *
@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
     const chat = model.startChat({ history });
     const result = await chat.sendMessageStream(lastMessage.content);
 
-    // Stream as SSE — same format as Anthropic endpoint so ChatInterface needs no changes
+    // Stream as SSE using the existing delta shape so ChatInterface needs no changes.
     const encoder = new TextEncoder();
     const readable = new ReadableStream({
       async start(controller) {

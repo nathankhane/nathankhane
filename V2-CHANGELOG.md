@@ -22,10 +22,13 @@ V1 was a service portfolio (retro "vintage" aesthetic). V2 is an immersive scrol
 
 ### App Layer
 - `app/page.tsx` — 9-section scroll narrative orchestrator, dynamic imports for performance
-- `app/api/chat/route.ts` — Anthropic Claude streaming endpoint for AI agent
+- `app/api/chat/route.ts` — Google Gemini streaming endpoint for AI agent
 - `app/not-found.tsx` — Updated 404 for fellowship era brand voice
 - `app/layout.tsx` — Dark-only shell, 3-font stack, Analytics, AudioPlayer
 - `app/globals.css` — Tailwind 4 @theme design tokens, editorial animations
+- `app/artifacts/page.tsx` — Artifacts subdomain experience for AI Brain + audio artifact
+- `app/inspirations/page.tsx` — Infinite-canvas inspirations page
+- `app/resume/page.tsx` — Structured credential layer
 
 ### Lib Layer
 - `lib/animations.ts` — Editorial motion system (replaces retro-animations.ts)
@@ -42,6 +45,7 @@ V1 was a service portfolio (retro "vintage" aesthetic). V2 is an immersive scrol
 - `components/EasterEgg.tsx` — Reusable wrapper (hover/hidden/inline modes)
 - `components/SearchBar.tsx` — Google search bar motif component
 - `components/Timeline.tsx` — Reusable vertical timeline
+- `components/AgentSidebar.tsx` — Floating Gemini-powered AI agent drawer
 
 ### Section Components (9 acts)
 - `components/sections/TitleCard.tsx` — "This is Nate." fade sequence, 530ms cursor (EE#1)
@@ -52,7 +56,7 @@ V1 was a service portfolio (retro "vintage" aesthetic). V2 is an immersive scrol
 - `components/sections/SystemsArchitect.tsx` — Bridge + Morális showcase
 - `components/sections/CuratorOfTaste.tsx` — Substack, poetry, Founders Basketball, (EE#4)
 - `components/sections/WhyGoogle.tsx` — Google DNA bg gradient (EE#5), Dear Sophie (EE#6)
-- `components/sections/AgentCTA.tsx` — 10 blue links (EE#7), "Just Ask" (EE#8), social links
+- `components/sections/AgentCTA.tsx` — Legacy CTA component; current AI entry point lives in `AgentSidebar.tsx`
 
 ---
 
@@ -60,7 +64,7 @@ V1 was a service portfolio (retro "vintage" aesthetic). V2 is an immersive scrol
 
 | File | Change |
 |------|--------|
-| `package.json` | v2.0.0, added Anthropic SDK + Howler + Vercel Analytics, removed contentlayer |
+| `package.json` | v2.0.0, added Gemini SDK + Howler + Vercel Analytics, removed contentlayer |
 | `app/globals.css` | Full rewrite — Editorial Futurism design tokens, new animations |
 | `app/layout.tsx` | Full rewrite — dark-only, 3-font stack (Instrument Serif/Space Grotesk/JetBrains Mono) |
 | `next.config.ts` | Security headers, image remote patterns |
@@ -103,8 +107,8 @@ All V1-specific routes, components, and utilities replaced by fellowship narrati
 | 4 | Hidden search query | CuratorOfTaste |
 | 5 | Google DNA color gradient | WhyGoogle |
 | 6 | "Dear Sophie" reference | WhyGoogle copy |
-| 7 | 10 blue links dissolving into AI | AgentCTA |
-| 8 | "Just Ask" callback to Ted ad | AgentCTA |
+| 7 | 10 blue links dissolving into AI | WhyGoogle |
+| 8 | "Just Ask" callback to Ted ad | AgentSidebar |
 | 9 | Valentine's Day / Connectedness DNA | Throughout |
 | 10 | HTML source comment | layout.tsx head |
 
@@ -116,27 +120,29 @@ All V1-specific routes, components, and utilities replaced by fellowship narrati
 ✓ Compiled successfully
 ✓ Linting clean (zero errors)
 ✓ TypeScript strict (zero errors)
-✓ Static pages generated (6/6)
+✓ Static pages generated (9/9)
 
 Route (app)            Size    First Load JS
-/                     20.8 kB      75 kB
-/_not-found            125 B      13.8 kB
-/api/chat              125 B      13.8 kB
-/api/rss               125 B      13.8 kB
+/                     34.5 kB     178 kB
+/_not-found            131 B      102 kB
+/api/chat              131 B      102 kB
+/api/rss               131 B      102 kB
+/artifacts            7.72 kB     151 kB
+/inspirations         1.27 kB     103 kB
+/resume               6.93 kB     153 kB
 ```
 
 ---
 
 ## Pending (Content + Phase 2)
 
-- [ ] Add real audio files to `/public/audio/` (3 tracks from Mike McNeil sessions)
+- [x] Add real audio files to `/public/audio/` (3 tracks)
 - [ ] Replace TikTok video placeholder IDs with real `@nathankhane` videos
 - [ ] Add Bridge screenshots to `/public/images/bridge/`
 - [ ] Add `/public/resume.pdf`
-- [ ] Configure `ANTHROPIC_API_KEY` in Vercel environment variables
+- [x] Configure `GOOGLE_AI_API_KEY` in Vercel environment variables
 - [ ] Add Supabase for conversation logging (Phase 3)
 - [ ] Mobile responsiveness pass
 - [ ] Easter egg QA (all 10)
 - [ ] Lighthouse audit (target ≥ 90)
 - [ ] businessispoetry.com domain decision
-

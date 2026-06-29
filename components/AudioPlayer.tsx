@@ -146,7 +146,7 @@ export default function AudioPlayer() {
     });
 
     howlRef.current.volume(volume);
-  }, [volume, stopProgressLoop]);
+  }, [volume, stopProgressLoop, startProgressLoop]);
 
   // Reload when track changes
   useEffect(() => {

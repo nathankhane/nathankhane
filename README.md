@@ -11,7 +11,7 @@ San Francisco, CA · [nathankhane.com](https://nathankhane.com) · [bridgenow.ai
 
 My most ambitious solo build. A multi-act interactive portfolio spanning music, software, brand, and systems thinking. Features a dual-timeline layout (my life alongside Google's history), embedded original music, an AI-powered chat agent (AI Nate), CliftonStrengths and Birkman psychological profiles, and live TikTok integration. Built entirely in Next.js/TypeScript. Not a template. Every section is a different domain.
 
-`Next.js` `TypeScript` `Tailwind` `Anthropic API` `Vercel`
+`Next.js` `TypeScript` `Tailwind` `Gemini API` `Vercel`
 
 ---
 
@@ -50,7 +50,7 @@ Built for barbershops, medical practices, restaurants, food trucks, fitness stud
 ```
 Frontend    Next.js 15 (App Router) · React · TypeScript · Tailwind CSS
 Backend     Supabase · PostgreSQL · Edge Functions
-AI          Anthropic Claude API · Agentic workflows · Discord bots
+AI          Gemini API · Anthropic Claude API · Agentic workflows · Discord bots
 Infra       Vercel · GitHub Actions
 Tools       Cursor · pnpm · Playwright MCP
 ```

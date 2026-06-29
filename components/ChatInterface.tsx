@@ -1,7 +1,7 @@
 /**
- * ChatInterface — AI agent conversation UI for AgentCTA section
+ * ChatInterface — AI agent conversation UI for AgentSidebar and artifacts
  *
- * Streams responses from /api/chat endpoint (Anthropic Claude).
+ * Streams responses from the Gemini-powered /api/chat endpoint.
  * Shows typing indicator during stream. Maintains conversation history.
  * Graceful fallback if API is unavailable.
  */

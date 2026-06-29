@@ -37,6 +37,8 @@ import { Analytics } from "@vercel/analytics/next";
 import SpaceBackground from "@/components/SpaceBackground";
 import MobileNav from "@/components/MobileNav";
 
+const isVercelRuntime = process.env.VERCEL === "1";
+
 // ── Fonts ──────────────────────────────────────────────────────────────
 const googleSansCode = Google_Sans_Code({
   subsets: ["latin"],
@@ -201,7 +203,7 @@ export default function RootLayout({
         {children}
         {/* Persistent UI — hidden on /artifacts, hidden by hero canvas elsewhere */}
         <PersistentUI />
-        <Analytics />
+        {isVercelRuntime && <Analytics />}
       </body>
     </html>
   );

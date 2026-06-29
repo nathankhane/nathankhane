@@ -1,15 +1,13 @@
-## Headshot Static Asset Plan
+## Fellowship Site Archive Plan
 
-- [x] Confirm framework/static serving behavior and target public path.
-- [x] Add headshot files under `public/assets/headshots/` without modifying image bytes.
-- [x] Add crawler disallow rule for the headshot asset folder.
-- [x] Verify direct image URLs return raw image MIME types locally.
-- [x] Commit the asset and robots changes.
+- [ ] Confirm exact archive target and exclude local-only/untracked workspace files.
+- [ ] Commit the current tracked site snapshot on `main` or an archive branch.
+- [ ] Create a permanent archive branch and tag for the Google Fellowship / Business Is Poetry site.
+- [ ] Push the archive branch/tag to GitHub.
+- [ ] Set up or document a separate Vercel project for the archive branch.
+- [ ] Attach a subdomain such as `fellowship.nathankhane.com` to the archive deployment.
+- [ ] Verify the archived site builds and remains reachable independently of future root redesign work.
 
 ## Review
 
-- Confirmed this is a Next.js site and the images live under `public/assets/headshots/`.
-- Verified local direct responses returned `image/png`, `image/png`, and `image/jpeg` for the three files.
-- Confirmed the headshot paths are not linked from site content; only `public/robots.txt` disallows crawler access to the folder.
-- `npm run build` did not complete in this environment; it hung after invoking `next build` with no additional output, so MIME verification used a static server rooted at `public/`.
-
+- Pending implementation.

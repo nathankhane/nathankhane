@@ -42,6 +42,16 @@ const CRITICAL_FRAME_COUNT = 100;
 const exitVal = (p: number, start: number, end: number, from: number, to: number) =>
   p <= start ? from : p >= end ? to : from + (to - from) * ((p - start) / (end - start));
 
+const lockScroll = () => {
+  document.documentElement.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
+};
+
+const unlockScroll = () => {
+  document.documentElement.style.overflow = "";
+  document.body.style.overflow = "";
+};
+
 export default function HeroScrollCanvas() {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -55,7 +65,6 @@ export default function HeroScrollCanvas() {
   const [loadProgress, setLoadProgress] = useState(0);
   const [firstFrameLoaded, setFirstFrameLoaded] = useState(false); // hides black screen
   const [criticalLoaded, setCriticalLoaded] = useState(false); // early unlock trigger
-  const [allLoaded, setAllLoaded] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0); // 0–1, drives text exit
   const [scrollLocked, setScrollLocked] = useState(true);
   const failsafeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -170,7 +179,6 @@ export default function HeroScrollCanvas() {
             criticalUnlocked = true;
             setCriticalLoaded(true);
           }
-          if (n === TOTAL_FRAMES - 1) setAllLoaded(true);
           if (++batchDone === batch.length && queueIdx < loadOrder.length) loadNextBatch();
         };
         images[frameNum - 1] = img;
@@ -180,34 +188,34 @@ export default function HeroScrollCanvas() {
     imagesRef.current = images;
   }, [drawFrame]);
 
-  // ── Scroll lock — prevent scrolling until all frames are loaded ────────────
+  // ── Scroll lock — prevent scrolling until critical frames are loaded ───────
   // Must lock both <html> and <body> — Next.js scrolls on the html root.
-  // Failsafe at 15s ensures the user is never permanently trapped.
-  const lockScroll = () => {
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
-  };
-  const unlockScroll = () => {
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
-  };
-
+  // Failsafe at 8s ensures the user is never permanently trapped.
   useEffect(() => {
-    // Normal first-load path: lock scroll until critical frames are ready.
-    lockScroll();
+    // On bfcache restore the page is already rendered at the correct scroll
+    // position — no frame loading needed. Immediately undo any lock.
+    // pageshow fires after effects run, so we lock first, then check persisted.
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        unlockScroll();
+        setScrollLocked(false);
+        if (failsafeRef.current) clearTimeout(failsafeRef.current);
+      }
+    };
+    window.addEventListener("pageshow", onPageShow, { once: true });
 
-    // Failsafe reduced to 8s — critical frames load in ~2–3s on broadband,
-    // so 8s is still generous for slower connections
+    // Fresh load: lock scroll until critical frames are ready.
+    lockScroll();
     failsafeRef.current = setTimeout(() => {
       unlockScroll();
       setScrollLocked(false);
     }, 8000);
 
     return () => {
+      window.removeEventListener("pageshow", onPageShow);
       unlockScroll();
       if (failsafeRef.current) clearTimeout(failsafeRef.current);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Early unlock: scroll enabled once critical frames (first ~27% of scroll) are ready.
@@ -217,7 +225,6 @@ export default function HeroScrollCanvas() {
     if (failsafeRef.current) clearTimeout(failsafeRef.current);
     unlockScroll();
     setScrollLocked(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [criticalLoaded]);
 
   // ── Show/hide persistent UI ─────────────────────────────────────────────────

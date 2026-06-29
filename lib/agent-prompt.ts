@@ -1,7 +1,7 @@
 /**
  * lib/agent-prompt.ts — System prompt for Nate's AI agent
  *
- * This agent is deployed in AgentCTA (Act 3, Section 9).
+ * This agent is deployed in AgentSidebar and the artifacts experience.
  * It IS the Writer/AI Prompt Artist portfolio piece — Nathan engineered
  * a conversational AI trained to speak in his voice for the fellowship application.
  *
